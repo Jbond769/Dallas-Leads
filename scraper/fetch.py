@@ -47,8 +47,8 @@ DASHBOARD_DIR.mkdir(parents=True, exist_ok=True)
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 CLERK_BASE      = "https://www.dallascounty.org/government/county-clerk/"
-CLERK_SEARCH    = "https://ccting.dallascounty.org/CCRecordSearch/search"  # main search endpoint
-CLERK_RESULTS   = "https://ccting.dallascounty.org/CCRecordSearch/results"
+CLERK_SEARCH    = "https://dallas.tx.publicsearch.us/"  # main search endpoint
+CLERK_RESULTS   = "https://dallas.tx.publicsearch.us/"
 
 # Dallas CAD bulk data — DCAD publishes a zipped DBF/shapefile set
 DCAD_BULK_URL   = "https://www.dcad.org/wp-content/uploads/data/appraisal_data.zip"
@@ -511,7 +511,7 @@ class ClerkScraper:
 
             # Navigate to the clerk recording search
             search_urls = [
-                "https://ccting.dallascounty.org/CCRecordSearch/",
+                "https://dallas.tx.publicsearch.us/",
                 "https://www.dallascounty.org/government/county-clerk/",
             ]
             landed = False
