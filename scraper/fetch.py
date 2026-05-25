@@ -381,7 +381,8 @@ class DallasScraper:
                 # Find the actual date input that appears
                 date_inp = page.locator("input[placeholder*='date' i], input[class*='date' i], input[aria-label*='start' i]").first
                 if await date_inp.count() > 0:
-                    await date_inp.triple_click()
+                    await date_inp.click()
+                    await date_inp.press("Control+a")
                     await date_inp.type(from_str)
                 await page.keyboard.press("Escape")
                 await asyncio.sleep(0.5)
@@ -395,7 +396,8 @@ class DallasScraper:
                 await asyncio.sleep(0.5)
                 date_inp = page.locator("input[placeholder*='date' i], input[class*='date' i], input[aria-label*='end' i]").first
                 if await date_inp.count() > 0:
-                    await date_inp.triple_click()
+                    await date_inp.click()
+                    await date_inp.press("Control+a")
                     await date_inp.type(to_str)
                 await page.keyboard.press("Escape")
                 await asyncio.sleep(0.5)
