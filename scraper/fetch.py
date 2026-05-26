@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Dallas County, TX — Motivated Seller Lead Scraper v4
-Uses exact field IDs discovered from diagnostic run to interact
-with the Neumo portal at dallas.tx.publicsearch.us.
+Dallas County, TX — Motivated Seller Lead Scraper v6
+- Uses Playwright to search the portal and collect doc numbers
+- Then fetches each document detail page to get owner name + address
+- Falls back to DCAD parcel lookup for mailing address
 """
 
 import asyncio
@@ -42,6 +43,7 @@ DASHBOARD_DIR.mkdir(parents=True, exist_ok=True)
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 PORTAL_URL    = "https://dallas.tx.publicsearch.us/search/advanced"
+DETAIL_URL    = "https://dallas.tx.publicsearch.us/doc/{doc_num}"
 DCAD_BULK_URL = "https://www.dcad.org/wp-content/uploads/data/appraisal_data.zip"
 DCAD_ALT_URL  = "https://www.dcad.org/data/"
 
@@ -77,7 +79,6 @@ TARGET_KEYWORDS = {
     "NOTICE OF COMMENCEMENT":  ("NOC",      "Notice of Commencement"),
 }
 
-# The exact doc types to search — typed into the docTypes-input field
 SEARCH_DOC_TYPES = [
     "Lis Pendens",
     "Notice of Foreclosure",
@@ -114,60 +115,62 @@ def _name_variants(name: str):
         v.add(f"{parts[1]}, {parts[0]}".upper())
     return v
 
+def _is_date(s: str) -> bool:
+    return bool(re.match(r"\d{1,2}/\d{1,2}/\d{4}", s.strip()))
+
+def _is_doc_num(s: str) -> bool:
+    return bool(re.match(r"^\d{10,}$", s.strip()))
+
 
 class DallasScraper:
     def __init__(self, date_from: datetime, date_to: datetime):
-        self.date_from  = date_from
-        self.date_to    = date_to
+        self.date_from   = date_from
+        self.date_to     = date_to
         self.api_records = []
+        self.session     = requests.Session()
+        self.session.headers.update({
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        })
 
+    # ── API response interceptor ──────────────────────────────────────────────
     async def _capture_response(self, response):
-        """Intercept API responses and extract records."""
         try:
-            url = response.url
             if response.status != 200:
                 return
             ct = response.headers.get("content-type", "")
             if "json" not in ct:
                 return
-            # Only care about search/result endpoints
-            if not any(kw in url for kw in ["search", "result", "document", "record", "hits"]):
+            url = response.url
+            if not any(kw in url for kw in ["search","result","document","record","hits","api"]):
                 return
             data = await response.json()
             if not isinstance(data, dict):
                 return
-
-            # Try all common result array keys
-            hits = (
-                data.get("hits") or data.get("results") or
-                data.get("content") or data.get("documents") or
-                data.get("data") or data.get("records") or []
-            )
+            hits = (data.get("hits") or data.get("results") or data.get("content") or
+                    data.get("documents") or data.get("data") or data.get("records") or [])
             if not isinstance(hits, list) or not hits:
                 return
-
-            log.info(f"  API hit! {len(hits)} records from {url}")
+            log.info(f"  API captured {len(hits)} records from {url}")
             for hit in hits:
-                rec = self._parse_hit(hit)
+                rec = self._parse_api_hit(hit)
                 if rec:
                     self.api_records.append(rec)
         except Exception:
             pass
 
-    def _parse_hit(self, hit: dict) -> Optional[dict]:
+    def _parse_api_hit(self, hit: dict) -> Optional[dict]:
         try:
-            raw_type = (hit.get("docType") or hit.get("documentType") or
-                        hit.get("type") or hit.get("doc_type") or "")
+            raw_type = (hit.get("docType") or hit.get("documentType") or hit.get("type") or "")
             classified = _classify(raw_type)
             if not classified:
-                # Still capture it — filter later
-                classified = ("OTHER", raw_type)
-
+                return None
             cat, cat_label = classified
-            doc_num   = str(hit.get("documentNumber") or hit.get("docNumber") or
-                            hit.get("instrumentNumber") or hit.get("id") or "")
+
+            doc_num = str(hit.get("documentNumber") or hit.get("docNumber") or
+                          hit.get("instrumentNumber") or hit.get("id") or "")
             filed_raw = (hit.get("recordedDate") or hit.get("recordDate") or
-                         hit.get("filedDate") or hit.get("date") or "")
+                         hit.get("filedDate") or "")
             filed_iso = str(filed_raw)[:10] if filed_raw else ""
 
             parties = hit.get("parties", hit.get("names", []))
@@ -175,185 +178,207 @@ class DallasScraper:
             if isinstance(parties, list):
                 for p in parties:
                     ptype = str(p.get("type","")).upper()
-                    name  = p.get("name","")
-                    if any(x in ptype for x in ["GRANTOR","SELLER","FROM","OWNER"]):
+                    name  = p.get("name","").strip()
+                    if any(x in ptype for x in ["GRANTOR","SELLER","FROM","OWNER","DEBTOR"]):
                         grantor = (grantor + "; " + name).strip("; ")
-                    elif any(x in ptype for x in ["GRANTEE","BUYER","TO"]):
+                    elif any(x in ptype for x in ["GRANTEE","BUYER","TO","CREDITOR"]):
                         grantee = (grantee + "; " + name).strip("; ")
             if not grantor:
-                grantor = hit.get("grantor", hit.get("grantorName",""))
+                grantor = hit.get("grantor", hit.get("grantorName","")).strip()
             if not grantee:
-                grantee = hit.get("grantee", hit.get("granteeName",""))
+                grantee = hit.get("grantee", hit.get("granteeName","")).strip()
 
             doc_id    = hit.get("id") or hit.get("documentId") or doc_num
             clerk_url = f"https://dallas.tx.publicsearch.us/doc/{doc_id}" if doc_id else ""
 
             return {
-                "doc_num":      doc_num,
-                "doc_type":     raw_type,
-                "filed":        filed_iso,
-                "cat":          cat,
-                "cat_label":    cat_label,
-                "owner":        grantor,
-                "grantee":      grantee,
-                "amount":       _parse_amount(hit.get("amount") or hit.get("consideration") or 0),
-                "legal":        hit.get("legalDescription", hit.get("legal","")),
-                "clerk_url":    clerk_url,
-                "prop_address": "",
-                "prop_city":    "Dallas",
-                "prop_state":   "TX",
-                "prop_zip":     "",
-                "mail_address": "",
-                "mail_city":    "",
-                "mail_state":   "TX",
-                "mail_zip":     "",
-                "flags":        [],
-                "score":        30,
+                "doc_num": doc_num, "doc_type": raw_type,
+                "filed": filed_iso, "cat": cat, "cat_label": cat_label,
+                "owner": grantor, "grantee": grantee,
+                "amount": _parse_amount(hit.get("amount") or hit.get("consideration") or 0),
+                "legal": hit.get("legalDescription", hit.get("legal","")),
+                "clerk_url": clerk_url,
+                "prop_address":"", "prop_city":"Dallas", "prop_state":"TX", "prop_zip":"",
+                "mail_address":"", "mail_city":"", "mail_state":"TX", "mail_zip":"",
+                "flags":[], "score":30,
             }
-        except Exception as exc:
-            log.debug(f"Hit parse error: {exc}")
+        except Exception:
             return None
 
-    async def _set_date(self, page, selector: str, date_str: str):
-        """Set a date field using multiple strategies."""
+    # ── Fetch detail page for a doc number ────────────────────────────────────
+    def _fetch_detail(self, doc_num: str) -> dict:
+        """Fetch the document detail page and extract owner + address."""
+        info = {"owner":"", "grantee":"", "prop_address":"", "prop_city":"",
+                "prop_zip":"", "mail_address":"", "mail_city":"",
+                "mail_state":"TX", "mail_zip":"", "amount":0.0, "legal":"", "clerk_url":""}
         try:
-            el = page.locator(selector).first
-            if await el.count() == 0:
-                return False
-            await el.scroll_into_view_if_needed()
-            await el.click()
-            await asyncio.sleep(0.3)
-            # Clear and type
-            await el.press("Control+a")
-            await el.type(date_str, delay=50)
-            await page.keyboard.press("Escape")  # close any datepicker popup
-            await asyncio.sleep(0.3)
-            return True
+            url  = DETAIL_URL.format(doc_num=doc_num)
+            info["clerk_url"] = url
+            resp = self.session.get(url, timeout=20)
+            if not resp.ok:
+                return info
+            soup = BeautifulSoup(resp.text, "lxml")
+
+            # Extract all label→value pairs from the detail page
+            # Neumo uses dl/dt/dd or table rows or labeled divs
+            pairs = {}
+
+            # Try dl > dt + dd
+            for dt in soup.find_all("dt"):
+                dd = dt.find_next_sibling("dd")
+                if dd:
+                    pairs[dt.get_text(strip=True).upper()] = dd.get_text(strip=True)
+
+            # Try table rows with th + td
+            for tr in soup.find_all("tr"):
+                th = tr.find("th")
+                td = tr.find("td")
+                if th and td:
+                    pairs[th.get_text(strip=True).upper()] = td.get_text(strip=True)
+
+            # Try divs with class containing 'label' next to value divs
+            for div in soup.find_all("div", class_=re.compile(r"label|field-name|title", re.I)):
+                sibling = div.find_next_sibling()
+                if sibling:
+                    pairs[div.get_text(strip=True).upper()] = sibling.get_text(strip=True)
+
+            log.debug(f"Detail page pairs for {doc_num}: {list(pairs.keys())[:10]}")
+
+            # Map known field names
+            GRANTOR_KEYS = ["GRANTOR","SELLER","OWNER","DEBTOR","FROM","DEFENDANT"]
+            GRANTEE_KEYS = ["GRANTEE","BUYER","CREDITOR","TO","PLAINTIFF","LIENEE"]
+            ADDR_KEYS    = ["SITE ADDRESS","PROPERTY ADDRESS","SITUS","ADDRESS","SITE"]
+            LEGAL_KEYS   = ["LEGAL DESCRIPTION","LEGAL"]
+            AMOUNT_KEYS  = ["AMOUNT","CONSIDERATION","DEBT","BALANCE"]
+
+            for k,v in pairs.items():
+                if any(gk in k for gk in GRANTOR_KEYS) and not info["owner"]:
+                    info["owner"] = v
+                if any(gk in k for gk in GRANTEE_KEYS) and not info["grantee"]:
+                    info["grantee"] = v
+                if any(ak in k for ak in ADDR_KEYS) and not info["prop_address"]:
+                    info["prop_address"] = v
+                if any(lk in k for lk in LEGAL_KEYS) and not info["legal"]:
+                    info["legal"] = v
+                if any(amk in k for amk in AMOUNT_KEYS) and not info["amount"]:
+                    info["amount"] = _parse_amount(v)
+
+            # Also look for party names in any list items or spans
+            if not info["owner"]:
+                # Find any element labeled grantor/debtor/seller
+                for el in soup.find_all(string=re.compile(r"grantor|debtor|seller|owner", re.I)):
+                    parent = el.parent
+                    nxt    = parent.find_next_sibling()
+                    if nxt:
+                        candidate = nxt.get_text(strip=True)
+                        if candidate and not _is_date(candidate) and len(candidate) > 2:
+                            info["owner"] = candidate
+                            break
+
+            # Try JSON-LD or embedded JSON
+            for script in soup.find_all("script", type="application/json"):
+                try:
+                    data = json.loads(script.string)
+                    if isinstance(data, dict):
+                        parties = data.get("parties", [])
+                        for p in parties:
+                            ptype = str(p.get("type","")).upper()
+                            name  = p.get("name","").strip()
+                            if any(x in ptype for x in ["GRANTOR","OWNER","DEBTOR","SELLER"]) and not info["owner"]:
+                                info["owner"] = name
+                            if any(x in ptype for x in ["GRANTEE","BUYER","CREDITOR"]) and not info["grantee"]:
+                                info["grantee"] = name
+                        if not info["prop_address"]:
+                            info["prop_address"] = data.get("siteAddress","") or data.get("propertyAddress","")
+                        if not info["legal"]:
+                            info["legal"] = data.get("legalDescription","")
+                        if not info["amount"]:
+                            info["amount"] = _parse_amount(data.get("amount",""))
+                except Exception:
+                    pass
+
         except Exception as exc:
-            log.debug(f"Date set failed ({selector}): {exc}")
-            return False
+            log.debug(f"Detail fetch error for {doc_num}: {exc}")
+        return info
 
-    async def _select_doc_type(self, page, doc_type: str) -> bool:
-        """Type a doc type into the tokenized select input and pick from dropdown."""
-        try:
-            # The input was discovered as: id=docTypes-input, aria=Filter Document Types
-            inp = page.locator("#docTypes-input").first
-            if await inp.count() == 0:
-                inp = page.locator("[aria-label='Filter Document Types']").first
-            if await inp.count() == 0:
-                return False
-
-            await inp.click()
-            await asyncio.sleep(0.5)
-            await inp.type(doc_type[:4], delay=100)
-            await asyncio.sleep(1.5)
-
-            # Look for dropdown option matching doc_type
-            option = page.locator(f"[role='option']:has-text('{doc_type}')").first
-            if await option.count() > 0:
-                await option.click()
-                log.info(f"    Selected doc type: {doc_type}")
-                return True
-
-            # Try any visible option containing our text
-            options = await page.locator("[role='option']").all()
-            for opt in options:
-                txt = await opt.inner_text()
-                if doc_type.lower() in txt.lower():
-                    await opt.click()
-                    log.info(f"    Selected doc type: {txt.strip()}")
-                    return True
-
-            # Press Escape to close dropdown
-            await page.keyboard.press("Escape")
-            log.warning(f"    No dropdown option found for: {doc_type}")
-            return False
-        except Exception as exc:
-            log.warning(f"    Doc type select failed: {exc}")
-            return False
-
-    async def _clear_doc_type(self, page):
-        """Clear selected doc types for next search."""
-        try:
-            # Click the X buttons on any selected tokens
-            clears = await page.locator("[class*='remove'], [aria-label*='remove'], [class*='delete']").all()
-            for c in clears:
-                await c.click()
-                await asyncio.sleep(0.2)
-        except Exception:
-            pass
-
+    # ── HTML table parser ─────────────────────────────────────────────────────
     async def _parse_results_table(self, page) -> list[dict]:
-        """Parse records from the results table HTML."""
         records = []
         try:
             content = await page.content()
             soup    = BeautifulSoup(content, "lxml")
 
-            # Look for result rows in various table/list formats
+            # Find all rows
             rows = (
-                soup.select("tr.rt-tr-group, tr[class*='result'], .rt-tr-group") or
-                soup.select("table tbody tr") or
-                soup.select("[class*='result-row'], [class*='document-row']")
+                soup.select("tr.rt-tr-group") or
+                soup.select("tbody tr") or
+                soup.select("[class*='result-row']")
             )
+            if not rows:
+                table = soup.find("table")
+                if table:
+                    rows = table.find_all("tr")[1:]
 
             for row in rows:
                 try:
-                    cells = row.find_all(["td","th","div"])
-                    texts = [c.get_text(strip=True) for c in cells if c.get_text(strip=True)]
+                    cells = row.find_all(["td","th"])
+                    texts = [c.get_text(strip=True) for c in cells]
+                    texts = [t for t in texts if t]
                     if len(texts) < 2:
                         continue
 
-                    # Find doc type
+                    # Find doc number (long numeric string)
+                    doc_num = ""
+                    filed_iso = ""
                     raw_type = ""
+
                     for t in texts:
-                        if len(t) > 3 and _classify(t):
-                            raw_type = t
-                            break
-                    if not raw_type:
-                        continue
-
-                    classified = _classify(raw_type)
-                    if not classified:
-                        continue
-                    cat, cat_label = classified
-
-                    link     = row.find("a", href=True)
-                    clerk_url = ""
-                    if link:
-                        h = link["href"]
-                        clerk_url = h if h.startswith("http") else f"https://dallas.tx.publicsearch.us{h}"
-
-                    filed_iso = doc_num = grantor = ""
-                    amount = 0.0
-                    for t in texts:
-                        if re.match(r"\d{1,2}/\d{1,2}/\d{4}", t) and not filed_iso:
+                        if _is_doc_num(t) and not doc_num:
+                            doc_num = t
+                        elif _is_date(t) and not filed_iso:
                             try:
                                 filed_iso = datetime.strptime(t, "%m/%d/%Y").strftime("%Y-%m-%d")
                             except Exception:
                                 pass
-                        if re.match(r"\d{4}-\d+|\d{8,}", t) and not doc_num:
-                            doc_num = t
-                        if re.match(r"\$[\d,]+\.?\d*", t):
-                            amount = _parse_amount(t.replace("$",""))
+                        elif _classify(t) and not raw_type:
+                            raw_type = t
 
-                    # Grantor is usually 3rd or 4th cell
-                    if len(texts) >= 4:
-                        grantor = texts[3]
-                    elif len(texts) >= 3:
-                        grantor = texts[2]
+                    if not doc_num and not raw_type:
+                        continue
+
+                    # Find link for clerk_url
+                    link = row.find("a", href=True)
+                    clerk_url = ""
+                    if link:
+                        h = link["href"]
+                        clerk_url = h if h.startswith("http") else f"https://dallas.tx.publicsearch.us{h}"
+                        # Extract doc num from URL if not found
+                        if not doc_num:
+                            m = re.search(r"/doc/(\d+)", h)
+                            if m:
+                                doc_num = m.group(1)
+
+                    if not raw_type:
+                        # Try to classify any text cell
+                        for t in texts:
+                            if _classify(t):
+                                raw_type = t
+                                break
+
+                    classified = _classify(raw_type) if raw_type else None
+                    if not classified:
+                        continue
+                    cat, cat_label = classified
 
                     records.append({
                         "doc_num": doc_num, "doc_type": raw_type,
                         "filed": filed_iso, "cat": cat, "cat_label": cat_label,
-                        "owner": grantor, "grantee": "",
-                        "amount": amount, "legal": "",
-                        "clerk_url": clerk_url,
-                        "prop_address": "", "prop_city": "Dallas",
-                        "prop_state": "TX", "prop_zip": "",
-                        "mail_address": "", "mail_city": "",
-                        "mail_state": "TX", "mail_zip": "",
-                        "flags": [], "score": 30,
+                        "owner": "", "grantee": "",
+                        "amount": 0.0, "legal": "",
+                        "clerk_url": clerk_url or (DETAIL_URL.format(doc_num=doc_num) if doc_num else ""),
+                        "prop_address":"", "prop_city":"Dallas", "prop_state":"TX", "prop_zip":"",
+                        "mail_address":"", "mail_city":"", "mail_state":"TX", "mail_zip":"",
+                        "flags":[], "score":30,
                     })
                 except Exception:
                     continue
@@ -361,104 +386,107 @@ class DallasScraper:
             log.debug(f"Table parse error: {exc}")
         return records
 
-    async def _do_search_and_collect(self, page, doc_type: str) -> list[dict]:
-        """Navigate to advanced search, fill form, submit, collect all pages."""
-        records   = []
-        from_str  = self.date_from.strftime("%m/%d/%Y")
-        to_str    = self.date_to.strftime("%m/%d/%Y")
+    # ── Search one doc type ───────────────────────────────────────────────────
+    async def _search_one_type(self, page, doc_type: str) -> list[dict]:
+        records  = []
+        from_str = self.date_from.strftime("%m/%d/%Y")
+        to_str   = self.date_to.strftime("%m/%d/%Y")
 
         try:
-            log.info(f"  Searching for: {doc_type}")
             await page.goto(PORTAL_URL, wait_until="networkidle", timeout=45_000)
             await asyncio.sleep(2)
 
             # ── Date pickers ──────────────────────────────────────────────
-            # Start date — open calendar then type
+            # Open start date calendar and type date
             start_cal = page.locator("[aria-label='Open start date calendar']").first
             if await start_cal.count() > 0:
                 await start_cal.click()
-                await asyncio.sleep(0.5)
-                # Find the actual date input that appears
-                date_inp = page.locator("input[placeholder*='date' i], input[class*='date' i], input[aria-label*='start' i]").first
+                await asyncio.sleep(0.8)
+                # The date input should now be visible
+                date_inp = page.locator("input[class*='date'], input[aria-label*='start' i], input[placeholder*='date' i]").first
                 if await date_inp.count() > 0:
                     await date_inp.click()
                     await date_inp.press("Control+a")
                     await date_inp.type(from_str)
+                    await asyncio.sleep(0.3)
                 await page.keyboard.press("Escape")
                 await asyncio.sleep(0.5)
-            else:
-                # Try direct input
-                await self._set_date(page, "input[aria-label*='start' i], input[name*='start' i]", from_str)
 
             end_cal = page.locator("[aria-label='Open end date calendar']").first
             if await end_cal.count() > 0:
                 await end_cal.click()
-                await asyncio.sleep(0.5)
-                date_inp = page.locator("input[placeholder*='date' i], input[class*='date' i], input[aria-label*='end' i]").first
+                await asyncio.sleep(0.8)
+                date_inp = page.locator("input[class*='date'], input[aria-label*='end' i]").first
                 if await date_inp.count() > 0:
                     await date_inp.click()
                     await date_inp.press("Control+a")
                     await date_inp.type(to_str)
+                    await asyncio.sleep(0.3)
                 await page.keyboard.press("Escape")
                 await asyncio.sleep(0.5)
-            else:
-                await self._set_date(page, "input[aria-label*='end' i], input[name*='end' i]", to_str)
 
-            # ── Doc type ──────────────────────────────────────────────────
-            await self._select_doc_type(page, doc_type)
-            await asyncio.sleep(0.5)
+            # ── Doc type tokenized input ──────────────────────────────────
+            inp = page.locator("#docTypes-input").first
+            if await inp.count() == 0:
+                inp = page.locator("[aria-label='Filter Document Types']").first
+            if await inp.count() > 0:
+                await inp.click()
+                await asyncio.sleep(0.3)
+                await inp.type(doc_type[:4], delay=80)
+                await asyncio.sleep(1.5)
+                # Pick matching option
+                option = page.locator(f"[role='option']:has-text('{doc_type}')").first
+                if await option.count() > 0:
+                    await option.click()
+                    log.info(f"    Selected: {doc_type}")
+                else:
+                    # Try any visible option
+                    all_opts = await page.locator("[role='option']").all()
+                    matched = False
+                    for opt in all_opts:
+                        txt = await opt.inner_text()
+                        if doc_type.lower() in txt.lower():
+                            await opt.click()
+                            log.info(f"    Selected: {txt.strip()}")
+                            matched = True
+                            break
+                    if not matched:
+                        log.warning(f"    No dropdown for: {doc_type} — searching without filter")
+                        await page.keyboard.press("Escape")
+                await asyncio.sleep(0.5)
 
             # ── Submit ────────────────────────────────────────────────────
-            search_btn = page.locator("#search-btn, button[id*='search' i], button:has-text('Search')").first
-            if await search_btn.count() == 0:
-                search_btn = page.locator("button[type='submit']").first
-            await search_btn.click()
-            log.info(f"    Submitted search, waiting for results ...")
+            btn = page.locator("#search-btn, button:has-text('Search'), button[type='submit']").first
+            await btn.click()
             await page.wait_for_load_state("networkidle", timeout=30_000)
             await asyncio.sleep(3)
 
-            # ── Collect pages ─────────────────────────────────────────────
+            # ── Paginate and collect ──────────────────────────────────────
             page_num = 1
-            while True:
-                # First check API-captured records
-                new_api = [r for r in self.api_records if r not in records]
-                if new_api:
-                    records.extend(new_api)
-                    log.info(f"    Page {page_num}: {len(new_api)} API records")
-
-                # Also parse table
+            while page_num <= 20:
                 html_recs = await self._parse_results_table(page)
-                for r in html_recs:
-                    if r["doc_num"] not in {x["doc_num"] for x in records if x["doc_num"]}:
-                        records.append(r)
+                records.extend(html_recs)
+                # Also grab any API-captured
+                records.extend(self.api_records)
+                self.api_records = []
+
                 if html_recs:
-                    log.info(f"    Page {page_num}: {len(html_recs)} HTML records")
+                    log.info(f"    Page {page_num}: {len(html_recs)} records")
 
-                # Check result count message
-                count_el = page.locator("[class*='total'], [class*='count'], [class*='results-info']").first
-                if await count_el.count() > 0:
-                    count_text = await count_el.inner_text()
-                    log.info(f"    Results count text: {count_text}")
-
-                # Next page
-                next_btn = page.locator("button[aria-label='Next page'], button:has-text('Next'), [class*='next-page']:not([disabled])").first
-                if await next_btn.count() == 0:
-                    break
-                enabled = await next_btn.is_enabled()
-                if not enabled:
+                next_btn = page.locator("button[aria-label='Next page'], button:has-text('Next')").first
+                if await next_btn.count() == 0 or not await next_btn.is_enabled():
                     break
                 await next_btn.click()
                 await page.wait_for_load_state("networkidle", timeout=20_000)
                 await asyncio.sleep(2)
                 page_num += 1
-                if page_num > 20:
-                    break
 
         except Exception as exc:
-            log.warning(f"  Search error for '{doc_type}': {exc}")
+            log.warning(f"  Search error '{doc_type}': {exc}")
 
         return records
 
+    # ── Main run ──────────────────────────────────────────────────────────────
     async def run(self) -> list[dict]:
         log.info("Launching browser ...")
         all_records = []
@@ -467,16 +495,16 @@ class DallasScraper:
         async with async_playwright() as pw:
             browser = await pw.chromium.launch(
                 headless=True,
-                args=["--no-sandbox","--disable-dev-shm-usage","--disable-blink-features=AutomationControlled"]
+                args=["--no-sandbox","--disable-dev-shm-usage"]
             )
             context = await browser.new_context(
-                user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
                 viewport={"width": 1280, "height": 900},
             )
             page = await context.new_page()
             page.on("response", self._capture_response)
 
-            # Warm up — load portal to get session cookies
+            # Warm up
             try:
                 await page.goto("https://dallas.tx.publicsearch.us/", wait_until="networkidle", timeout=45_000)
                 await asyncio.sleep(2)
@@ -487,28 +515,45 @@ class DallasScraper:
                 return []
 
             for doc_type in SEARCH_DOC_TYPES:
-                self.api_records = []  # reset for each search
-                recs = await self._do_search_and_collect(page, doc_type)
+                self.api_records = []
+                recs = await self._search_one_type(page, doc_type)
                 added = 0
                 for r in recs:
-                    key = r.get("doc_num") or r.get("clerk_url") or f"{r['doc_type']}{r['filed']}{r['owner']}"
+                    key = r.get("doc_num") or f"{r['doc_type']}{r['filed']}"
                     if key and key not in seen_keys:
                         seen_keys.add(key)
                         all_records.append(r)
                         added += 1
-                log.info(f"  → {added} unique records for '{doc_type}' (total so far: {len(all_records)})")
-                await asyncio.sleep(2)
+                log.info(f"  → {added} new records for '{doc_type}' (total: {len(all_records)})")
+                await asyncio.sleep(1)
 
             await browser.close()
 
-        # Filter out non-target types
-        all_records = [r for r in all_records if r.get("cat") != "OTHER"]
-        log.info(f"Total records after filter: {len(all_records)}")
+        # Filter non-targets
+        all_records = [r for r in all_records if r.get("cat") and r["cat"] != "OTHER"]
+
+        # ── Enrich with detail page ────────────────────────────────────────
+        log.info(f"Fetching detail pages for {len(all_records)} records ...")
+        for i, r in enumerate(all_records):
+            if r.get("doc_num"):
+                detail = self._fetch_detail(r["doc_num"])
+                # Only update fields that are still empty
+                for field in ["owner","grantee","prop_address","prop_city","prop_zip",
+                              "mail_address","mail_city","mail_state","mail_zip","legal","clerk_url"]:
+                    if not r.get(field) and detail.get(field):
+                        r[field] = detail[field]
+                if not r.get("amount") or r["amount"] == 0:
+                    r["amount"] = detail.get("amount", 0.0)
+                if i % 5 == 0:
+                    log.info(f"  Detail {i+1}/{len(all_records)}: {r['doc_num']} → owner='{r.get('owner','')}' addr='{r.get('prop_address','')}'")
+                time.sleep(0.5)  # be polite
+
+        log.info(f"Total records: {len(all_records)}")
         return all_records
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Parcel Lookup
+# Parcel Lookup (DCAD)
 # ─────────────────────────────────────────────────────────────────────────────
 class ParcelLookup:
     def __init__(self): self._index = {}
@@ -531,7 +576,7 @@ class ParcelLookup:
                         r2   = requests.get(a["href"] if a["href"].startswith("http") else base+a["href"], timeout=120)
                         if r2.ok: self._load_zip(r2.content); return
             except Exception as exc:
-                log.warning(f"DCAD failed: {exc}")
+                log.warning(f"DCAD probe: {exc}")
 
     def _load_zip(self, raw):
         try:
@@ -591,6 +636,7 @@ def _score(record, today, owner_cats):
     if any(kw in ou for kw in ("LLC","INC","CORP","LTD","TRUST","ESTATE")): flags.append("LLC / corp owner"); score+=10
     return min(score,100), list(dict.fromkeys(flags))
 
+
 GHL_COLS=["First Name","Last Name","Mailing Address","Mailing City","Mailing State","Mailing Zip","Property Address","Property City","Property State","Property Zip","Lead Type","Document Type","Date Filed","Document Number","Amount/Debt Owed","Seller Score","Motivated Seller Flags","Source","Public Records URL"]
 
 def _split_name(n):
@@ -609,7 +655,7 @@ def write_ghl_csv(records, path):
 
 async def main():
     today=datetime.utcnow(); week_ago=today-timedelta(days=7)
-    log.info(f"Dallas County Scraper v4 | {week_ago.date()} → {today.date()}")
+    log.info(f"Dallas County Scraper v6 | {week_ago.date()} → {today.date()}")
 
     parcel=ParcelLookup(); parcel.load()
     scraper=DallasScraper(date_from=week_ago,date_to=today)
@@ -622,7 +668,7 @@ async def main():
     for r in records:
         pi=parcel.lookup(r.get("owner",""))
         for k in ["prop_address","prop_city","prop_state","prop_zip","mail_address","mail_city","mail_state","mail_zip"]:
-            r[k]=pi.get(k) or r[k]
+            if not r.get(k) and pi.get(k): r[k]=pi[k]
         sc,fl=_score(r,today,owner_cats); r["score"]=sc; r["flags"]=fl
         enriched.append(r)
 
