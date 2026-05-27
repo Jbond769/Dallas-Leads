@@ -176,27 +176,21 @@ class DallasScraper:
                     # [0,1,2, GRANTOR, GRANTEE, DOC_TYPE, DATE, DOC_NUM, ??, CITY, LEGAL]
                     # First 3 cols are empty/checkbox. Indices are from raw cells list.
                     raw_cells = [c.get_text(strip=True) for c in cells]
+                    # Index-based extraction — confirmed column order from logs:
+                    # [0][1][2][3=GRANTOR][4=GRANTEE][5=DOC_TYPE][6=DATE][7=DOC_NUM][8=??][9=CITY][10=LEGAL]
+                    prop_city = ""
+                    if len(raw_cells) >= 4:
+                        g = raw_cells[3].strip()
+                        if g and g not in ("N/A", "--/--/--") and not _is_date(g):
+                            grantor = g
                     if len(raw_cells) >= 5:
-                        # Find grantor: first non-empty cell that's not a date/docnum/type
-                        candidate_cells = [c for c in raw_cells if c and not _is_date(c) 
-                                          and not _is_doc_num(c) and not _classify(c)
-                                          and len(c) > 3 and not c.isdigit()
-                                          and not re.match(r"N/A|--/--/--", c)]
-                        if len(candidate_cells) >= 1:
-                            grantor = candidate_cells[0]
-                        if len(candidate_cells) >= 2:
-                            grantee = candidate_cells[1]
-                        # Get city from raw_cells if available
-                        prop_city = ""
-                        for c in raw_cells:
-                            if (c and len(c) > 2 and c not in {grantor, grantee, raw_type, doc_num, filed_iso}
-                                    and not _is_date(c) and not _is_doc_num(c) and not _classify(c)
-                                    and c not in ("N/A", "--/--/--") and c.isupper() and len(c.split()) <= 3
-                                    and not any(kw in c for kw in ("Subdivision","Lot","Block","Reference","Township"))):
-                                prop_city = c
-                                break
-
-                    if not raw_type: continue
+                        g2 = raw_cells[4].strip()
+                        if g2 and g2 not in ("N/A", "--/--/--") and not _is_date(g2):
+                            grantee = g2
+                    if len(raw_cells) >= 10:
+                        city = raw_cells[9].strip()
+                        if city and city not in ("N/A", "--/--/--"):
+                            prop_city = city              if not raw_type: continue
                     classified = _classify(raw_type)
                     if not classified: continue
                     cat, cat_label = classified
