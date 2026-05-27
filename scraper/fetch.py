@@ -173,11 +173,8 @@ class DallasScraper:
                             amount = _parse_amount(t.replace("$",""))
 
                     # Use index-based extraction based on known column order:
-                    # [0,1,2, GRANTOR, GRANTEE, DOC_TYPE, DATE, DOC_NUM, ??, CITY, LEGAL]
-                    # First 3 cols are empty/checkbox. Indices are from raw cells list.
-                    raw_cells = [c.get_text(strip=True) for c in cells]
-                    # Index-based extraction — confirmed column order from logs:
                     # [0][1][2][3=GRANTOR][4=GRANTEE][5=DOC_TYPE][6=DATE][7=DOC_NUM][8=??][9=CITY][10=LEGAL]
+                    raw_cells = [c.get_text(strip=True) for c in cells]
                     prop_city = ""
                     if len(raw_cells) >= 4:
                         g = raw_cells[3].strip()
@@ -190,7 +187,9 @@ class DallasScraper:
                     if len(raw_cells) >= 10:
                         city = raw_cells[9].strip()
                         if city and city not in ("N/A", "--/--/--"):
-                            prop_city = city              if not raw_type: continue
+                            prop_city = city
+
+                    if not raw_type: continue
                     classified = _classify(raw_type)
                     if not classified: continue
                     cat, cat_label = classified
@@ -425,8 +424,8 @@ class DallasScraper:
                 log.info(f"  → {added} new for '{dt}' (total: {len(all_records)})")
                 await asyncio.sleep(1)
 
-            # Enrich with detail pages via Playwright (max 30 records to stay within time limit)
-            to_enrich = [r for r in all_records if r.get("doc_num") and not r.get("owner")][:30]
+            # Enrich with detail pages — fetch for any record missing owner OR address
+            to_enrich = [r for r in all_records if r.get("doc_num") and (not r.get("owner") or not r.get("prop_address"))][:30]
             log.info(f"Fetching detail pages for {len(to_enrich)} records via browser ...")
             for i, r in enumerate(to_enrich):
                 detail = await self._fetch_detail_pw(page, r["doc_num"])
