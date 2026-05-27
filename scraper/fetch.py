@@ -169,10 +169,16 @@ async def _lookup_dcad(page, owner_name):
 
         # DCAD format from debug logs:
         # "Address: 1218  PATRICIA LN  Neighborhood: 3GSJ38 ... GARLAND, TEXAS  75042"
-        # Extract street address after "Address:"
-        m = re.search(r"Address:\s*(\d+\s+[A-Z0-9 ]+?)(?:\s{2,}|\s+Neighborhood|\s+Mapsco)", all_text, re.I)
+        # Strategy 1: after "Address:" label, stop at Neighborhood/Mapsco/2+ spaces
+        m = re.search(r"Address:\s*(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+Neighborhood|\s+Mapsco|\s+DCAD)", all_text, re.I)
         if m:
             info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
+
+        # Strategy 2: scan for any "1234 STREET NAME ST/LN/DR/etc" pattern
+        if not info.get("prop_address"):
+            m = re.search(r"\b(\d{3,5}\s+[A-Z][A-Z0-9 ]{2,}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|HWY|FWY|LOOP|PASS|XING))\b", all_text, re.I)
+            if m:
+                info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
 
         # Extract city and state: "GARLAND, TEXAS  75042" or "DALLAS, TX 75001"
         m2 = re.search(r"([A-Z][A-Z\s]+),\s*(TEXAS|TX)\s+(\d{5})", all_text, re.I)
