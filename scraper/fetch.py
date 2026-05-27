@@ -2,7 +2,7 @@
 """
 Dallas County, TX — Motivated Seller Lead Scraper v8
 - Uses Playwright for search
-- DCAD address lookup with debug logging to find correct field names
+- DCAD address lookup via owner name search
 """
 
 import asyncio
@@ -79,12 +79,12 @@ SEARCH_DOC_TYPES = [
     "Hospital Lien","Lien","Probate","Notice of Commencement",
 ]
 
-# Entities to skip for DCAD lookup — not property owners
 SKIP_TERMS = (
     "LLC","INC","CORP","TRUST","BANK","ASSOCIATION","ELECTRONIC",
     "MORTGAGE","CAPITAL","CHASE","STATE OF","SOLUTIONS","WHOLESALE",
     "CREDIT","HOMEOWNERS","JPMORGAN","MERS","TOLLESON","PROPERTY OWNERS",
     "LTD","FUND","FINANCIAL","SERVICES","HOLDINGS","GROUP","PARTNERS",
+    "MUSTANG","AMIGOS","WESTGROVE","UNITED","ARIGLO","GLOBAL","ETS",
 )
 
 def _classify(raw):
@@ -114,23 +114,19 @@ def _is_doc_num(s):
     return bool(re.match(r"^\d{10,}$",s.strip()))
 
 def _is_person(name):
-    """Return True if this looks like a real person, not a company."""
     u = name.upper()
     return not any(t in u for t in SKIP_TERMS)
 
 def _dcad_query(name):
-    """Format name for DCAD search: expects 'LAST FIRST' or just 'LAST'."""
     parts = name.strip().upper().split()
     if not parts: return None
-    # DCAD wants last name first, then first name after a space
-    # Public records format is usually 'LASTNAME FIRSTNAME' already
-    last = parts[0]
+    last  = parts[0]
     first = parts[1] if len(parts) > 1 else ""
     return f"{last} {first}".strip() if first else last
 
 
-async def _lookup_dcad(page, owner_name, debug_first=False):
-    """Query DCAD owner search and return first matching address."""
+async def _lookup_dcad(page, owner_name):
+    """Query DCAD owner search and return address info."""
     if not _is_person(owner_name):
         return {}
     query = _dcad_query(owner_name)
@@ -140,14 +136,11 @@ async def _lookup_dcad(page, owner_name, debug_first=False):
         await page.goto(DCAD_SEARCH, wait_until="domcontentloaded", timeout=20_000)
         await asyncio.sleep(1)
 
-        # Fill owner name input
         inp = page.locator("input[name*='owner' i], input[id*='owner' i], input[type='text']").first
         if await inp.count() == 0:
-            log.debug("DCAD: no input found")
             return {}
         await inp.fill(query)
 
-        # Submit form
         btn = page.locator("input[type='submit'], button[type='submit']").first
         await btn.click()
         await page.wait_for_load_state("domcontentloaded", timeout=15_000)
@@ -162,7 +155,6 @@ async def _lookup_dcad(page, owner_name, debug_first=False):
             if "AcctDetail" in a["href"]:
                 detail_link = a["href"]
                 break
-
         if not detail_link:
             return {}
 
@@ -171,47 +163,34 @@ async def _lookup_dcad(page, owner_name, debug_first=False):
         await asyncio.sleep(1)
 
         detail_content = await page.content()
-        dsoup = BeautifulSoup(detail_content, "lxml")
-
-        # DEBUG: log all table rows on first hit to understand structure
-        if debug_first:
-            rows = dsoup.find_all("tr")
-            log.info(f"  [DEBUG] DCAD detail page rows for '{owner_name}':")
-            for row in rows[:30]:
-                cells = [td.get_text(" ", strip=True) for td in row.find_all(["td","th"])]
-                if any(c.strip() for c in cells):
-                    log.info(f"    ROW: {cells}")
+        all_text = BeautifulSoup(detail_content, "lxml").get_text(" ", strip=True)
 
         info = {}
 
-        # Parse all table cell pairs
-        for row in dsoup.find_all("tr"):
-            tds = [td.get_text(" ", strip=True) for td in row.find_all(["td","th"])]
-            tds = [t for t in tds if t.strip()]
-            if len(tds) >= 2:
-                label = tds[0].upper()
-                value = tds[1].strip()
-                if not value: continue
+        # DCAD format from debug logs:
+        # "Address: 1218  PATRICIA LN  Neighborhood: 3GSJ38 ... GARLAND, TEXAS  75042"
+        # Extract street address after "Address:"
+        m = re.search(r"Address:\s*(\d+\s+[A-Z0-9 ]+?)(?:\s{2,}|\s+Neighborhood|\s+Mapsco)", all_text, re.I)
+        if m:
+            info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
 
-                if any(k in label for k in ["SITUS","SITE ADDR","PROPERTY ADDR","LOCATION"]) and not info.get("prop_address"):
-                    info["prop_address"] = value
-                elif any(k in label for k in ["MAIL","MAILING"]) and not info.get("mail_address"):
-                    info["mail_address"] = value
-                elif "CITY" in label and not info.get("prop_city"):
-                    info["prop_city"] = value
-                elif "ZIP" in label and not info.get("prop_zip"):
-                    info["prop_zip"] = value
+        # Extract city and state: "GARLAND, TEXAS  75042" or "DALLAS, TX 75001"
+        m2 = re.search(r"([A-Z][A-Z\s]+),\s*(TEXAS|TX)\s+(\d{5})", all_text, re.I)
+        if m2:
+            info["prop_city"]  = m2.group(1).strip().title()
+            info["prop_state"] = "TX"
+            info["prop_zip"]   = m2.group(3).strip()
 
-        # Also scan all text for address-like patterns if table parse missed it
-        if not info.get("prop_address"):
-            # Look for lines that look like street addresses
-            all_text = dsoup.get_text("\n", strip=True)
-            for line in all_text.split("\n"):
-                line = line.strip()
-                # Match "1234 SOME ST" patterns
-                if re.match(r"^\d{3,5}\s+[A-Z]", line.upper()) and len(line) > 8:
-                    info["prop_address"] = line
-                    break
+        # Mailing address — look for owner mailing section
+        # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
+        # Try to get mail address from owner block if different from situs
+        m3 = re.search(r"Owner \(Current \d{4}\)\s+(.+?)\s{3,}", all_text, re.I)
+        if m3:
+            owner_block = m3.group(1).strip()
+            # Extract trailing address from owner block
+            ma = re.search(r"(\d+\s+[A-Z0-9 ]+(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL)[^\d]*)", owner_block, re.I)
+            if ma:
+                info["mail_address"] = re.sub(r"\s+", " ", ma.group(1)).strip()
 
         return info
 
@@ -268,7 +247,6 @@ class DallasScraper:
                         elif _classify(t) and not raw_type: raw_type = t
                         elif re.match(r"\$[\d,]+",t): amount = _parse_amount(t.replace("$",""))
 
-                    # Index-based: [0][1][2][3=GRANTOR][4=GRANTEE][5=DOC_TYPE][6=DATE][7=DOC_NUM][8=??][9=CITY]
                     raw_cells = [c.get_text(strip=True) for c in cells]
                     prop_city = ""
                     if len(raw_cells) >= 4:
@@ -389,20 +367,15 @@ class DallasScraper:
                 log.info(f"  → {added} new for '{dt}' (total: {len(all_records)})")
                 await asyncio.sleep(1)
 
-            # DCAD address lookup — only real people, cap at 40
+            # DCAD address lookup — only real people, cap at 50
             person_records = [r for r in all_records if r.get("owner") and _is_person(r["owner"]) and not r.get("prop_address")]
             log.info(f"Looking up {len(person_records)} person records on DCAD ...")
-
-            first_debug_done = False
-            for i, r in enumerate(person_records[:40]):
-                # Pass debug_first=True on the very first person hit so we can see raw HTML structure
-                info = await _lookup_dcad(page, r["owner"], debug_first=(not first_debug_done))
-                if info:
-                    first_debug_done = True
+            for i, r in enumerate(person_records[:50]):
+                info = await _lookup_dcad(page, r["owner"])
                 for f in ["prop_address","prop_city","prop_zip","mail_address","mail_city","mail_state","mail_zip"]:
                     if not r.get(f) and info.get(f):
                         r[f] = info[f]
-                log.info(f"  DCAD {i+1}/{min(len(person_records),40)}: '{r['owner']}' → addr='{r.get('prop_address','')}'")
+                log.info(f"  DCAD {i+1}/{min(len(person_records),50)}: '{r['owner']}' → addr='{r.get('prop_address','')}' city='{r.get('prop_city','')}' zip='{r.get('prop_zip','')}'")
                 await asyncio.sleep(0.5)
 
             await browser.close()
