@@ -174,11 +174,17 @@ async def _lookup_dcad(page, owner_name):
         if m:
             info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
 
-        # Strategy 2: scan for any "1234 STREET NAME ST/LN/DR/etc" pattern
+        # Strategy 2: scan for "1234 WORD(S) SUFFIX" — require known street suffix immediately after words
         if not info.get("prop_address"):
-            m = re.search(r"\b(\d{3,5}\s+[A-Z][A-Z0-9 ]{2,}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|HWY|FWY|LOOP|PASS|XING))\b", all_text, re.I)
+            m = re.search(
+                r"\b(\d{3,5}\s+(?:[A-Z]+\s+){1,4}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|HWY|LOOP|PASS|XING|TRCE|BNDG|HOLW|GLN|MDWS|RNCH|COVE|CV|CRST|RUN|BND|PT|MNR|PARK|WALK|ROW|ALY))\b",
+                all_text, re.I)
             if m:
-                info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
+                candidate = re.sub(r"\s+", " ", m.group(1)).strip()
+                # Reject if it contains common non-address words
+                bad = ("NOTICE","PROTEST","APPRAISAL","REPORT","PROCESS","SYSTEM","ONLINE","CURRENT","ANNUAL")
+                if not any(b in candidate.upper() for b in bad):
+                    info["prop_address"] = candidate
 
         # Extract city and state: "GARLAND, TEXAS  75042" or "DALLAS, TX 75001"
         m2 = re.search(r"([A-Z][A-Z\s]+),\s*(TEXAS|TX)\s+(\d{5})", all_text, re.I)
