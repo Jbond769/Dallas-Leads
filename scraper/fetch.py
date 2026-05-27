@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Dallas County, TX — Motivated Seller Lead Scraper v7
+Dallas County, TX — Motivated Seller Lead Scraper v8
 - Uses Playwright for both search AND detail pages
 - Extracts owner/address from detail pages via browser (bypasses JS challenge)
 - Limits detail fetches to 60s timeout per page
@@ -172,16 +172,29 @@ class DallasScraper:
                         elif re.match(r"\$[\d,]+",t):
                             amount = _parse_amount(t.replace("$",""))
 
-                    # Identify grantor — it's a non-date, non-docnum, non-type text
-                    # Usually appears after doc_type in the row
-                    skip_vals = {doc_num, filed_iso, raw_type}
-                    for t in texts:
-                        if (t not in skip_vals and not _is_date(t) and not _is_doc_num(t)
-                                and not _classify(t) and len(t)>3
-                                and not re.match(r"\$[\d,]+",t)
-                                and not t.isdigit()):
-                            grantor = t
-                            break
+                    # Use index-based extraction based on known column order:
+                    # [0,1,2, GRANTOR, GRANTEE, DOC_TYPE, DATE, DOC_NUM, ??, CITY, LEGAL]
+                    # First 3 cols are empty/checkbox. Indices are from raw cells list.
+                    raw_cells = [c.get_text(strip=True) for c in cells]
+                    if len(raw_cells) >= 5:
+                        # Find grantor: first non-empty cell that's not a date/docnum/type
+                        candidate_cells = [c for c in raw_cells if c and not _is_date(c) 
+                                          and not _is_doc_num(c) and not _classify(c)
+                                          and len(c) > 3 and not c.isdigit()
+                                          and not re.match(r"N/A|--/--/--", c)]
+                        if len(candidate_cells) >= 1:
+                            grantor = candidate_cells[0]
+                        if len(candidate_cells) >= 2:
+                            grantee = candidate_cells[1]
+                        # Get city from raw_cells if available
+                        prop_city = ""
+                        for c in raw_cells:
+                            if (c and len(c) > 2 and c not in {grantor, grantee, raw_type, doc_num, filed_iso}
+                                    and not _is_date(c) and not _is_doc_num(c) and not _classify(c)
+                                    and c not in ("N/A", "--/--/--") and c.isupper() and len(c.split()) <= 3
+                                    and not any(kw in c for kw in ("Subdivision","Lot","Block","Reference","Township"))):
+                                prop_city = c
+                                break
 
                     if not raw_type: continue
                     classified = _classify(raw_type)
@@ -194,7 +207,7 @@ class DallasScraper:
                         "owner": grantor, "grantee": grantee,
                         "amount": amount, "legal": "",
                         "clerk_url": link_url or (f"https://dallas.tx.publicsearch.us/doc/{doc_num}" if doc_num else ""),
-                        "prop_address":"","prop_city":"Dallas","prop_state":"TX","prop_zip":"",
+                        "prop_address":"","prop_city": prop_city or "Dallas","prop_state":"TX","prop_zip":"",
                         "mail_address":"","mail_city":"","mail_state":"TX","mail_zip":"",
                         "flags":[],"score":30,
                     })
@@ -527,7 +540,7 @@ def write_ghl_csv(records,path):
 
 async def main():
     today=datetime.utcnow();week_ago=today-timedelta(days=7)
-    log.info(f"Dallas County Scraper v7 | {week_ago.date()} → {today.date()}")
+    log.info(f"Dallas County Scraper v8 | {week_ago.date()} → {today.date()}")
 
     parcel=ParcelLookup();parcel.load()
     scraper=DallasScraper(date_from=week_ago,date_to=today)
