@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-05-27T20:12:50.738927Z",
+  "fetched_at": "2026-05-27T20:35:40.177992Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
   "date_range": "2026-05-20 to 2026-05-27",
   "total": 32,
@@ -536,7 +536,7 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109422",
-      "prop_address": "2026 Current Appraisal Notice uFile Online Protest",
+      "prop_address": "4515 VILLAGE FAIR DR",
       "prop_city": "Dallas",
       "prop_state": "TX",
       "prop_zip": "75224",
