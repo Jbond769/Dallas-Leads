@@ -209,16 +209,22 @@ async def _lookup_dcad(context, owner_name):
         if zip_matches:
             info["prop_zip"]   = zip_matches[0]
             info["prop_state"] = "TX"
-        else:
-            # Dump 500 chars of raw HTML around the address for diagnosis
-            idx = raw_html.find("Patricia") 
-            if idx < 0: idx = raw_html.find("PATRICIA")
-            if idx < 0: idx = raw_html.find("Village Fair")
-            if idx < 0: idx = raw_html.find("VILLAGE")
-            if idx >= 0:
-                log.info(f"    [HTML DUMP] {raw_html[max(0,idx-50):idx+300]!r}")
-            else:
-                log.info(f"    [HTML DUMP] address not found in HTML, len={len(raw_html)}")
+
+        # Zip from mailing/owner block: "GARLAND, TEXAS  75042" or "DALLAS TX 75236"
+        # Also try raw HTML decoded (replace &nbsp; entities)
+        if not info.get("prop_zip"):
+            html_decoded = raw_html.replace("&nbsp;", " ")
+            zip_html = re.findall(r"\b(7[5-9]\d{3})\b", html_decoded)
+            if zip_html:
+                info["prop_zip"]   = zip_html[0]
+                info["prop_state"] = "TX"
+
+        # Zip from owner mailing line in visible text
+        if not info.get("prop_zip"):
+            m_zip2 = re.search(r"(?:TEXAS|TX)[,\s]+(7[5-9]\d{3})", all_text, re.I)
+            if m_zip2:
+                info["prop_zip"]   = m_zip2.group(1)
+                info["prop_state"] = "TX"
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
