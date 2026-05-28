@@ -199,14 +199,16 @@ async def _lookup_dcad(context, owner_name):
         if m_city:
             info["prop_city"] = m_city.group(1).strip().title()
 
-        # Zip: search full text for TX zip (7xxxx), skip years like 75042 -> valid, 2026 -> skip
-        for m_zip in re.finditer(r"\b(7[0-9]{4})\b", all_text):
-            z = m_zip.group(1)
-            # Valid TX residential zips are 75xxx, 76xxx, 77xxx, 78xxx, 79xxx
-            if re.match(r"7[5-9]\d{3}", z):
-                info["prop_zip"]   = z
-                info["prop_state"] = "TX"
-                break
+        # Zip: find all 5-digit numbers that look like TX zips (75xxx-79xxx)
+        zip_matches = re.findall(r"\b(7[5-9]\d{3})\b", all_text)
+        if zip_matches:
+            info["prop_zip"]   = zip_matches[0]
+            info["prop_state"] = "TX"
+            log.info(f"    [ZIP] found: {zip_matches[:5]}")
+        else:
+            # Fallback: any 5-digit number starting with 7
+            zip_matches2 = re.findall(r"\b(7\d{4})\b", all_text)
+            log.info(f"    [ZIP] no 75-79xxx found, 7xxxx candidates: {zip_matches2[:5]}")
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
