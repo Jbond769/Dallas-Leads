@@ -186,12 +186,20 @@ async def _lookup_dcad(page, owner_name):
                 if not any(b in candidate.upper() for b in bad):
                     info["prop_address"] = candidate
 
-        # Extract city and state: "GARLAND, TEXAS  75042" or "DALLAS, TX 75001"
-        m2 = re.search(r"([A-Z][A-Z\s]+),\s*(TEXAS|TX)\s+(\d{5})", all_text, re.I)
+        # Extract city/state/zip — search near street address first, then anywhere
+        search_text = all_text
+        if info.get("prop_address"):
+            idx = all_text.upper().find(info["prop_address"].upper())
+            if idx >= 0:
+                search_text = all_text[idx:idx+400]
+        m2 = re.search(r"([A-Za-z][A-Za-z ]{2,20}),\s*(TEXAS|TX)\s+(\d{5})", search_text, re.I)
         if m2:
-            info["prop_city"]  = m2.group(1).strip().title()
-            info["prop_state"] = "TX"
-            info["prop_zip"]   = m2.group(3).strip()
+            city_candidate = m2.group(1).strip().title()
+            bad_city = ("Annual","Search","Online","Process","Notice","Report","Protest","Appraisal")
+            if not any(b.lower() in city_candidate.lower() for b in bad_city):
+                info["prop_city"]  = city_candidate
+                info["prop_state"] = "TX"
+                info["prop_zip"]   = m2.group(3).strip()
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
