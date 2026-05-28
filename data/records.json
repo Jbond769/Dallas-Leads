@@ -1,10 +1,36 @@
 {
-  "fetched_at": "2026-05-28T02:32:22.184176Z",
+  "fetched_at": "2026-05-28T02:42:40.501008Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
   "date_range": "2026-05-21 to 2026-05-28",
   "total": 17,
-  "with_address": 3,
+  "with_address": 0,
   "records": [
+    {
+      "doc_num": "202600109043",
+      "doc_type": "RELEASE OF LIEN",
+      "filed": "2026-05-21",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "MORTGAGE ELECTRONIC REGISTRATION SYSTEMS INC",
+      "grantee": "STERN DAVID E",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109043",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
+    },
     {
       "doc_num": "202600109174",
       "doc_type": "RELEASE OF LIEN",
@@ -162,32 +188,6 @@
       "score": 55
     },
     {
-      "doc_num": "202600109502",
-      "doc_type": "ASSIGNMENT OF LIEN",
-      "filed": "2026-05-21",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "PMG FUND 1 LLC",
-      "grantee": "U S BANK TRUST COMPANY NATIONAL ASSOCIATION TR",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109502",
-      "prop_address": "",
-      "prop_city": "BALCH SPRINGS",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55
-    },
-    {
       "doc_num": "202600109721",
       "doc_type": "RELEASE OF LIEN",
       "filed": "2026-05-21",
@@ -214,18 +214,18 @@
       "score": 55
     },
     {
-      "doc_num": "202600109043",
-      "doc_type": "RELEASE OF LIEN",
+      "doc_num": "202600109502",
+      "doc_type": "ASSIGNMENT OF LIEN",
       "filed": "2026-05-21",
       "cat": "LN",
       "cat_label": "Lien",
-      "owner": "MORTGAGE ELECTRONIC REGISTRATION SYSTEMS INC",
-      "grantee": "STERN DAVID E",
+      "owner": "PMG FUND 1 LLC",
+      "grantee": "U S BANK TRUST COMPANY NATIONAL ASSOCIATION TR",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109043",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109502",
       "prop_address": "",
-      "prop_city": "Dallas",
+      "prop_city": "BALCH SPRINGS",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -250,20 +250,19 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109321",
-      "prop_address": "1218 PATRICIA LN",
+      "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
-      "prop_zip": "75042",
-      "mail_address": "1218 PATRICIA LN GARLAND, TEXAS",
+      "prop_zip": "",
+      "mail_address": "",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
         "Tax lien",
-        "New this week",
-        "Has property address"
+        "New this week"
       ],
-      "score": 50
+      "score": 45
     },
     {
       "doc_num": "202600109422",
@@ -276,20 +275,19 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109422",
-      "prop_address": "4515 VILLAGE FAIR DR",
+      "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
-      "prop_zip": "75224",
-      "mail_address": "8 4515 VILLAGE FAIR DR DALLAS, TEXAS",
+      "prop_zip": "",
+      "mail_address": "",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
         "Lien",
-        "New this week",
-        "Has property address"
+        "New this week"
       ],
-      "score": 50
+      "score": 45
     },
     {
       "doc_num": "202600108939",
@@ -302,20 +300,19 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600108939",
-      "prop_address": "4615 COUNTRY CREEK DR",
+      "prop_address": "",
       "prop_city": "DALLAS",
       "prop_state": "TX",
-      "prop_zip": "75236",
-      "mail_address": "1033 4615 COUNTRY CREEK DR DALLAS, TEXAS",
+      "prop_zip": "",
+      "mail_address": "",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
         "Lien",
-        "New this week",
-        "Has property address"
+        "New this week"
       ],
-      "score": 50
+      "score": 45
     },
     {
       "doc_num": "202600109535",
@@ -368,18 +365,18 @@
       "score": 45
     },
     {
-      "doc_num": "202600109773",
-      "doc_type": "RELEASE OF LIEN",
+      "doc_num": "202600109460",
+      "doc_type": "RELEASE OF LIEN CLAIMED",
       "filed": "2026-05-21",
       "cat": "LN",
       "cat_label": "Lien",
-      "owner": "PNC BANK NATIONAL ASSOCIATION",
-      "grantee": "PARSLEY MARY",
+      "owner": "DALLAS CITY",
+      "grantee": "THOMPSON BILLY",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109773",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109460",
       "prop_address": "",
-      "prop_city": "Dallas",
+      "prop_city": "DALLAS",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -393,18 +390,18 @@
       "score": 45
     },
     {
-      "doc_num": "202600109460",
-      "doc_type": "RELEASE OF LIEN CLAIMED",
+      "doc_num": "202600109773",
+      "doc_type": "RELEASE OF LIEN",
       "filed": "2026-05-21",
       "cat": "LN",
       "cat_label": "Lien",
-      "owner": "DALLAS CITY",
-      "grantee": "THOMPSON BILLY",
+      "owner": "PNC BANK NATIONAL ASSOCIATION",
+      "grantee": "PARSLEY MARY",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109460",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600109773",
       "prop_address": "",
-      "prop_city": "DALLAS",
+      "prop_city": "Dallas",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
