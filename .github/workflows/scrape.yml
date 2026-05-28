@@ -2,7 +2,7 @@ name: Dallas County Lead Scraper
 
 on:
   schedule:
-    - cron: "0 7 * * *"   # 07:00 UTC = 02:00 CDT daily
+    - cron: "0 7 * * *"  # 07:00 UTC = 02:00 CDT daily
   workflow_dispatch:        # allow manual trigger from GitHub UI
 
 permissions:
@@ -16,13 +16,13 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      # ── Checkout ────────────────────────────────────────────────────────────
+      # — Checkout ————————————————————————————————————————
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # ── Python ──────────────────────────────────────────────────────────────
+      # — Python ————————————————————————————————————————
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
@@ -35,24 +35,26 @@ jobs:
           pip install --upgrade pip
           pip install requests beautifulsoup4 lxml dbfread playwright
 
-      # ── Playwright ──────────────────────────────────────────────────────────
+      # — Playwright ————————————————————————————————————————
       - name: Install Playwright Chromium
         run: python -m playwright install --with-deps chromium
 
-      # ── Scrape ──────────────────────────────────────────────────────────────
+      # — Scrape ————————————————————————————————————————
       - name: Run scraper
-        run: python scraper/fetch.py
+        run: |
+          python scraper/fetch.py
+          python scraper/fetch_tarrant.py
 
-      # ── Commit results ──────────────────────────────────────────────────────
+      # — Commit results ————————————————————————————————————————
       - name: Commit and push records
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dashboard/records.json data/records.json data/ghl_export_*.csv
+          git add dashboard/records.json data/records.json data/ghl_export_*.csv dashboard/records_tarrant.json data/records_tarrant.json data/ghl_tarrant_*.csv
           git diff --cached --quiet || git commit -m "chore: update leads $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
 
-  # ── Deploy dashboard to GitHub Pages ──────────────────────────────────────
+  # — Deploy dashboard to GitHub Pages ————————————————————————————————————————
   deploy:
     needs: scrape
     runs-on: ubuntu-22.04
@@ -64,7 +66,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: main   # use the freshly-committed data
+          ref: main  # use the freshly-committed data
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
