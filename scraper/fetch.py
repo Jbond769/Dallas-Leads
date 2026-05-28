@@ -209,6 +209,16 @@ async def _lookup_dcad(context, owner_name):
         if zip_matches:
             info["prop_zip"]   = zip_matches[0]
             info["prop_state"] = "TX"
+        else:
+            # Dump 500 chars of raw HTML around the address for diagnosis
+            idx = raw_html.find("Patricia") 
+            if idx < 0: idx = raw_html.find("PATRICIA")
+            if idx < 0: idx = raw_html.find("Village Fair")
+            if idx < 0: idx = raw_html.find("VILLAGE")
+            if idx >= 0:
+                log.info(f"    [HTML DUMP] {raw_html[max(0,idx-50):idx+300]!r}")
+            else:
+                log.info(f"    [HTML DUMP] address not found in HTML, len={len(raw_html)}")
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
