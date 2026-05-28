@@ -194,15 +194,24 @@ async def _lookup_dcad(page, owner_name):
             if idx >= 0:
                 start = max(0, idx - 100)
                 search_text = all_text[start:idx + 400]
-        # Find ALL city/zip matches, pick first non-garbage one
+        # Find ALL city/zip matches across full page, pick first non-garbage one
         bad_city = ("Annual","Search","Online","Process","Notice","Report","Protest","Appraisal","Navigation","Links")
-        for m2 in re.finditer(r"([A-Za-z][A-Za-z ]{2,20}),\s*(TEXAS|TX)\s+(\d{5})", search_text, re.I):
-            city_candidate = m2.group(1).strip().title()
-            if not any(b.lower() in city_candidate.lower() for b in bad_city):
-                info["prop_city"]  = city_candidate
-                info["prop_state"] = "TX"
-                info["prop_zip"]   = m2.group(3).strip()
+        # Search full text for all city,TX zip patterns
+        all_city_matches = list(re.finditer(r"([A-Za-z][A-Za-z ]{2,20}),\s*(TEXAS|TX)\s+(\d{5})", all_text, re.I))
+        # Try windowed search first (near address), then fall back to full page
+        for search_scope in [search_text, all_text]:
+            for m2 in re.finditer(r"([A-Za-z][A-Za-z ]{2,20}),\s*(TEXAS|TX)\s+(\d{5})", search_scope, re.I):
+                city_candidate = m2.group(1).strip().title()
+                if not any(b.lower() in city_candidate.lower() for b in bad_city):
+                    info["prop_city"]  = city_candidate
+                    info["prop_state"] = "TX"
+                    info["prop_zip"]   = m2.group(3).strip()
+                    break
+            if info.get("prop_city"):
                 break
+        # Debug: log all found city matches so we can tune
+        if not info.get("prop_city") or info.get("prop_city","").upper() == "DALLAS":
+            log.info(f"    [CITY DEBUG] zip={info.get('prop_zip','')} all matches: {[(m.group(1).strip(), m.group(3)) for m in all_city_matches[:5]]}")
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
