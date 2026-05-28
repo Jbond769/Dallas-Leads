@@ -301,38 +301,19 @@ class TarrantScraper:
             await page.goto(PORTAL_URL, wait_until="networkidle", timeout=45_000)
             await asyncio.sleep(2)
 
-            # Log all input fields for first run to understand form structure
-            all_inputs = await page.locator("input").all()
-            log.info(f"  [FORM] Found {len(all_inputs)} inputs on page")
-            for idx, inp in enumerate(all_inputs[:8]):
-                try:
-                    ph = await inp.get_attribute("placeholder") or ""
-                    nm = await inp.get_attribute("name") or ""
-                    id_ = await inp.get_attribute("id") or ""
-                    val = await inp.input_value() or ""
-                    log.info(f"    input[{idx}] id={id_!r} name={nm!r} placeholder={ph!r} value={val!r}")
-                except: pass
-
-            # Try filling date range using input value directly
-            # Tarrant date inputs: look for ones with date-like values
-            for idx, inp_el in enumerate(all_inputs[:8]):
-                try:
-                    val = await inp_el.input_value()
-                    if re.match(r"\d{1,2}/\d{1,2}/\d{4}", val or ""):
-                        if idx == 0 or (val and "1900" in val):
-                            await inp_el.click()
-                            await inp_el.press("Control+a")
-                            await inp_el.type(from_str, delay=50)
-                            await asyncio.sleep(0.3)
-                            log.info(f"    Filled start date in input[{idx}]: {from_str}")
-                        elif "2026" in val or "2025" in val:
-                            await inp_el.click()
-                            await inp_el.press("Control+a")
-                            await inp_el.type(to_str, delay=50)
-                            await asyncio.sleep(0.3)
-                            log.info(f"    Filled end date in input[{idx}]: {to_str}")
-                except: pass
-
+            # Use exact IDs confirmed from debug logs
+            start_inp = page.locator("#recordedDateRange-start")
+            end_inp   = page.locator("#recordedDateRange-end")
+            if await start_inp.count() > 0:
+                await start_inp.click()
+                await start_inp.press("Control+a")
+                await start_inp.type(from_str, delay=50)
+                await asyncio.sleep(0.3)
+            if await end_inp.count() > 0:
+                await end_inp.click()
+                await end_inp.press("Control+a")
+                await end_inp.type(to_str, delay=50)
+                await asyncio.sleep(0.3)
             await page.keyboard.press("Tab")
             await asyncio.sleep(0.5)
 
