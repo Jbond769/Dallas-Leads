@@ -181,50 +181,36 @@ async def _lookup_dcad(context, owner_name):
 
         info = {}
 
-        # DCAD format from debug logs:
-        # "Address: 1218  PATRICIA LN  Neighborhood: 3GSJ38 ... GARLAND, TEXAS  75042"
-        # Strategy 1: after "Address:" label (with colon), stop at Neighborhood/Mapsco/2+ spaces
-        m = re.search(r"Address:\s+(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+Neighborhood|\s+Mapsco|\s+DCAD|\s+Property)", all_text, re.I)
+        # Normalize non-breaking spaces to regular spaces
+        all_text = all_text.replace("\xa0", " ")
+
+        # DCAD format: "Address: 1218  PATRICIA LN Neighborhood: ... Mapsco: 29-A (GARLAND) ..."
+        # Strategy 1: grab street after "Address:" stop at Neighborhood/Mapsco/Suite/Bldg
+        m = re.search(r"Address:\s*(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+(?:Neighborhood|Mapsco|Suite|Bldg|DCAD|Property))", all_text, re.I)
         if m:
             info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
 
-        # Strategy 2: scan for "1234 WORD(S) SUFFIX" — require known street suffix immediately after words
+        # Strategy 2: scan for street number + words + known suffix
         if not info.get("prop_address"):
             m = re.search(
-                r"\b(\d{3,5}\s+(?:[A-Z]+\s+){1,4}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|HWY|LOOP|PASS|XING|TRCE|BNDG|HOLW|GLN|MDWS|RNCH|COVE|CV|CRST|RUN|BND|PT|MNR|PARK|WALK|ROW|ALY))\b",
+                r"\b(\d{3,5}\s+(?:[A-Z]+\s+){1,4}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|HWY|LOOP|PASS|XING|TRCE|COVE|CV|RUN|BND|PARK|WALK))\b",
                 all_text, re.I)
             if m:
                 candidate = re.sub(r"\s+", " ", m.group(1)).strip()
-                # Reject if it contains common non-address words
                 bad = ("NOTICE","PROTEST","APPRAISAL","REPORT","PROCESS","SYSTEM","ONLINE","CURRENT","ANNUAL")
                 if not any(b in candidate.upper() for b in bad):
                     info["prop_address"] = candidate
 
-        # Extract city/state/zip — search window around street address (before AND after)
-        search_text = all_text
-        if info.get("prop_address"):
-            idx = all_text.upper().find(info["prop_address"].upper())
-            if idx >= 0:
-                start = max(0, idx - 100)
-                search_text = all_text[start:idx + 400]
-        # Find ALL city/zip matches across full page, pick first non-garbage one
-        bad_city = ("Annual","Search","Online","Process","Notice","Report","Protest","Appraisal","Navigation","Links")
-        # Search full text for all city,TX zip patterns
-        all_city_matches = list(re.finditer(r"([A-Za-z][A-Za-z ]{2,20}),\s*(TEXAS|TX)\s+(\d{5})", all_text, re.I))
-        # Try windowed search first (near address), then fall back to full page
-        for search_scope in [search_text, all_text]:
-            for m2 in re.finditer(r"([A-Za-z][A-Za-z ]{2,20}),\s*(TEXAS|TX)\s+(\d{5})", search_scope, re.I):
-                city_candidate = m2.group(1).strip().title()
-                if not any(b.lower() in city_candidate.lower() for b in bad_city):
-                    info["prop_city"]  = city_candidate
-                    info["prop_state"] = "TX"
-                    info["prop_zip"]   = m2.group(3).strip()
-                    break
-            if info.get("prop_city"):
-                break
-        # Debug: log all found city matches so we can tune
-        if not info.get("prop_city") or info.get("prop_city","").upper() == "DALLAS":
-            log.info(f"    [CITY DEBUG] zip={info.get('prop_zip','')} all matches: {[(m.group(1).strip(), m.group(3)) for m in all_city_matches[:5]]}")
+        # City is in parentheses after Mapsco: "Mapsco: 29-A (GARLAND)" or "Mapsco: 64-G (DALLAS)"
+        m_city = re.search(r"Mapsco:\s*[\w\-]+\s+\(([A-Z][A-Z ]+)\)", all_text, re.I)
+        if m_city:
+            info["prop_city"] = m_city.group(1).strip().title()
+
+        # Zip code: find 5-digit zip near the address block
+        m_zip = re.search(r"\b(7[0-9]{4})\b", all_text)
+        if m_zip:
+            info["prop_zip"]   = m_zip.group(1)
+            info["prop_state"] = "TX"
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
