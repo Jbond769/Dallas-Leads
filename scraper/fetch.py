@@ -135,8 +135,8 @@ async def _lookup_dcad(context, owner_name):
         return {}
     page = await context.new_page()
     try:
-        await page.goto(DCAD_SEARCH, wait_until="domcontentloaded", timeout=20_000)
-        await asyncio.sleep(1.5)
+        await page.goto(DCAD_SEARCH, wait_until="networkidle", timeout=30_000)
+        await asyncio.sleep(2)
 
         inp = page.locator("input[name*='owner' i], input[id*='owner' i], input[type='text']").first
         if await inp.count() == 0:
@@ -147,8 +147,8 @@ async def _lookup_dcad(context, owner_name):
 
         btn = page.locator("input[type='submit'], button[type='submit']").first
         await btn.click()
-        await page.wait_for_load_state("domcontentloaded", timeout=15_000)
-        await asyncio.sleep(1.5)
+        await page.wait_for_load_state("networkidle", timeout=20_000)
+        await asyncio.sleep(2)
 
         content = await page.content()
         soup = BeautifulSoup(content, "lxml")
@@ -165,19 +165,19 @@ async def _lookup_dcad(context, owner_name):
             return {}
 
         full_url = detail_link if detail_link.startswith("http") else f"https://www.dallascad.org/{detail_link.lstrip('/')}"
-        await page.goto(full_url, wait_until="domcontentloaded", timeout=20_000)
-        await asyncio.sleep(1.5)
+        await page.goto(full_url, wait_until="networkidle", timeout=30_000)
+        await asyncio.sleep(2)
 
         detail_content = await page.content()
         all_text = BeautifulSoup(detail_content, "lxml").get_text(" ", strip=True)
-        # Log snippet around "Address:" (with colon = property field, not nav link)
+        # Log snippet around "Address:" for debug
         idx = all_text.find("Address:")
         if idx < 0:
             idx = all_text.find("address:")
         if idx >= 0:
             log.info(f"    [ADDR SNIPPET] {all_text[idx:idx+200]!r}")
         else:
-            log.info(f"    [ADDR SNIPPET] no 'Address:' found — page length={len(all_text)}")
+            log.info(f"    [ADDR SNIPPET] not found — len={len(all_text)} — first200={all_text[:200]!r}")
 
         info = {}
 
