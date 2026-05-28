@@ -170,17 +170,21 @@ async def _lookup_dcad(context, owner_name):
 
         detail_content = await page.content()
         all_text = BeautifulSoup(detail_content, "lxml").get_text(" ", strip=True)
-        # Log snippet around "Address" for debugging
-        idx = all_text.lower().find("address")
+        # Log snippet around "Address:" (with colon = property field, not nav link)
+        idx = all_text.find("Address:")
+        if idx < 0:
+            idx = all_text.find("address:")
         if idx >= 0:
-            log.info(f"    [ADDR SNIPPET] {all_text[idx:idx+120]!r}")
+            log.info(f"    [ADDR SNIPPET] {all_text[idx:idx+200]!r}")
+        else:
+            log.info(f"    [ADDR SNIPPET] no 'Address:' found — page length={len(all_text)}")
 
         info = {}
 
         # DCAD format from debug logs:
         # "Address: 1218  PATRICIA LN  Neighborhood: 3GSJ38 ... GARLAND, TEXAS  75042"
-        # Strategy 1: after "Address:" label, stop at Neighborhood/Mapsco/2+ spaces
-        m = re.search(r"Address:\s*(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+Neighborhood|\s+Mapsco|\s+DCAD)", all_text, re.I)
+        # Strategy 1: after "Address:" label (with colon), stop at Neighborhood/Mapsco/2+ spaces
+        m = re.search(r"Address:\s+(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+Neighborhood|\s+Mapsco|\s+DCAD|\s+Property)", all_text, re.I)
         if m:
             info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
 
