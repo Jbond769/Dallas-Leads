@@ -85,6 +85,7 @@ SKIP_TERMS = (
     "CREDIT","HOMEOWNERS","JPMORGAN","MERS","TOLLESON","PROPERTY OWNERS",
     "LTD","FUND","FINANCIAL","SERVICES","HOLDINGS","GROUP","PARTNERS",
     "MUSTANG","AMIGOS","WESTGROVE","UNITED","ARIGLO","GLOBAL","ETS",
+    " CITY"," COUNTY"," DISTRICT","MUNICIPALITY","DEPARTMENT","AUTHORITY",
 )
 
 def _classify(raw):
@@ -186,20 +187,22 @@ async def _lookup_dcad(page, owner_name):
                 if not any(b in candidate.upper() for b in bad):
                     info["prop_address"] = candidate
 
-        # Extract city/state/zip — search near street address first, then anywhere
+        # Extract city/state/zip — search window around street address (before AND after)
         search_text = all_text
         if info.get("prop_address"):
             idx = all_text.upper().find(info["prop_address"].upper())
             if idx >= 0:
-                search_text = all_text[idx:idx+400]
-        m2 = re.search(r"([A-Za-z][A-Za-z ]{2,20}),\s*(TEXAS|TX)\s+(\d{5})", search_text, re.I)
-        if m2:
+                start = max(0, idx - 100)
+                search_text = all_text[start:idx + 400]
+        # Find ALL city/zip matches, pick first non-garbage one
+        bad_city = ("Annual","Search","Online","Process","Notice","Report","Protest","Appraisal","Navigation","Links")
+        for m2 in re.finditer(r"([A-Za-z][A-Za-z ]{2,20}),\s*(TEXAS|TX)\s+(\d{5})", search_text, re.I):
             city_candidate = m2.group(1).strip().title()
-            bad_city = ("Annual","Search","Online","Process","Notice","Report","Protest","Appraisal")
             if not any(b.lower() in city_candidate.lower() for b in bad_city):
                 info["prop_city"]  = city_candidate
                 info["prop_state"] = "TX"
                 info["prop_zip"]   = m2.group(3).strip()
+                break
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
