@@ -301,18 +301,26 @@ class TarrantScraper:
             await page.goto(PORTAL_URL, wait_until="networkidle", timeout=45_000)
             await asyncio.sleep(2)
 
-            for cal_aria, date_str in [("Open start date calendar", from_str),
-                                        ("Open end date calendar",   to_str)]:
-                cal = page.locator(f"[aria-label='{cal_aria}']").first
-                if await cal.count() > 0:
-                    await cal.click(); await asyncio.sleep(0.8)
-                    inp = page.locator("input[class*='date'],input[aria-label*='start' i],input[aria-label*='end' i]").first
-                    if await inp.count() > 0:
-                        await inp.click(); await inp.press("Control+a")
-                        await inp.type(date_str); await asyncio.sleep(0.3)
-                    await page.keyboard.press("Escape"); await asyncio.sleep(0.5)
+            # Fill date range — Tarrant uses plain text inputs, clear and type directly
+            # Start date
+            date_inputs = page.locator("input[placeholder*='MM/DD'], input[class*='date'], input[type='text']")
+            count = await date_inputs.count()
+            if count >= 2:
+                # First date input = start date
+                start_inp = date_inputs.nth(0)
+                await start_inp.click(clickCount=3)
+                await start_inp.fill(from_str)
+                await asyncio.sleep(0.3)
+                # Second date input = end date
+                end_inp = date_inputs.nth(1)
+                await end_inp.click(clickCount=3)
+                await end_inp.fill(to_str)
+                await asyncio.sleep(0.3)
+                await page.keyboard.press("Escape")
+                await asyncio.sleep(0.5)
 
-            inp = page.locator("#docTypes-input,[aria-label='Filter Document Types']").first
+            # Doc type filter
+            inp = page.locator("input[placeholder*='Filter Document'], #docTypes-input, [aria-label='Filter Document Types']").first
             if await inp.count() > 0:
                 await inp.click(); await asyncio.sleep(0.3)
                 await inp.type(doc_type[:4], delay=80); await asyncio.sleep(1.5)
@@ -329,7 +337,8 @@ class TarrantScraper:
                         await page.keyboard.press("Escape")
                 await asyncio.sleep(0.5)
 
-            btn = page.locator("#search-btn,button:has-text('Search'),button[type='submit']").first
+            # Submit
+            btn = page.locator("#search-btn, button:has-text('Search'), button[type='submit']").first
             await btn.click()
             await page.wait_for_load_state("networkidle", timeout=30_000)
             await asyncio.sleep(3)
@@ -339,7 +348,7 @@ class TarrantScraper:
                 recs = await self._parse_table(page)
                 records.extend(recs)
                 if recs: log.info(f"    Page {pn}: {len(recs)} records")
-                nxt = page.locator("button[aria-label='Next page'],button:has-text('Next')").first
+                nxt = page.locator("button[aria-label='Next page'], button:has-text('Next')").first
                 if await nxt.count() == 0 or not await nxt.is_enabled(): break
                 await nxt.click()
                 await page.wait_for_load_state("networkidle", timeout=20_000)
