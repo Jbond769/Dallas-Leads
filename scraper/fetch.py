@@ -169,8 +169,11 @@ async def _lookup_dcad(context, owner_name):
         await asyncio.sleep(2)
 
         detail_content = await page.content()
-        all_text = BeautifulSoup(detail_content, "lxml").get_text(" ", strip=True)
+        dsoup = BeautifulSoup(detail_content, "lxml")
+        all_text = dsoup.get_text(" ", strip=True)
         # (debug snippet removed)
+        # Also keep raw HTML for zip extraction (zip may be in attributes/links not in text)
+        raw_html = detail_content
 
         info = {}
 
@@ -199,16 +202,13 @@ async def _lookup_dcad(context, owner_name):
         if m_city:
             info["prop_city"] = m_city.group(1).strip().title()
 
-        # Zip: find all 5-digit numbers that look like TX zips (75xxx-79xxx)
+        # Zip: search visible text first, then raw HTML (zip may be in href/attributes)
         zip_matches = re.findall(r"\b(7[5-9]\d{3})\b", all_text)
+        if not zip_matches:
+            zip_matches = re.findall(r"\b(7[5-9]\d{3})\b", raw_html)
         if zip_matches:
             info["prop_zip"]   = zip_matches[0]
             info["prop_state"] = "TX"
-            log.info(f"    [ZIP] found: {zip_matches[:5]}")
-        else:
-            # Fallback: any 5-digit number starting with 7
-            zip_matches2 = re.findall(r"\b(7\d{4})\b", all_text)
-            log.info(f"    [ZIP] no 75-79xxx found, 7xxxx candidates: {zip_matches2[:5]}")
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
