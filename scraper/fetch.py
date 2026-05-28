@@ -126,26 +126,29 @@ def _dcad_query(name):
     return f"{last} {first}".strip() if first else last
 
 
-async def _lookup_dcad(page, owner_name):
-    """Query DCAD owner search and return address info."""
+async def _lookup_dcad(context, owner_name):
+    """Query DCAD owner search and return address info. Uses a fresh page each call."""
     if not _is_person(owner_name):
         return {}
     query = _dcad_query(owner_name)
     if not query:
         return {}
+    page = await context.new_page()
     try:
         await page.goto(DCAD_SEARCH, wait_until="domcontentloaded", timeout=20_000)
-        await asyncio.sleep(1)
+        await asyncio.sleep(1.5)
 
         inp = page.locator("input[name*='owner' i], input[id*='owner' i], input[type='text']").first
         if await inp.count() == 0:
+            log.debug(f"DCAD: no input found for {owner_name}")
+            await page.close()
             return {}
         await inp.fill(query)
 
         btn = page.locator("input[type='submit'], button[type='submit']").first
         await btn.click()
         await page.wait_for_load_state("domcontentloaded", timeout=15_000)
-        await asyncio.sleep(1)
+        await asyncio.sleep(1.5)
 
         content = await page.content()
         soup = BeautifulSoup(content, "lxml")
@@ -157,14 +160,20 @@ async def _lookup_dcad(page, owner_name):
                 detail_link = a["href"]
                 break
         if not detail_link:
+            log.info(f"    DCAD no results for '{owner_name}' (query: {query})")
+            await page.close()
             return {}
 
         full_url = detail_link if detail_link.startswith("http") else f"https://www.dallascad.org/{detail_link.lstrip('/')}"
         await page.goto(full_url, wait_until="domcontentloaded", timeout=20_000)
-        await asyncio.sleep(1)
+        await asyncio.sleep(1.5)
 
         detail_content = await page.content()
         all_text = BeautifulSoup(detail_content, "lxml").get_text(" ", strip=True)
+        # Log snippet around "Address" for debugging
+        idx = all_text.lower().find("address")
+        if idx >= 0:
+            log.info(f"    [ADDR SNIPPET] {all_text[idx:idx+120]!r}")
 
         info = {}
 
@@ -224,10 +233,13 @@ async def _lookup_dcad(page, owner_name):
             if ma:
                 info["mail_address"] = re.sub(r"\s+", " ", ma.group(1)).strip()
 
+        await page.close()
         return info
 
     except Exception as exc:
         log.debug(f"DCAD lookup error for '{owner_name}': {exc}")
+        try: await page.close()
+        except: pass
         return {}
 
 
@@ -403,7 +415,7 @@ class DallasScraper:
             person_records = [r for r in all_records if r.get("owner") and _is_person(r["owner"]) and not r.get("prop_address")]
             log.info(f"Looking up {len(person_records)} person records on DCAD ...")
             for i, r in enumerate(person_records[:50]):
-                info = await _lookup_dcad(page, r["owner"])
+                info = await _lookup_dcad(context, r["owner"])
                 for f in ["prop_address","prop_city","prop_zip","mail_address","mail_city","mail_state","mail_zip"]:
                     if not r.get(f) and info.get(f):
                         r[f] = info[f]
