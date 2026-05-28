@@ -308,12 +308,12 @@ class TarrantScraper:
             if count >= 2:
                 # First date input = start date
                 start_inp = date_inputs.nth(0)
-                await start_inp.click(clickCount=3)
+                await start_inp.triple_click()
                 await start_inp.fill(from_str)
                 await asyncio.sleep(0.3)
                 # Second date input = end date
                 end_inp = date_inputs.nth(1)
-                await end_inp.click(clickCount=3)
+                await end_inp.triple_click()
                 await end_inp.fill(to_str)
                 await asyncio.sleep(0.3)
                 await page.keyboard.press("Escape")
