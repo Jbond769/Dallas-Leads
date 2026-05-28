@@ -170,14 +170,7 @@ async def _lookup_dcad(context, owner_name):
 
         detail_content = await page.content()
         all_text = BeautifulSoup(detail_content, "lxml").get_text(" ", strip=True)
-        # Log snippet around "Address:" for debug
-        idx = all_text.find("Address:")
-        if idx < 0:
-            idx = all_text.find("address:")
-        if idx >= 0:
-            log.info(f"    [ADDR SNIPPET] {all_text[idx:idx+200]!r}")
-        else:
-            log.info(f"    [ADDR SNIPPET] not found — len={len(all_text)} — first200={all_text[:200]!r}")
+        # (debug snippet removed)
 
         info = {}
 
@@ -206,11 +199,14 @@ async def _lookup_dcad(context, owner_name):
         if m_city:
             info["prop_city"] = m_city.group(1).strip().title()
 
-        # Zip code: find 5-digit zip near the address block
-        m_zip = re.search(r"\b(7[0-9]{4})\b", all_text)
-        if m_zip:
-            info["prop_zip"]   = m_zip.group(1)
-            info["prop_state"] = "TX"
+        # Zip: search full text for TX zip (7xxxx), skip years like 75042 -> valid, 2026 -> skip
+        for m_zip in re.finditer(r"\b(7[0-9]{4})\b", all_text):
+            z = m_zip.group(1)
+            # Valid TX residential zips are 75xxx, 76xxx, 77xxx, 78xxx, 79xxx
+            if re.match(r"7[5-9]\d{3}", z):
+                info["prop_zip"]   = z
+                info["prop_state"] = "TX"
+                break
 
         # Mailing address — look for owner mailing section
         # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
