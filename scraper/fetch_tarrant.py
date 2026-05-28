@@ -301,25 +301,40 @@ class TarrantScraper:
             await page.goto(PORTAL_URL, wait_until="networkidle", timeout=45_000)
             await asyncio.sleep(2)
 
-            # Fill date range — Tarrant uses plain text inputs, clear and type directly
-            # Start date
-            date_inputs = page.locator("input[placeholder*='MM/DD'], input[class*='date'], input[type='text']")
-            count = await date_inputs.count()
-            if count >= 2:
-                # First date input = start date
-                start_inp = date_inputs.nth(0)
-                await start_inp.click()
-                await start_inp.press("Control+a")
-                await start_inp.fill(from_str)
-                await asyncio.sleep(0.3)
-                # Second date input = end date
-                end_inp = date_inputs.nth(1)
-                await end_inp.click()
-                await end_inp.press("Control+a")
-                await end_inp.fill(to_str)
-                await asyncio.sleep(0.3)
-                await page.keyboard.press("Escape")
-                await asyncio.sleep(0.5)
+            # Log all input fields for first run to understand form structure
+            all_inputs = await page.locator("input").all()
+            log.info(f"  [FORM] Found {len(all_inputs)} inputs on page")
+            for idx, inp in enumerate(all_inputs[:8]):
+                try:
+                    ph = await inp.get_attribute("placeholder") or ""
+                    nm = await inp.get_attribute("name") or ""
+                    id_ = await inp.get_attribute("id") or ""
+                    val = await inp.input_value() or ""
+                    log.info(f"    input[{idx}] id={id_!r} name={nm!r} placeholder={ph!r} value={val!r}")
+                except: pass
+
+            # Try filling date range using input value directly
+            # Tarrant date inputs: look for ones with date-like values
+            for idx, inp_el in enumerate(all_inputs[:8]):
+                try:
+                    val = await inp_el.input_value()
+                    if re.match(r"\d{1,2}/\d{1,2}/\d{4}", val or ""):
+                        if idx == 0 or (val and "1900" in val):
+                            await inp_el.click()
+                            await inp_el.press("Control+a")
+                            await inp_el.type(from_str, delay=50)
+                            await asyncio.sleep(0.3)
+                            log.info(f"    Filled start date in input[{idx}]: {from_str}")
+                        elif "2026" in val or "2025" in val:
+                            await inp_el.click()
+                            await inp_el.press("Control+a")
+                            await inp_el.type(to_str, delay=50)
+                            await asyncio.sleep(0.3)
+                            log.info(f"    Filled end date in input[{idx}]: {to_str}")
+                except: pass
+
+            await page.keyboard.press("Tab")
+            await asyncio.sleep(0.5)
 
             # Doc type filter
             inp = page.locator("input[placeholder*='Filter Document'], #docTypes-input, [aria-label='Filter Document Types']").first
