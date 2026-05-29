@@ -133,21 +133,34 @@ async def _lookup_tad(context, owner_name):
 
         content = await page.content()
         soup = BeautifulSoup(content, "lxml")
+        info = {}
 
-        # Find first property result link
+        # Debug: log search results page snippet
+        results_text = soup.get_text(" ", strip=True)
+        log.info(f"    TAD results snippet: {results_text[:400].replace(chr(10),' ')!r}")
+
+        # Find property detail link — must contain /property/ or prop_id param
+        # Exclude nav/menu links (tad.org homepage anchors, #, js:, etc.)
         detail_link = None
         for a in soup.find_all("a", href=True):
             href = a["href"]
-            if "/property/" in href or "account" in href.lower() or "prop_id" in href.lower():
+            if (("/property/" in href and "tad.org" not in href.split("/property/")[0].replace("https://www.tad.org",""))
+                    or "prop_id=" in href
+                    or re.search(r"/property/\d", href)):
                 detail_link = href
                 break
+        # Broader fallback: any tad.org link with a numeric ID path segment
+        if not detail_link:
+            for a in soup.find_all("a", href=True):
+                href = a["href"]
+                if "tad.org" in href and re.search(r"/\d{5,}", href):
+                    detail_link = href
+                    break
 
-        # Also try table rows with address data directly on results page
-        info = {}
-        all_text = soup.get_text(" ", strip=True)
+        log.info(f"    TAD detail_link: {detail_link!r}")
 
-        # TAD results page often shows address in table directly
-        # Look for "OWNER ADDRESS" or situs address patterns
+        # Try to get address directly from search results table first
+        all_text = results_text
         m_addr = re.search(r"(\d{3,5}\s+[A-Z0-9 ]{3,}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|LOOP))\s+([A-Z][A-Z ]+),?\s*TX\s*(7[5-9]\d{3})", all_text, re.I)
         if m_addr:
             info["prop_address"] = re.sub(r"\s+", " ", m_addr.group(1)).strip()
@@ -157,6 +170,7 @@ async def _lookup_tad(context, owner_name):
 
         if not info.get("prop_address") and detail_link:
             full_url = detail_link if detail_link.startswith("http") else f"https://www.tad.org{detail_link}"
+            log.info(f"    TAD navigating to: {full_url!r}")
             await page.goto(full_url, wait_until="networkidle", timeout=30_000)
             await asyncio.sleep(2)
 
