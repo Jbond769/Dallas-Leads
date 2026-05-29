@@ -135,33 +135,28 @@ async def _lookup_tad(context, owner_name):
         soup = BeautifulSoup(content, "lxml")
         info = {}
 
-        # Debug: log search results page snippet
-        results_text = soup.get_text(" ", strip=True)
-        log.info(f"    TAD results snippet: {results_text[:400].replace(chr(10),' ')!r}")
+        # TAD results are JS-rendered — wait for them to appear via Playwright
+        await asyncio.sleep(3)
 
-        # Find property detail link — must contain /property/ or prop_id param
-        # Exclude nav/menu links (tad.org homepage anchors, #, js:, etc.)
+        # Try to find a property result link using Playwright (not BS4)
+        # TAD results table links typically contain account numbers or /property/
         detail_link = None
-        for a in soup.find_all("a", href=True):
-            href = a["href"]
-            if (("/property/" in href and "tad.org" not in href.split("/property/")[0].replace("https://www.tad.org",""))
-                    or "prop_id=" in href
-                    or re.search(r"/property/\d", href)):
-                detail_link = href
-                break
-        # Broader fallback: any tad.org link with a numeric ID path segment
-        if not detail_link:
-            for a in soup.find_all("a", href=True):
-                href = a["href"]
-                if "tad.org" in href and re.search(r"/\d{5,}", href):
-                    detail_link = href
-                    break
+        result_link_loc = page.locator("a[href*='/property/'], a[href*='prop_id'], a[href*='/account/']").first
+        if await result_link_loc.count() > 0:
+            detail_link = await result_link_loc.get_attribute("href")
+            log.info(f"    TAD detail_link (Playwright): {detail_link!r}")
+        else:
+            # Fallback: find links in results table/list area
+            table_link = page.locator("table a, .results a, .search-results a, [class*='result'] a").first
+            if await table_link.count() > 0:
+                detail_link = await table_link.get_attribute("href")
+                log.info(f"    TAD detail_link (table fallback): {detail_link!r}")
 
-        log.info(f"    TAD detail_link: {detail_link!r}")
+        # Also check for address directly on results page via Playwright
+        page_text = await page.inner_text("body")
+        log.info(f"    TAD page text snippet: {page_text[:500].replace(chr(10),' ')!r}")
 
-        # Try to get address directly from search results table first
-        all_text = results_text
-        m_addr = re.search(r"(\d{3,5}\s+[A-Z0-9 ]{3,}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|LOOP))\s+([A-Z][A-Z ]+),?\s*TX\s*(7[5-9]\d{3})", all_text, re.I)
+        m_addr = re.search(r"(\d{3,5}\s+[A-Z0-9 ]{3,}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|LOOP))\s+([A-Z][A-Z ]+),?\s*TX\s*(7[5-9]\d{3})", page_text, re.I)
         if m_addr:
             info["prop_address"] = re.sub(r"\s+", " ", m_addr.group(1)).strip()
             info["prop_city"]    = m_addr.group(2).strip().title()
@@ -172,7 +167,7 @@ async def _lookup_tad(context, owner_name):
             full_url = detail_link if detail_link.startswith("http") else f"https://www.tad.org{detail_link}"
             log.info(f"    TAD navigating to: {full_url!r}")
             await page.goto(full_url, wait_until="networkidle", timeout=30_000)
-            await asyncio.sleep(2)
+            await asyncio.sleep(3)
 
             detail_content = await page.content()
             raw_html  = detail_content
