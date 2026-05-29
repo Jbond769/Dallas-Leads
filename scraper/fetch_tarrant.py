@@ -166,17 +166,63 @@ async def _lookup_tad(context, owner_name):
             dsoup     = BeautifulSoup(detail_content, "lxml")
             all_text  = dsoup.get_text(" ", strip=True).replace("\xa0", " ")
 
-            # Situs/property address
-            m = re.search(r"(?:Situs|Site|Property)\s*Address[:\s]+(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+(?:Fort Worth|Arlington|Euless|Bedford|Hurst|Keller|Southlake|Grapevine|Mansfield|Grand Prairie|North Richland|Watauga|Haltom|Benbrook|Burleson|Crowley|Azle|Saginaw|Richland Hills|White Settlement|Colleyville|Flower Mound|TX|CITY|Suite|Apt|#))", all_text, re.I)
-            if m:
-                info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
+            # Debug: log a snippet of the detail page text to see structure
+            log.info(f"    TAD detail page snippet: {all_text[:500].replace(chr(10),' ')!r}")
 
-            # Street address pattern fallback
+            # Strategy 1: find label+value in table cells (most reliable)
+            for row in dsoup.find_all("tr"):
+                cells = [td.get_text(" ", strip=True).replace("\xa0", " ") for td in row.find_all(["td","th"])]
+                for i, cell in enumerate(cells):
+                    if re.search(r"situs|site addr|property addr|location", cell, re.I):
+                        # value is in same cell after label, or next cell
+                        val = re.sub(r"(?i)(situs|site addr.*?|property addr.*?|location)[:\s]*", "", cell).strip()
+                        if not val and i + 1 < len(cells):
+                            val = cells[i + 1].strip()
+                        m_val = re.match(r"(\d{2,6}\s+\S.*)", val)
+                        if m_val:
+                            info["prop_address"] = re.sub(r"\s+", " ", m_val.group(1)).strip()
+                            break
+                if info.get("prop_address"):
+                    break
+
+            # Strategy 2: dl/dt/dd label-value pairs
             if not info.get("prop_address"):
-                m2 = re.search(r"(\d{3,5}\s+[A-Z][A-Z0-9 ]{2,}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|LOOP|PASS|XING|TRCE|COVE|CV|RUN|BND))", all_text, re.I)
+                for dt in dsoup.find_all(["dt","label","th","strong","b"]):
+                    label_text = dt.get_text(strip=True)
+                    if re.search(r"situs|site addr|property addr|location", label_text, re.I):
+                        # value may be in sibling dd, next td, or parent's next sibling
+                        val_tag = dt.find_next_sibling() or (dt.parent and dt.parent.find_next_sibling())
+                        if val_tag:
+                            val = val_tag.get_text(" ", strip=True).replace("\xa0", " ")
+                            m_val = re.match(r"(\d{2,6}\s+\S.*)", val)
+                            if m_val:
+                                info["prop_address"] = re.sub(r"\s+", " ", m_val.group(1)).strip()
+                                break
+
+            # Strategy 3: regex on full text — broader street suffix list
+            if not info.get("prop_address"):
+                m = re.search(
+                    r"(?:Situs|Site|Property|Location)\s*(?:Address)?[:\s]+"
+                    r"(\d{2,6}\s+[A-Z0-9][A-Z0-9 ]{2,}?"
+                    r"(?:\s+(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|LOOP|PASS|"
+                    r"XING|TRCE|COVE|CV|RUN|BND|HWY|FWY|EXPY|SQ|WALK|PATH|RIDGE|HILL|"
+                    r"GLEN|CHASE|PARK|PLACE|LANE|DRIVE|STREET|COURT|CIRCLE|TRAIL)))"
+                    r"(?=\s|,|$)",
+                    all_text, re.I | re.MULTILINE
+                )
+                if m:
+                    info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
+
+            # Strategy 4: any number + street pattern anywhere in page text
+            if not info.get("prop_address"):
+                m2 = re.search(
+                    r"(\d{3,6}\s+[A-Z][A-Z0-9 ]{2,}"
+                    r"(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|LOOP|PASS|XING|TRCE|CV|BND|HWY|EXPY))",
+                    all_text, re.I
+                )
                 if m2:
                     candidate = re.sub(r"\s+", " ", m2.group(1)).strip()
-                    bad = ("NOTICE","PROTEST","APPRAISAL","REPORT","PROCESS","SYSTEM","ONLINE","CURRENT","ANNUAL")
+                    bad = ("NOTICE","PROTEST","APPRAISAL","REPORT","PROCESS","SYSTEM","ONLINE","CURRENT","ANNUAL","EXEMPTION","ACCOUNT")
                     if not any(b in candidate.upper() for b in bad):
                         info["prop_address"] = candidate
 
