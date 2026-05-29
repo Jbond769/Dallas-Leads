@@ -1,8 +1,129 @@
 {
-  "fetched_at": "2026-05-29T16:09:02.640602Z",
+  "fetched_at": "2026-05-29T19:34:54.282852Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
   "date_range": "2026-05-22 to 2026-05-29",
-  "total": 0,
+  "total": 5,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "",
+      "doc_type": "JUDGMENT",
+      "filed": "2005-10-24",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "HARVEST CREDIT MANAGEMENT IV B",
+      "grantee": "WHITE DEBORAH A",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien"
+      ],
+      "score": 40
+    },
+    {
+      "doc_num": "",
+      "doc_type": "LIEN",
+      "filed": "2005-10-28",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "WRIGHT TAMMY",
+      "grantee": "WRIGHT RANDALL R SR",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "76118",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien"
+      ],
+      "score": 40
+    },
+    {
+      "doc_num": "",
+      "doc_type": "JUDGMENT",
+      "filed": "2005-11-02",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "STAPLES",
+      "grantee": "DWIGHT E DENMAN PC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "76118",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien"
+      ],
+      "score": 40
+    },
+    {
+      "doc_num": "",
+      "doc_type": "JUDGMENT",
+      "filed": "2005-11-02",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "TEXAS HIGHER EDUCATION COORDINATING BOARD",
+      "grantee": "WHATLEY CORNELIA",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "76118",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien"
+      ],
+      "score": 40
+    },
+    {
+      "doc_num": "",
+      "doc_type": "LIEN",
+      "filed": "2005-10-27",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "WARREN CARLA C",
+      "grantee": "THOMSON RICHARD L",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "76118",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien"
+      ],
+      "score": 40
+    }
+  ]
 }

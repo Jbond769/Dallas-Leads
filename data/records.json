@@ -1,9 +1,9 @@
 {
-  "fetched_at": "2026-05-29T16:05:27.837451Z",
+  "fetched_at": "2026-05-29T19:28:57.708720Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
   "date_range": "2026-05-22 to 2026-05-29",
   "total": 16,
-  "with_address": 2,
+  "with_address": 0,
   "records": [
     {
       "doc_num": "2005035222831",
@@ -206,56 +206,6 @@
       "score": 50
     },
     {
-      "doc_num": "202000072393",
-      "doc_type": "HOSPITAL LIEN",
-      "filed": "2020-03-13",
-      "cat": "MEDLN",
-      "cat_label": "Hospital Lien",
-      "owner": "RUIZ LUIS",
-      "grantee": "METHODIST DALLAS MEDICAL CENTER",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202000072393",
-      "prop_address": "1722 ROBIN LN",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "75094",
-      "mail_address": "1000 CHISHOLM TRL MURPHY, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "Has property address"
-      ],
-      "score": 45
-    },
-    {
-      "doc_num": "202000074380",
-      "doc_type": "ASSIGNMENT OF LIEN",
-      "filed": "2020-03-16",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "BROWN ANGELA D",
-      "grantee": "RESOLUTION FINANCE LLC",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202000074380",
-      "prop_address": "3635 GARDEN BROOK DR",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "75126",
-      "mail_address": "1002 BLACKTHORNE RD FORNEY, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "Has property address"
-      ],
-      "score": 45
-    },
-    {
       "doc_num": "202000068416",
       "doc_type": "LABOR LIEN",
       "filed": "2020-03-10",
@@ -314,6 +264,30 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202000071337",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien"
+      ],
+      "score": 40
+    },
+    {
+      "doc_num": "202000072393",
+      "doc_type": "HOSPITAL LIEN",
+      "filed": "2020-03-13",
+      "cat": "MEDLN",
+      "cat_label": "Hospital Lien",
+      "owner": "RUIZ LUIS",
+      "grantee": "METHODIST DALLAS MEDICAL CENTER",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202000072393",
       "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
@@ -396,6 +370,30 @@
       "mail_zip": "",
       "flags": [
         "Mechanic lien"
+      ],
+      "score": 40
+    },
+    {
+      "doc_num": "202000074380",
+      "doc_type": "ASSIGNMENT OF LIEN",
+      "filed": "2020-03-16",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "BROWN ANGELA D",
+      "grantee": "RESOLUTION FINANCE LLC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202000074380",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien"
       ],
       "score": 40
     }
