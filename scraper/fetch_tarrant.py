@@ -394,15 +394,13 @@ class TarrantScraper:
             from_str = self.date_from.strftime("%m/%d/%Y")
             to_str   = self.date_to.strftime("%m/%d/%Y")
 
-            for dt in SEARCH_DOC_TYPES:
-                recs = await self._search_one(page, dt, from_str, to_str)
-                added = 0
-                for r in recs:
-                    key = r.get("doc_num") or f"{r['doc_type']}{r['filed']}{r['owner']}"
-                    if key and key not in seen:
-                        seen.add(key); all_records.append(r); added += 1
-                log.info(f"  → {added} new for '{dt}' (total: {len(all_records)})")
-                await asyncio.sleep(1)
+            # Tarrant: search once with date range only, classify by doc type in parser
+            recs = await self._search_all(page, from_str, to_str)
+            for r in recs:
+                key = r.get("doc_num") or f"{r['doc_type']}{r['filed']}{r['owner']}"
+                if key and key not in seen:
+                    seen.add(key); all_records.append(r)
+            log.info(f"  → {len(all_records)} total records from date search")
 
             # TAD address lookup for real person owners
             person_records = [r for r in all_records if r.get("owner") and _is_person(r["owner"]) and not r.get("prop_address")]
