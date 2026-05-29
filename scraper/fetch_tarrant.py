@@ -295,6 +295,57 @@ class TarrantScraper:
             log.debug(f"Table parse: {exc}")
         return records
 
+    async def _search_all(self, page, from_str, to_str):
+        """Search by date range only — no doc type filter. Filter in parser."""
+        records = []
+        try:
+            await page.goto(PORTAL_URL, wait_until="networkidle", timeout=45_000)
+            await asyncio.sleep(2)
+
+            start_inp = page.locator("#recordedDateRange-start")
+            end_inp   = page.locator("#recordedDateRange-end")
+            if await start_inp.count() > 0:
+                await start_inp.click()
+                await start_inp.press("Control+a")
+                await start_inp.type(from_str, delay=50)
+                await asyncio.sleep(0.3)
+            if await end_inp.count() > 0:
+                await end_inp.click()
+                await end_inp.press("Control+a")
+                await end_inp.type(to_str, delay=50)
+                await asyncio.sleep(0.3)
+            await page.keyboard.press("Tab")
+            await asyncio.sleep(0.5)
+
+            btn = page.locator("button:has-text('Search'), button[type='submit']").first
+            if await btn.count() > 0 and await btn.is_enabled():
+                await btn.click()
+            await page.wait_for_load_state("networkidle", timeout=30_000)
+            await asyncio.sleep(3)
+
+            content_check = await page.content()
+            soup_check = BeautifulSoup(content_check, "lxml")
+            rows_check = soup_check.select("tr.rt-tr-group") or soup_check.select("tbody tr")
+            log.info(f"  Date-only search: {len(rows_check)} rows")
+            if rows_check:
+                first = [c.get_text(strip=True) for c in rows_check[0].find_all(["td","th"])]
+                log.info(f"  First row: {first[:8]}")
+
+            pn = 1
+            while pn <= 20:
+                recs = await self._parse_table(page)
+                records.extend(recs)
+                if recs: log.info(f"    Page {pn}: {len(recs)} records")
+                nxt = page.locator("button[aria-label='Next page'], button:has-text('Next')").first
+                if await nxt.count() == 0 or not await nxt.is_enabled(): break
+                await nxt.click()
+                await page.wait_for_load_state("networkidle", timeout=20_000)
+                await asyncio.sleep(2)
+                pn += 1
+        except Exception as exc:
+            log.warning(f"  _search_all error: {exc}")
+        return records
+
     async def _search_one(self, page, doc_type, from_str, to_str):
         records = []
         try:
