@@ -301,7 +301,7 @@ class TarrantScraper:
             await page.goto(PORTAL_URL, wait_until="networkidle", timeout=45_000)
             await asyncio.sleep(2)
 
-            # Use exact IDs confirmed from debug logs
+            # Fill dates using exact IDs
             start_inp = page.locator("#recordedDateRange-start")
             end_inp   = page.locator("#recordedDateRange-end")
             if await start_inp.count() > 0:
@@ -309,37 +309,54 @@ class TarrantScraper:
                 await start_inp.press("Control+a")
                 await start_inp.type(from_str, delay=50)
                 await asyncio.sleep(0.3)
+                await page.keyboard.press("Tab")
+                await asyncio.sleep(0.3)
             if await end_inp.count() > 0:
                 await end_inp.click()
                 await end_inp.press("Control+a")
                 await end_inp.type(to_str, delay=50)
                 await asyncio.sleep(0.3)
-            await page.keyboard.press("Tab")
-            await asyncio.sleep(0.5)
-
-            # Doc type filter
-            inp = page.locator("input[placeholder*='Filter Document'], #docTypes-input, [aria-label='Filter Document Types']").first
-            if await inp.count() > 0:
-                await inp.click(); await asyncio.sleep(0.3)
-                await inp.type(doc_type[:4], delay=80); await asyncio.sleep(1.5)
-                opt = page.locator(f"[role='option']:has-text('{doc_type}')").first
-                if await opt.count() > 0:
-                    await opt.click()
-                else:
-                    all_opts = await page.locator("[role='option']").all()
-                    for o in all_opts:
-                        t = await o.inner_text()
-                        if doc_type.lower() in t.lower():
-                            await o.click(); break
-                    else:
-                        await page.keyboard.press("Escape")
+                await page.keyboard.press("Tab")
                 await asyncio.sleep(0.5)
 
-            # Submit
-            btn = page.locator("#search-btn, button:has-text('Search'), button[type='submit']").first
+            # Doc type filter — use #docTypes-input directly
+            doc_inp = page.locator("#docTypes-input")
+            if await doc_inp.count() > 0:
+                await doc_inp.click()
+                await asyncio.sleep(0.5)
+                await doc_inp.type(doc_type[:4], delay=100)
+                await asyncio.sleep(2)
+                # Try clicking first option that matches
+                opts = page.locator("[role='option']")
+                opt_count = await opts.count()
+                log.info(f"    Doc type options found: {opt_count}")
+                matched = False
+                for i in range(opt_count):
+                    opt = opts.nth(i)
+                    txt = await opt.inner_text()
+                    if doc_type.lower() in txt.lower():
+                        await opt.click()
+                        matched = True
+                        log.info(f"    Selected doc type: {txt.strip()}")
+                        break
+                if not matched:
+                    log.info(f"    No match for {doc_type!r}, pressing Escape")
+                    await page.keyboard.press("Escape")
+                await asyncio.sleep(0.5)
+
+            # Submit search
+            btn = page.locator("button:has-text('Search')").first
+            if await btn.count() == 0:
+                btn = page.locator("button[type='submit']").first
             await btn.click()
             await page.wait_for_load_state("networkidle", timeout=30_000)
             await asyncio.sleep(3)
+
+            # Log result count
+            body = await page.inner_text("body")
+            if "no results" in body.lower() or "0 results" in body.lower():
+                log.info(f"    No results for {doc_type}")
+                return records
 
             pn = 1
             while pn <= 20:
