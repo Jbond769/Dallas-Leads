@@ -427,6 +427,15 @@ class TarrantScraper:
             await page.locator("body").click(position={"x": 10, "y": 10})
             await asyncio.sleep(0.5)
 
+            # Log all buttons on the page for debugging
+            all_btns = page.locator("button")
+            btn_count = await all_btns.count()
+            log.info(f"  Buttons on page: {btn_count}")
+            for bi in range(min(btn_count, 10)):
+                bt = await all_btns.nth(bi).inner_text()
+                bc = await all_btns.nth(bi).get_attribute("class") or ""
+                log.info(f"    btn[{bi}] text={bt.strip()!r} class={bc[:40]!r}")
+
             # Submit: try specific submit button first, fall back to JS click
             # NOTE: portal has a "Search Criteria" accordion button — skip it,
             # target the actual submit button which is the last/primary button.
@@ -434,7 +443,7 @@ class TarrantScraper:
 
             # Try 1: a button whose text is exactly "Search" (case-insensitive)
             for selector in [
-                "button:has-text('Search'):not(:has-text('Criteria'))",
+                "button:has-text('Search'):not(:has-text('Criteria')):not(:has-text('Reset')):not(:has-text('Clear'))",
                 "button[class*='search'][type!='button']",
                 "button[type='submit']",
             ]:
