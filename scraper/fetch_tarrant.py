@@ -353,23 +353,50 @@ class TarrantScraper:
 
             log.info(f"  Filling start date: {from_str}")
             await react_fill(start_inp, from_str)
-            await page.keyboard.press("Tab")
+            # Press Enter to "commit" the date value in React's state
+            await page.keyboard.press("Enter")
             await asyncio.sleep(0.4)
 
             log.info(f"  Filling end date: {to_str}")
             await react_fill(end_inp, to_str)
-            await page.keyboard.press("Tab")
+            # Press Enter to "commit" the date value in React's state
+            await page.keyboard.press("Enter")
             await asyncio.sleep(0.5)
 
-            # --- Submit ---
+            # Click away to blur both fields, ensure React state is settled
+            await page.locator("body").click(position={"x": 10, "y": 10})
+            await asyncio.sleep(0.5)
+
+            # Log button state before clicking
             btn = page.locator("button:has-text('Search')").first
             if await btn.count() == 0:
                 btn = page.locator("button[type='submit']").first
-            if await btn.count() > 0 and await btn.is_enabled():
-                log.info("  Clicking Search button ...")
-                await btn.click()
+            if await btn.count() > 0:
+                is_en = await btn.is_enabled()
+                is_vis = await btn.is_visible()
+                btn_txt = await btn.inner_text()
+                log.info(f"  Search button: text={btn_txt!r} enabled={is_en} visible={is_vis}")
+                if is_en and is_vis:
+                    log.info("  Clicking Search button ...")
+                    await btn.click()
+                    await asyncio.sleep(1)
+                    # If URL didn't change to results, try JS click
+                    if "search/advanced" in page.url:
+                        log.info("  URL unchanged — trying JS click ...")
+                        await page.evaluate("document.querySelector('button[data-testid*=search], button.search-btn, form button[type=submit]')?.click()")
+                        await asyncio.sleep(1)
+                    # Last resort: press Enter from the end date field
+                    if "search/advanced" in page.url:
+                        log.info("  Still on advanced page — pressing Enter from end date field ...")
+                        await end_inp.click()
+                        await page.keyboard.press("Enter")
+                else:
+                    log.warning(f"  Search button not ready (enabled={is_en}, visible={is_vis}) — pressing Enter")
+                    await end_inp.click()
+                    await page.keyboard.press("Enter")
             else:
-                log.warning("  Search button not found or disabled — pressing Enter")
+                log.warning("  No Search button found — pressing Enter")
+                await end_inp.click()
                 await page.keyboard.press("Enter")
 
             await page.wait_for_load_state("networkidle", timeout=30_000)
