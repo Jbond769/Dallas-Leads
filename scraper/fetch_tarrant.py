@@ -314,65 +314,52 @@ class TarrantScraper:
                 iph   = await inp.get_attribute("placeholder") or ""
                 log.info(f"    input[{i}] id={iid!r} name={iname!r} type={itype!r} placeholder={iph!r}")
 
-            # --- Try multiple selector strategies for date inputs ---
-            filled = False
+            # --- React-safe input helper ---
+            # fill() bypasses React synthetic onChange; use press_sequentially
+            # so React sees real keystrokes and updates its state.
+            async def react_fill(locator, value):
+                await locator.click(click_count=3)
+                await asyncio.sleep(0.2)
+                await locator.press_sequentially(value, delay=60)
+                await asyncio.sleep(0.3)
+                actual = await locator.input_value()
+                log.info(f"    react_fill typed {value!r}, got {actual!r}")
+                if actual != value:
+                    # JS native setter fallback to force React state update
+                    inp_id = await locator.get_attribute("id")
+                    await page.evaluate(
+                        """([sel, val]) => {
+                            const el = document.querySelector(sel);
+                            if (!el) return;
+                            const setter = Object.getOwnPropertyDescriptor(
+                                window.HTMLInputElement.prototype, 'value').set;
+                            setter.call(el, val);
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                            el.dispatchEvent(new Event('change', { bubbles: true }));
+                        }""",
+                        [f"#{inp_id}", value]
+                    )
+                    await asyncio.sleep(0.3)
+                    actual2 = await locator.input_value()
+                    log.info(f"    JS fallback got {actual2!r}")
 
-            # Strategy 1: exact IDs used previously
+            # IDs confirmed from debug logs
             start_inp = page.locator("#recordedDateRange-start")
             end_inp   = page.locator("#recordedDateRange-end")
-            if await start_inp.count() > 0 and await end_inp.count() > 0:
-                log.info("  Using selector: #recordedDateRange-start / -end")
-                await start_inp.click(); await asyncio.sleep(0.3)
-                await start_inp.fill(from_str); await asyncio.sleep(0.3)
-                await page.keyboard.press("Tab"); await asyncio.sleep(0.3)
-                await end_inp.click(); await asyncio.sleep(0.3)
-                await end_inp.fill(to_str); await asyncio.sleep(0.3)
-                await page.keyboard.press("Tab"); await asyncio.sleep(0.5)
-                filled = True
 
-            # Strategy 2: placeholder-based
-            if not filled:
-                s2 = page.locator("input[placeholder*='Start'], input[placeholder*='start'], input[placeholder*='From'], input[placeholder*='Begin']").first
-                e2 = page.locator("input[placeholder*='End'], input[placeholder*='end'], input[placeholder*='To']").first
-                if await s2.count() > 0 and await e2.count() > 0:
-                    log.info("  Using selector: placeholder start/end")
-                    await s2.click(); await s2.fill(from_str); await asyncio.sleep(0.3)
-                    await page.keyboard.press("Tab"); await asyncio.sleep(0.3)
-                    await e2.click(); await e2.fill(to_str); await asyncio.sleep(0.3)
-                    await page.keyboard.press("Tab"); await asyncio.sleep(0.5)
-                    filled = True
-
-            # Strategy 3: name-based
-            if not filled:
-                s3 = page.locator("input[name*='date'], input[name*='Date'], input[name*='from'], input[name*='start']").first
-                e3 = page.locator("input[name*='date']:nth-of-type(2), input[name*='to'], input[name*='end']").first
-                if await s3.count() > 0:
-                    log.info("  Using selector: name-based date inputs")
-                    await s3.click(); await s3.fill(from_str); await asyncio.sleep(0.3)
-                    await page.keyboard.press("Tab"); await asyncio.sleep(0.3)
-                    if await e3.count() > 0:
-                        await e3.click(); await e3.fill(to_str); await asyncio.sleep(0.3)
-                        await page.keyboard.press("Tab"); await asyncio.sleep(0.5)
-                    filled = True
-
-            # Strategy 4: fallback — fill first two date-type inputs
-            if not filled:
-                date_inputs = page.locator("input[type='date'], input[type='text']")
-                dc = await date_inputs.count()
-                log.info(f"  Fallback: filling first 2 of {dc} text/date inputs")
-                if dc >= 1:
-                    await date_inputs.nth(0).click()
-                    await date_inputs.nth(0).fill(from_str)
-                    await page.keyboard.press("Tab"); await asyncio.sleep(0.3)
-                if dc >= 2:
-                    await date_inputs.nth(1).click()
-                    await date_inputs.nth(1).fill(to_str)
-                    await page.keyboard.press("Tab"); await asyncio.sleep(0.5)
-                filled = dc >= 1
-
-            if not filled:
-                log.warning("  Could not locate date input fields on Tarrant portal!")
+            if await start_inp.count() == 0 or await end_inp.count() == 0:
+                log.warning("  Date input fields not found on Tarrant portal!")
                 return records
+
+            log.info(f"  Filling start date: {from_str}")
+            await react_fill(start_inp, from_str)
+            await page.keyboard.press("Tab")
+            await asyncio.sleep(0.4)
+
+            log.info(f"  Filling end date: {to_str}")
+            await react_fill(end_inp, to_str)
+            await page.keyboard.press("Tab")
+            await asyncio.sleep(0.5)
 
             # --- Submit ---
             btn = page.locator("button:has-text('Search')").first
