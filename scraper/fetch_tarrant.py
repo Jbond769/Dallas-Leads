@@ -123,7 +123,6 @@ def _tad_query(name):
     if not parts: return None
     return parts[0] if len(parts) == 1 else f"{parts[0]} {parts[1]}"
 
-
 async def _lookup_tad(context, owner_name):
     """Query TAD property search by owner name and return address info."""
     if not _is_person(owner_name):
@@ -155,7 +154,6 @@ async def _lookup_tad(context, owner_name):
             await asyncio.sleep(3)
 
             page_text = await page.inner_text("body")
-            log.info(f"    TAD searched {q!r} → snippet: {page_text[200:500].replace(chr(10),' ')!r}")
 
             # Check if results were found (page says "No result" when empty)
             if "no result" in page_text.lower() or "0 result" in page_text.lower():
@@ -186,16 +184,13 @@ async def _lookup_tad(context, owner_name):
                     href = await loc.get_attribute("href") or ""
                     if href and "create" not in href and len(href) > 5:
                         detail_link = href
-                        log.info(f"    TAD detail_link ({link_sel}): {href!r}")
                         break
 
             if info.get("prop_address") or detail_link:
                 break  # found something, stop trying more query formats
-            log.info("    TAD detail_link: None (no property links found in results)")
 
         if not info.get("prop_address") and detail_link:
             full_url = detail_link if detail_link.startswith("http") else f"https://www.tad.org{detail_link}"
-            log.info(f"    TAD navigating to: {full_url!r}")
             await page.goto(full_url, wait_until="networkidle", timeout=30_000)
             await asyncio.sleep(3)
 
@@ -295,7 +290,6 @@ async def _lookup_tad(context, owner_name):
         except: pass
         return {}
 
-
 class TarrantScraper:
     def __init__(self, date_from, date_to):
         self.date_from = date_from
@@ -387,18 +381,6 @@ class TarrantScraper:
             await page.goto(PORTAL_URL, wait_until="networkidle", timeout=45_000)
             await asyncio.sleep(3)
 
-            # --- Debug: log all input fields found on the page ---
-            inputs = page.locator("input")
-            inp_count = await inputs.count()
-            log.info(f"  Tarrant portal inputs found: {inp_count}")
-            for i in range(min(inp_count, 15)):
-                inp = inputs.nth(i)
-                iid   = await inp.get_attribute("id") or ""
-                iname = await inp.get_attribute("name") or ""
-                itype = await inp.get_attribute("type") or ""
-                iph   = await inp.get_attribute("placeholder") or ""
-                log.info(f"    input[{i}] id={iid!r} name={iname!r} type={itype!r} placeholder={iph!r}")
-
             # --- React-safe input helper ---
             # fill() bypasses React synthetic onChange; use press_sequentially
             # so React sees real keystrokes and updates its state.
@@ -408,9 +390,7 @@ class TarrantScraper:
                 await locator.press_sequentially(value, delay=60)
                 await asyncio.sleep(0.3)
                 actual = await locator.input_value()
-                log.info(f"    react_fill typed {value!r}, got {actual!r}")
                 if actual != value:
-                    # JS native setter fallback to force React state update
                     inp_id = await locator.get_attribute("id")
                     await page.evaluate(
                         """([sel, val]) => {
@@ -426,7 +406,6 @@ class TarrantScraper:
                     )
                     await asyncio.sleep(0.3)
                     actual2 = await locator.input_value()
-                    log.info(f"    JS fallback got {actual2!r}")
 
             # IDs confirmed from debug logs
             start_inp = page.locator("#recordedDateRange-start")
@@ -436,13 +415,11 @@ class TarrantScraper:
                 log.warning("  Date input fields not found on Tarrant portal!")
                 return records
 
-            log.info(f"  Filling start date: {from_str}")
             await react_fill(start_inp, from_str)
             # Press Enter to "commit" the date value in React's state
             await page.keyboard.press("Enter")
             await asyncio.sleep(0.4)
 
-            log.info(f"  Filling end date: {to_str}")
             await react_fill(end_inp, to_str)
             # Press Enter to "commit" the date value in React's state
             await page.keyboard.press("Enter")
@@ -451,15 +428,6 @@ class TarrantScraper:
             # Click away to blur both fields, ensure React state is settled
             await page.locator("body").click(position={"x": 10, "y": 10})
             await asyncio.sleep(0.5)
-
-            # Log all buttons on the page for debugging
-            all_btns = page.locator("button")
-            btn_count = await all_btns.count()
-            log.info(f"  Buttons on page: {btn_count}")
-            for bi in range(min(btn_count, 10)):
-                bt = await all_btns.nth(bi).inner_text()
-                bc = await all_btns.nth(bi).get_attribute("class") or ""
-                log.info(f"    btn[{bi}] text={bt.strip()!r} class={bc[:40]!r}")
 
             # Submit: try specific submit button first, fall back to JS click
             # NOTE: portal has a "Search Criteria" accordion button — skip it,
@@ -475,7 +443,6 @@ class TarrantScraper:
                 candidate = page.locator(selector).last
                 if await candidate.count() > 0 and await candidate.is_visible():
                     txt = await candidate.inner_text()
-                    log.info(f"  Submit via selector {selector!r}: text={txt!r}")
                     await candidate.click()
                     await asyncio.sleep(1.5)
                     submitted = True
@@ -661,7 +628,6 @@ class TarrantScraper:
         log.info(f"Total: {len(all_records)}")
         return all_records
 
-
 def _score(r, today, owner_cats):
     score=30; flags=[]; cat=r.get("cat",""); amt=r.get("amount",0.0)
     try: nw=(today-datetime.strptime(r["filed"],"%Y-%m-%d")).days<=7
@@ -682,7 +648,6 @@ def _score(r, today, owner_cats):
     if r.get("prop_address"): flags.append("Has property address"); score+=5
     if any(kw in ou for kw in ("LLC","INC","CORP","LTD","TRUST","ESTATE")): flags.append("LLC/corp owner"); score+=10
     return min(score,100), list(dict.fromkeys(flags))
-
 
 GHL_COLS = ["First Name","Last Name","Mailing Address","Mailing City","Mailing State","Mailing Zip",
             "Property Address","Property City","Property State","Property Zip","Lead Type",
@@ -712,7 +677,6 @@ def write_ghl_csv(records, path):
                 "Public Records URL":r.get("clerk_url","")
             })
     log.info(f"GHL CSV → {path}")
-
 
 async def main():
     today    = datetime.utcnow()
