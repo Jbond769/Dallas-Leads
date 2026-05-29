@@ -367,35 +367,46 @@ class TarrantScraper:
             await page.locator("body").click(position={"x": 10, "y": 10})
             await asyncio.sleep(0.5)
 
-            # Log button state before clicking
-            btn = page.locator("button:has-text('Search')").first
-            if await btn.count() == 0:
-                btn = page.locator("button[type='submit']").first
-            if await btn.count() > 0:
-                is_en = await btn.is_enabled()
-                is_vis = await btn.is_visible()
-                btn_txt = await btn.inner_text()
-                log.info(f"  Search button: text={btn_txt!r} enabled={is_en} visible={is_vis}")
-                if is_en and is_vis:
-                    log.info("  Clicking Search button ...")
-                    await btn.click()
-                    await asyncio.sleep(1)
-                    # If URL didn't change to results, try JS click
-                    if "search/advanced" in page.url:
-                        log.info("  URL unchanged — trying JS click ...")
-                        await page.evaluate("document.querySelector('button[data-testid*=search], button.search-btn, form button[type=submit]')?.click()")
-                        await asyncio.sleep(1)
-                    # Last resort: press Enter from the end date field
-                    if "search/advanced" in page.url:
-                        log.info("  Still on advanced page — pressing Enter from end date field ...")
-                        await end_inp.click()
-                        await page.keyboard.press("Enter")
-                else:
-                    log.warning(f"  Search button not ready (enabled={is_en}, visible={is_vis}) — pressing Enter")
-                    await end_inp.click()
-                    await page.keyboard.press("Enter")
-            else:
-                log.warning("  No Search button found — pressing Enter")
+            # Submit: try specific submit button first, fall back to JS click
+            # NOTE: portal has a "Search Criteria" accordion button — skip it,
+            # target the actual submit button which is the last/primary button.
+            submitted = False
+
+            # Try 1: a button whose text is exactly "Search" (case-insensitive)
+            for selector in [
+                "button:has-text('Search'):not(:has-text('Criteria'))",
+                "button[class*='search'][type!='button']",
+                "button[type='submit']",
+            ]:
+                candidate = page.locator(selector).last
+                if await candidate.count() > 0 and await candidate.is_visible():
+                    txt = await candidate.inner_text()
+                    log.info(f"  Submit via selector {selector!r}: text={txt!r}")
+                    await candidate.click()
+                    await asyncio.sleep(1.5)
+                    submitted = True
+                    break
+
+            # Try 2: JS click on the form submit button
+            if not submitted or "search/advanced" in page.url:
+                log.info("  Trying JS submit click ...")
+                await page.evaluate("""
+                    (() => {
+                        // Find all buttons, pick the one that looks like a submit
+                        const btns = Array.from(document.querySelectorAll('button'));
+                        const submit = btns.find(b =>
+                            b.textContent.trim().toLowerCase() === 'search' ||
+                            b.type === 'submit' ||
+                            (b.className && b.className.toLowerCase().includes('submit'))
+                        ) || btns[btns.length - 1];
+                        if (submit) submit.click();
+                    })()
+                """)
+                await asyncio.sleep(1.5)
+                submitted = True
+
+            if not submitted or "search/advanced" in page.url:
+                log.info("  Final fallback: Enter from end date field ...")
                 await end_inp.click()
                 await page.keyboard.press("Enter")
 
