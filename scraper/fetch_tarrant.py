@@ -86,6 +86,8 @@ SKIP_TERMS = (
     "LTD","FUND","FINANCIAL","SERVICES","HOLDINGS","GROUP","PARTNERS",
     "MUSTANG","AMIGOS","WESTGROVE","UNITED","ARIGLO","GLOBAL","ETS",
     " CITY"," COUNTY"," DISTRICT","MUNICIPALITY","DEPARTMENT","AUTHORITY",
+    "BOARD","COORDINATING","EDUCATION","HOUSING","NEIGHBORHOOD","SERV OF",
+    "FEDERAL","NATIONAL","GOVERNMENT","AGENCY","COMMISSION","FOUNDATION",
 )
 
 def _classify(raw):
@@ -107,7 +109,13 @@ def _is_doc_num(s):
 
 def _is_person(name):
     u = name.upper()
-    return not any(t in u for t in SKIP_TERMS)
+    if any(t in u for t in SKIP_TERMS):
+        return False
+    # Single-word names are likely businesses or incomplete — skip TAD lookup
+    parts = u.split()
+    if len(parts) < 2:
+        return False
+    return True
 
 def _tad_query(name):
     """Format name for TAD search."""
@@ -128,8 +136,11 @@ async def _lookup_tad(context, owner_name):
     try:
         # TAD property search — navigate to search page and interact via Playwright
         # The URL-param approach returns 0 results; must use the search form directly
-        await page.goto("https://www.tad.org/property-search/", wait_until="networkidle", timeout=30_000)
-        await asyncio.sleep(3)
+        try:
+            await page.goto("https://www.tad.org/property-search/", wait_until="networkidle", timeout=15_000)
+        except Exception:
+            await page.goto("https://www.tad.org/property-search/", wait_until="domcontentloaded", timeout=15_000)
+        await asyncio.sleep(2)
 
         info = {}
 
