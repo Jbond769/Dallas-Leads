@@ -126,42 +126,63 @@ async def _lookup_tad(context, owner_name):
 
     page = await context.new_page()
     try:
-        # TAD uses a search results page with owner name parameter
-        search_url = f"https://www.tad.org/search-results/?search_type=owner&keyword={query.replace(' ', '+')}"
-        await page.goto(search_url, wait_until="networkidle", timeout=30_000)
-        await asyncio.sleep(2)
-
-        content = await page.content()
-        soup = BeautifulSoup(content, "lxml")
-        info = {}
-
-        # TAD results are JS-rendered — wait for them to appear via Playwright
+        # TAD property search — navigate to search page and interact via Playwright
+        # The URL-param approach returns 0 results; must use the search form directly
+        await page.goto("https://www.tad.org/property-search/", wait_until="networkidle", timeout=30_000)
         await asyncio.sleep(3)
 
-        # Try to find a property result link using Playwright (not BS4)
-        # TAD results table links typically contain account numbers or /property/
-        detail_link = None
-        result_link_loc = page.locator("a[href*='/property/'], a[href*='prop_id'], a[href*='/account/']").first
-        if await result_link_loc.count() > 0:
-            detail_link = await result_link_loc.get_attribute("href")
-            log.info(f"    TAD detail_link (Playwright): {detail_link!r}")
+        info = {}
+
+        # Find the Owner Name search input and submit
+        # TAD search page has a keyword/owner input
+        owner_inp = page.locator("input[placeholder*='Owner'], input[id*='owner'], input[name*='owner'], input[placeholder*='Search'], input[placeholder*='Name']").first
+        if await owner_inp.count() == 0:
+            # Try any visible text input
+            owner_inp = page.locator("input[type='text']:visible, input[type='search']:visible").first
+
+        if await owner_inp.count() > 0:
+            await owner_inp.click(click_count=3)
+            await owner_inp.press_sequentially(query, delay=50)
+            await asyncio.sleep(0.3)
+            await page.keyboard.press("Enter")
+            await asyncio.sleep(4)
+            log.info(f"    TAD searched for: {query!r}")
         else:
-            # Fallback: find links in results table/list area
-            table_link = page.locator("table a, .results a, .search-results a, [class*='result'] a").first
-            if await table_link.count() > 0:
-                detail_link = await table_link.get_attribute("href")
-                log.info(f"    TAD detail_link (table fallback): {detail_link!r}")
+            log.warning(f"    TAD: no search input found on property-search page")
 
-        # Also check for address directly on results page via Playwright
+        # Read results via Playwright live DOM
         page_text = await page.inner_text("body")
-        log.info(f"    TAD page text snippet: {page_text[:500].replace(chr(10),' ')!r}")
+        log.info(f"    TAD page text snippet: {page_text[:600].replace(chr(10),' ')!r}")
 
-        m_addr = re.search(r"(\d{3,5}\s+[A-Z0-9 ]{3,}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|LOOP))\s+([A-Z][A-Z ]+),?\s*TX\s*(7[5-9]\d{3})", page_text, re.I)
+        # Try address regex on results page text
+        m_addr = re.search(
+            r"(\d{3,5}\s+[A-Z0-9][A-Z0-9 ]{2,}"
+            r"(?:\s+(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|LOOP|PASS|XING|CV|BND|HWY|EXPY|RIDGE|HILL|GLEN|CHASE|PARK|PLACE|LANE|DRIVE|STREET|COURT|CIRCLE|TRAIL)))"
+            r"(?=\s|,|\n|$)",
+            page_text, re.I
+        )
         if m_addr:
             info["prop_address"] = re.sub(r"\s+", " ", m_addr.group(1)).strip()
-            info["prop_city"]    = m_addr.group(2).strip().title()
-            info["prop_state"]   = "TX"
-            info["prop_zip"]     = m_addr.group(3)
+
+        # Find first property result link via Playwright
+        detail_link = None
+        # Exclude /account/create and nav links — look for links with numeric IDs
+        for link_sel in [
+            "a[href*='/property/']",
+            "a[href*='AccountNumber']",
+            "table tbody tr:first-child a",
+            "[class*='result'] a:first-child",
+        ]:
+            loc = page.locator(link_sel).first
+            if await loc.count() > 0:
+                href = await loc.get_attribute("href") or ""
+                if href and "create" not in href and len(href) > 5:
+                    detail_link = href
+                    log.info(f"    TAD detail_link ({link_sel}): {href!r}")
+                    break
+
+        if not detail_link:
+            log.info("    TAD detail_link: None (no property links found in results)")
 
         if not info.get("prop_address") and detail_link:
             full_url = detail_link if detail_link.startswith("http") else f"https://www.tad.org{detail_link}"
