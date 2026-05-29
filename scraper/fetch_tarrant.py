@@ -300,36 +300,108 @@ class TarrantScraper:
         records = []
         try:
             await page.goto(PORTAL_URL, wait_until="networkidle", timeout=45_000)
-            await asyncio.sleep(2)
+            await asyncio.sleep(3)
 
+            # --- Debug: log all input fields found on the page ---
+            inputs = page.locator("input")
+            inp_count = await inputs.count()
+            log.info(f"  Tarrant portal inputs found: {inp_count}")
+            for i in range(min(inp_count, 15)):
+                inp = inputs.nth(i)
+                iid   = await inp.get_attribute("id") or ""
+                iname = await inp.get_attribute("name") or ""
+                itype = await inp.get_attribute("type") or ""
+                iph   = await inp.get_attribute("placeholder") or ""
+                log.info(f"    input[{i}] id={iid!r} name={iname!r} type={itype!r} placeholder={iph!r}")
+
+            # --- Try multiple selector strategies for date inputs ---
+            filled = False
+
+            # Strategy 1: exact IDs used previously
             start_inp = page.locator("#recordedDateRange-start")
             end_inp   = page.locator("#recordedDateRange-end")
-            if await start_inp.count() > 0:
-                await start_inp.click()
-                await start_inp.press("Control+a")
-                await start_inp.type(from_str, delay=50)
-                await asyncio.sleep(0.3)
-            if await end_inp.count() > 0:
-                await end_inp.click()
-                await end_inp.press("Control+a")
-                await end_inp.type(to_str, delay=50)
-                await asyncio.sleep(0.3)
-            await page.keyboard.press("Tab")
-            await asyncio.sleep(0.5)
+            if await start_inp.count() > 0 and await end_inp.count() > 0:
+                log.info("  Using selector: #recordedDateRange-start / -end")
+                await start_inp.click(); await asyncio.sleep(0.3)
+                await start_inp.fill(from_str); await asyncio.sleep(0.3)
+                await page.keyboard.press("Tab"); await asyncio.sleep(0.3)
+                await end_inp.click(); await asyncio.sleep(0.3)
+                await end_inp.fill(to_str); await asyncio.sleep(0.3)
+                await page.keyboard.press("Tab"); await asyncio.sleep(0.5)
+                filled = True
 
-            btn = page.locator("button:has-text('Search'), button[type='submit']").first
+            # Strategy 2: placeholder-based
+            if not filled:
+                s2 = page.locator("input[placeholder*='Start'], input[placeholder*='start'], input[placeholder*='From'], input[placeholder*='Begin']").first
+                e2 = page.locator("input[placeholder*='End'], input[placeholder*='end'], input[placeholder*='To']").first
+                if await s2.count() > 0 and await e2.count() > 0:
+                    log.info("  Using selector: placeholder start/end")
+                    await s2.click(); await s2.fill(from_str); await asyncio.sleep(0.3)
+                    await page.keyboard.press("Tab"); await asyncio.sleep(0.3)
+                    await e2.click(); await e2.fill(to_str); await asyncio.sleep(0.3)
+                    await page.keyboard.press("Tab"); await asyncio.sleep(0.5)
+                    filled = True
+
+            # Strategy 3: name-based
+            if not filled:
+                s3 = page.locator("input[name*='date'], input[name*='Date'], input[name*='from'], input[name*='start']").first
+                e3 = page.locator("input[name*='date']:nth-of-type(2), input[name*='to'], input[name*='end']").first
+                if await s3.count() > 0:
+                    log.info("  Using selector: name-based date inputs")
+                    await s3.click(); await s3.fill(from_str); await asyncio.sleep(0.3)
+                    await page.keyboard.press("Tab"); await asyncio.sleep(0.3)
+                    if await e3.count() > 0:
+                        await e3.click(); await e3.fill(to_str); await asyncio.sleep(0.3)
+                        await page.keyboard.press("Tab"); await asyncio.sleep(0.5)
+                    filled = True
+
+            # Strategy 4: fallback — fill first two date-type inputs
+            if not filled:
+                date_inputs = page.locator("input[type='date'], input[type='text']")
+                dc = await date_inputs.count()
+                log.info(f"  Fallback: filling first 2 of {dc} text/date inputs")
+                if dc >= 1:
+                    await date_inputs.nth(0).click()
+                    await date_inputs.nth(0).fill(from_str)
+                    await page.keyboard.press("Tab"); await asyncio.sleep(0.3)
+                if dc >= 2:
+                    await date_inputs.nth(1).click()
+                    await date_inputs.nth(1).fill(to_str)
+                    await page.keyboard.press("Tab"); await asyncio.sleep(0.5)
+                filled = dc >= 1
+
+            if not filled:
+                log.warning("  Could not locate date input fields on Tarrant portal!")
+                return records
+
+            # --- Submit ---
+            btn = page.locator("button:has-text('Search')").first
+            if await btn.count() == 0:
+                btn = page.locator("button[type='submit']").first
             if await btn.count() > 0 and await btn.is_enabled():
+                log.info("  Clicking Search button ...")
                 await btn.click()
+            else:
+                log.warning("  Search button not found or disabled — pressing Enter")
+                await page.keyboard.press("Enter")
+
             await page.wait_for_load_state("networkidle", timeout=30_000)
-            await asyncio.sleep(3)
+            await asyncio.sleep(4)
 
             content_check = await page.content()
             soup_check = BeautifulSoup(content_check, "lxml")
-            rows_check = soup_check.select("tr.rt-tr-group") or soup_check.select("tbody tr")
+            rows_check = (soup_check.select("tr.rt-tr-group") or
+                          soup_check.select("tbody tr") or
+                          soup_check.select("[class*='result-row']"))
             log.info(f"  Date-only search: {len(rows_check)} rows")
             if rows_check:
                 first = [c.get_text(strip=True) for c in rows_check[0].find_all(["td","th"])]
                 log.info(f"  First row: {first[:8]}")
+            else:
+                # Extra debug: check page title/url/text snippet
+                log.info(f"  Page URL after search: {page.url}")
+                snippet = (await page.inner_text("body"))[:400].replace("\n"," ")
+                log.info(f"  Page snippet: {snippet}")
 
             pn = 1
             while pn <= 20:
