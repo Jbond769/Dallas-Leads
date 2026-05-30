@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Dallas County Motivated Seller Leads</title>
+<title>TX Motivated Seller Leads</title>
 <style>
   :root {
     --bg: #0d1117;
@@ -17,6 +17,7 @@
     --blue: #58a6ff;
     --purple: #bc8cff;
     --red: #f85149;
+    --orange: #ffa657;
     --font: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +29,7 @@
     line-height: 1.6;
   }
  
-  /* ── Header ─────────────────────────────────────────── */
+  /* ── Header ── */
   header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -39,17 +40,46 @@
     flex-wrap: wrap;
     gap: 12px;
   }
-  header h1 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: .5px;
-  }
+  header h1 { font-size: 16px; font-weight: 700; color: var(--accent); letter-spacing: .5px; }
   header h1 span { color: var(--muted); font-weight: 400; }
   #meta { color: var(--muted); font-size: 11px; }
   #meta strong { color: var(--text); }
  
-  /* ── Stats bar ───────────────────────────────────────── */
+  /* ── Tabs ── */
+  #tabs {
+    display: flex;
+    gap: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 12px 20px;
+    transition: color .15s, border-color .15s;
+    letter-spacing: .5px;
+  }
+  .tab-btn:hover { color: var(--text); opacity: 1; }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn .tab-count {
+    background: var(--border);
+    border-radius: 10px;
+    font-size: 10px;
+    margin-left: 6px;
+    padding: 1px 6px;
+    color: var(--muted);
+  }
+  .tab-btn.active .tab-count { background: var(--accent); color: #fff; }
+ 
+  /* ── Stats bar ── */
   #stats {
     display: flex;
     gap: 16px;
@@ -58,15 +88,11 @@
     border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
   }
-  .stat {
-    display: flex;
-    flex-direction: column;
-    min-width: 90px;
-  }
+  .stat { display: flex; flex-direction: column; min-width: 90px; }
   .stat-val { font-size: 22px; font-weight: 700; color: var(--blue); }
   .stat-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
  
-  /* ── Controls ────────────────────────────────────────── */
+  /* ── Controls ── */
   #controls {
     padding: 12px 24px;
     display: flex;
@@ -85,9 +111,7 @@
     padding: 6px 10px;
     outline: none;
   }
-  input[type=text]:focus, select:focus {
-    border-color: var(--blue);
-  }
+  input[type=text]:focus, select:focus { border-color: var(--blue); }
   input[type=text] { width: 220px; }
   button {
     background: var(--accent);
@@ -109,16 +133,9 @@
   }
   #count-label { color: var(--muted); font-size: 11px; margin-left: auto; }
  
-  /* ── Table ───────────────────────────────────────────── */
-  #table-wrap {
-    overflow-x: auto;
-    padding: 16px 24px;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-  }
+  /* ── Table ── */
+  #table-wrap { overflow-x: auto; padding: 16px 24px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
   thead th {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -135,97 +152,75 @@
   thead th:hover { color: var(--text); }
   thead th.sorted-asc::after  { content: " ↑"; color: var(--blue); }
   thead th.sorted-desc::after { content: " ↓"; color: var(--blue); }
-  tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background .1s;
-  }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
   tbody tr:hover { background: #1c2128; }
-  td {
-    padding: 7px 10px;
-    vertical-align: top;
-    color: var(--text);
-    max-width: 200px;
-    word-break: break-word;
-  }
+  td { padding: 7px 10px; vertical-align: top; color: var(--text); max-width: 200px; word-break: break-word; }
  
-  /* ── Score pill ──────────────────────────────────────── */
-  .score {
-    display: inline-block;
-    border-radius: 12px;
-    padding: 2px 8px;
-    font-weight: 700;
-    font-size: 11px;
-    min-width: 36px;
-    text-align: center;
-  }
-  .score-high   { background: #1a3b2a; color: var(--green); border: 1px solid var(--green); }
-  .score-mid    { background: #2d2000; color: var(--yellow); border: 1px solid var(--yellow); }
-  .score-low    { background: #2a1a1a; color: var(--red); border: 1px solid var(--red); }
- 
-  /* ── Cat badge ───────────────────────────────────────── */
-  .badge {
+  /* ── County badge on row ── */
+  .county-tag {
     display: inline-block;
     border-radius: 4px;
-    padding: 1px 6px;
-    font-size: 10px;
+    padding: 1px 5px;
+    font-size: 9px;
     font-weight: 700;
-    white-space: nowrap;
+    margin-bottom: 2px;
   }
+  .county-dallas  { background: #1a2d4a; color: var(--blue); border: 1px solid var(--blue); }
+  .county-tarrant { background: #2a1a00; color: var(--orange); border: 1px solid var(--orange); }
+ 
+  /* ── Score pill ── */
+  .score { display: inline-block; border-radius: 12px; padding: 2px 8px; font-weight: 700; font-size: 11px; min-width: 36px; text-align: center; }
+  .score-high { background: #1a3b2a; color: var(--green); border: 1px solid var(--green); }
+  .score-mid  { background: #2d2000; color: var(--yellow); border: 1px solid var(--yellow); }
+  .score-low  { background: #2a1a1a; color: var(--red); border: 1px solid var(--red); }
+ 
+  /* ── Cat badge ── */
+  .badge { display: inline-block; border-radius: 4px; padding: 1px 6px; font-size: 10px; font-weight: 700; white-space: nowrap; }
   .badge-LP, .badge-RELLP  { background:#1a2d4a; color:var(--blue); }
   .badge-NOFC              { background:#2d1a1a; color:var(--red); }
   .badge-TAXDEED           { background:#2d2000; color:var(--yellow); }
   .badge-JUD,.badge-CCJ,.badge-DRJUD { background:#1e1a2d; color:var(--purple); }
   .badge-LNIRS,.badge-LNFED,.badge-LNCORPTX { background:#1a2a20; color:var(--green); }
   .badge-LN,.badge-LNMECH,.badge-LNHOA { background:#2a2a1a; color:#e3b341; }
-  .badge-MEDLN             { background:#2a1a2a; color:#bc8cff; }
-  .badge-PRO               { background:#1a2a2a; color:#56d3cc; }
-  .badge-NOC               { background:#2a2020; color:#ffa657; }
+  .badge-MEDLN { background:#2a1a2a; color:#bc8cff; }
+  .badge-PRO   { background:#1a2a2a; color:#56d3cc; }
+  .badge-NOC   { background:#2a2020; color:#ffa657; }
+  .badge-ASSIGN { background:#1a2a20; color:#3fb950; }
  
-  /* ── Flags ───────────────────────────────────────────── */
-  .flag {
-    display: inline-block;
-    background: #1c2128;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 9px;
-    padding: 1px 5px;
-    margin: 1px 1px 1px 0;
-    color: var(--muted);
-    white-space: nowrap;
-  }
+  /* ── Flags ── */
+  .flag { display: inline-block; background: #1c2128; border: 1px solid var(--border); border-radius: 4px; font-size: 9px; padding: 1px 5px; margin: 1px 1px 1px 0; color: var(--muted); white-space: nowrap; }
  
-  /* ── Link ────────────────────────────────────────────── */
   a { color: var(--blue); text-decoration: none; }
   a:hover { text-decoration: underline; }
  
-  /* ── Empty state ─────────────────────────────────────── */
-  #empty {
-    text-align: center;
-    padding: 60px 24px;
-    color: var(--muted);
-    font-size: 14px;
-  }
+  #empty { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 14px; }
  
-  /* ── Footer ──────────────────────────────────────────── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 12px 24px;
-    color: var(--muted);
-    font-size: 10px;
-    text-align: right;
-  }
+  /* ── Status indicator ── */
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .status-ok  { background: var(--green); }
+  .status-err { background: var(--red); }
+ 
+  footer { border-top: 1px solid var(--border); padding: 12px 24px; color: var(--muted); font-size: 10px; text-align: right; }
 </style>
 </head>
 <body>
  
 <header>
-  <h1>📋 Dallas County <span>/ Motivated Seller Leads</span></h1>
+  <h1>📋 TX Motivated Seller <span>/ Lead Dashboard</span></h1>
   <div id="meta">
     Last fetch: <strong id="fetched-at">—</strong> &nbsp;|&nbsp;
     Date range: <strong id="date-range">—</strong>
   </div>
 </header>
  
+<!-- Tabs -->
+<div id="tabs">
+  <button class="tab-btn active" onclick="switchTab('all')" id="tab-all">All Counties <span class="tab-count" id="tc-all">0</span></button>
+  <button class="tab-btn" onclick="switchTab('dallas')" id="tab-dallas">🏙 Dallas <span class="tab-count" id="tc-dallas">0</span></button>
+  <button class="tab-btn" onclick="switchTab('tarrant')" id="tab-tarrant">⭐ Tarrant <span class="tab-count" id="tc-tarrant">0</span></button>
+</div>
+ 
+<!-- Stats -->
 <div id="stats">
   <div class="stat"><span class="stat-val" id="s-total">—</span><span class="stat-lbl">Total Leads</span></div>
   <div class="stat"><span class="stat-val" id="s-addr">—</span><span class="stat-lbl">With Address</span></div>
@@ -235,6 +230,7 @@
   <div class="stat"><span class="stat-val" id="s-pro">—</span><span class="stat-lbl">Probate</span></div>
 </div>
  
+<!-- Controls -->
 <div id="controls">
   <input type="text" id="search" placeholder="Search owner, address, doc #…"/>
   <select id="filter-cat">
@@ -255,6 +251,7 @@
     <option value="PRO">Probate</option>
     <option value="NOC">Notice of Commencement</option>
     <option value="RELLP">Release Lis Pendens</option>
+    <option value="ASSIGN">Assignment</option>
   </select>
   <select id="filter-score">
     <option value="0">All Scores</option>
@@ -288,43 +285,80 @@
   <div id="empty" style="display:none">No records match your filters.</div>
 </div>
  
-<footer>Dallas County Motivated Seller Lead Scraper · Data sourced from Dallas County Clerk public records · Not legal advice</footer>
+<footer>TX Motivated Seller Lead Scraper · Dallas & Tarrant County Clerk public records · Not legal advice</footer>
  
 <script>
 let ALL_RECORDS = [];
+let DALLAS_RECORDS = [];
+let TARRANT_RECORDS = [];
 let sortCol = 'score', sortDir = -1;
+let activeTab = 'all';
  
 async function loadData() {
+  // Load Dallas
   try {
     const r = await fetch('records.json?_=' + Date.now());
     const d = await r.json();
-    ALL_RECORDS = d.records || [];
+    DALLAS_RECORDS = (d.records || []).map(r => ({...r, _county: 'dallas'}));
  
     document.getElementById('fetched-at').textContent =
       d.fetched_at ? new Date(d.fetched_at).toLocaleString() : '—';
     document.getElementById('date-range').textContent = d.date_range || '—';
- 
-    // Stats
-    document.getElementById('s-total').textContent = d.total ?? ALL_RECORDS.length;
-    document.getElementById('s-addr').textContent  = d.with_address ?? 0;
-    document.getElementById('s-high').textContent  = ALL_RECORDS.filter(r=>r.score>=70).length;
-    document.getElementById('s-lp').textContent    = ALL_RECORDS.filter(r=>r.cat==='LP').length;
-    document.getElementById('s-fc').textContent    = ALL_RECORDS.filter(r=>r.cat==='NOFC').length;
-    document.getElementById('s-pro').textContent   = ALL_RECORDS.filter(r=>r.cat==='PRO').length;
- 
-    renderTable();
   } catch(e) {
-    document.getElementById('empty').style.display = 'block';
-    document.getElementById('empty').textContent = 'Could not load records.json. Run the scraper first.';
+    console.warn('Dallas records not loaded:', e);
   }
+ 
+  // Load Tarrant
+  try {
+    const r2 = await fetch('records_tarrant.json?_=' + Date.now());
+    const d2 = await r2.json();
+    TARRANT_RECORDS = (d2.records || []).map(r => ({...r, _county: 'tarrant'}));
+  } catch(e) {
+    console.warn('Tarrant records not loaded:', e);
+  }
+ 
+  ALL_RECORDS = [...DALLAS_RECORDS, ...TARRANT_RECORDS];
+ 
+  // Tab counts
+  document.getElementById('tc-all').textContent = ALL_RECORDS.length;
+  document.getElementById('tc-dallas').textContent = DALLAS_RECORDS.length;
+  document.getElementById('tc-tarrant').textContent = TARRANT_RECORDS.length;
+ 
+  updateStats();
+  renderTable();
+}
+ 
+function getActiveRecords() {
+  if (activeTab === 'dallas') return DALLAS_RECORDS;
+  if (activeTab === 'tarrant') return TARRANT_RECORDS;
+  return ALL_RECORDS;
+}
+ 
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  updateStats();
+  renderTable();
+}
+ 
+function updateStats() {
+  const recs = getActiveRecords();
+  document.getElementById('s-total').textContent = recs.length;
+  document.getElementById('s-addr').textContent  = recs.filter(r => r.prop_address).length;
+  document.getElementById('s-high').textContent  = recs.filter(r => r.score >= 70).length;
+  document.getElementById('s-lp').textContent    = recs.filter(r => r.cat === 'LP').length;
+  document.getElementById('s-fc').textContent    = recs.filter(r => r.cat === 'NOFC').length;
+  document.getElementById('s-pro').textContent   = recs.filter(r => r.cat === 'PRO').length;
 }
  
 function getFiltered() {
   const q     = document.getElementById('search').value.toLowerCase().trim();
   const cat   = document.getElementById('filter-cat').value;
   const minSc = parseInt(document.getElementById('filter-score').value) || 0;
+  const base  = getActiveRecords();
  
-  return ALL_RECORDS.filter(r => {
+  return base.filter(r => {
     if (cat && r.cat !== cat) return false;
     if (r.score < minSc) return false;
     if (q) {
@@ -344,7 +378,7 @@ function renderTable() {
   });
  
   document.getElementById('count-label').textContent =
-    `Showing ${recs.length} of ${ALL_RECORDS.length} records`;
+    `Showing ${recs.length} of ${getActiveRecords().length} records`;
  
   const tbody = document.getElementById('leads-body');
   if (!recs.length) {
@@ -354,6 +388,8 @@ function renderTable() {
   }
   document.getElementById('empty').style.display = 'none';
  
+  const showCounty = activeTab === 'all';
+ 
   tbody.innerHTML = recs.map(r => {
     const sc    = r.score || 0;
     const scCls = sc >= 70 ? 'score-high' : sc >= 50 ? 'score-mid' : 'score-low';
@@ -362,9 +398,12 @@ function renderTable() {
     const propA = [r.prop_address, r.prop_city, r.prop_state, r.prop_zip].filter(Boolean).join(', ');
     const mailA = [r.mail_address, r.mail_city, r.mail_state, r.mail_zip].filter(Boolean).join(', ');
     const link  = r.clerk_url ? `<a href="${r.clerk_url}" target="_blank" rel="noopener">🔗 View</a>` : '—';
+    const countyTag = showCounty
+      ? `<div><span class="county-tag county-${r._county}">${r._county === 'dallas' ? 'DALLAS' : 'TARRANT'}</span></div>`
+      : '';
     return `<tr>
       <td><span class="score ${scCls}">${sc}</span></td>
-      <td><span class="badge badge-${r.cat}">${r.cat}</span><br/><span style="color:var(--muted);font-size:10px">${r.cat_label||''}</span></td>
+      <td>${countyTag}<span class="badge badge-${r.cat}">${r.cat}</span><br/><span style="color:var(--muted);font-size:10px">${r.cat_label||''}</span></td>
       <td style="white-space:nowrap">${r.filed||'—'}</td>
       <td>${r.owner||'—'}</td>
       <td>${propA||'—'}</td>
@@ -376,15 +415,11 @@ function renderTable() {
     </tr>`;
   }).join('');
  
-  // Update sort indicators
-  document.querySelectorAll('thead th').forEach(th => {
-    th.classList.remove('sorted-asc', 'sorted-desc');
-  });
+  document.querySelectorAll('thead th').forEach(th => th.classList.remove('sorted-asc','sorted-desc'));
   const cols = ['score','cat','filed','owner','prop_address','mail_address','amount','doc_num'];
   const idx  = cols.indexOf(sortCol);
   if (idx !== -1) {
-    const ths = document.querySelectorAll('thead th');
-    ths[idx].classList.add(sortDir === 1 ? 'sorted-asc' : 'sorted-desc');
+    document.querySelectorAll('thead th')[idx].classList.add(sortDir === 1 ? 'sorted-asc' : 'sorted-desc');
   }
 }
  
@@ -405,11 +440,10 @@ document.getElementById('search').addEventListener('input', renderTable);
 document.getElementById('filter-cat').addEventListener('change', renderTable);
 document.getElementById('filter-score').addEventListener('change', renderTable);
  
-// GHL CSV export
 function exportCSV() {
   const recs = getFiltered();
   const cols = [
-    'First Name','Last Name','Mailing Address','Mailing City','Mailing State','Mailing Zip',
+    'County','First Name','Last Name','Mailing Address','Mailing City','Mailing State','Mailing Zip',
     'Property Address','Property City','Property State','Property Zip',
     'Lead Type','Document Type','Date Filed','Document Number',
     'Amount/Debt Owed','Seller Score','Motivated Seller Flags','Source','Public Records URL'
@@ -421,20 +455,21 @@ function exportCSV() {
   };
   const rows = [cols, ...recs.map(r => {
     const [fn, ln] = splitName(r.owner);
+    const county = r._county === 'tarrant' ? 'Tarrant' : 'Dallas';
     return [
-      fn, ln,
+      county, fn, ln,
       r.mail_address, r.mail_city, r.mail_state||'TX', r.mail_zip,
-      r.prop_address, r.prop_city||'Dallas', r.prop_state||'TX', r.prop_zip,
+      r.prop_address, r.prop_city||county, r.prop_state||'TX', r.prop_zip,
       r.cat_label, r.doc_type, r.filed, r.doc_num,
       r.amount||'', r.score,
       (r.flags||[]).join('; '),
-      'Dallas County Clerk', r.clerk_url||''
+      county + ' County Clerk', r.clerk_url||''
     ];
   })];
   const csv = rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const a   = document.createElement('a');
   a.href    = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download= `dallas_ghl_${new Date().toISOString().slice(0,10)}.csv`;
+  a.download= `tx_leads_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
 }
  
