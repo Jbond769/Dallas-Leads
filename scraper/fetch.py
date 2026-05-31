@@ -173,6 +173,9 @@ async def _lookup_dcad(context, owner_name):
         info = {}
         all_text = all_text.replace("\xa0", " ")
 
+        # Debug: log page text so we can see DCAD format
+        log.info(f"    DCAD detail snippet: {all_text[:600].replace(chr(10),' ')!r}")
+
         m = re.search(r"Address:\s*(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+(?:Neighborhood|Mapsco|Suite|Bldg|DCAD|Property))", all_text, re.I)
         if m:
             info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
