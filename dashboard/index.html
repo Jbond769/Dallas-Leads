@@ -259,6 +259,11 @@
     <option value="60">Score ≥ 60</option>
     <option value="50">Score ≥ 50</option>
   </select>
+  <select id="filter-owner">
+    <option value="">All Owners</option>
+    <option value="person">👤 Person Only</option>
+    <option value="llc">🏢 LLC / Corp / Trust</option>
+  </select>
   <button onclick="exportCSV()">⬇ Export GHL CSV</button>
   <button class="secondary" onclick="clearFilters()">✕ Clear</button>
   <span id="count-label"></span>
@@ -358,9 +363,20 @@ function getFiltered() {
   const minSc = parseInt(document.getElementById('filter-score').value) || 0;
   const base  = getActiveRecords();
  
+  const ownerType = document.getElementById('filter-owner').value;
+  const LLC_TERMS = ['LLC','INC','CORP','TRUST','LTD','LP','BANK','MORTGAGE',
+    'CAPITAL','FINANCIAL','HOLDINGS','GROUP','PARTNERS','FUND','SERVICES',
+    'ASSOCIATION','BOARD','FEDERAL','NATIONAL','ELECTRONIC','MERS'];
+ 
   return base.filter(r => {
     if (cat && r.cat !== cat) return false;
     if (r.score < minSc) return false;
+    if (ownerType) {
+      const u = (r.owner || '').toUpperCase();
+      const isLLC = LLC_TERMS.some(t => u.includes(t));
+      if (ownerType === 'llc' && !isLLC) return false;
+      if (ownerType === 'person' && isLLC) return false;
+    }
     if (q) {
       const haystack = [r.owner, r.prop_address, r.mail_address, r.doc_num, r.doc_type, r.grantee]
         .join(' ').toLowerCase();
@@ -433,12 +449,14 @@ function clearFilters() {
   document.getElementById('search').value = '';
   document.getElementById('filter-cat').value = '';
   document.getElementById('filter-score').value = '0';
+  document.getElementById('filter-owner').value = '';
   renderTable();
 }
  
 document.getElementById('search').addEventListener('input', renderTable);
 document.getElementById('filter-cat').addEventListener('change', renderTable);
 document.getElementById('filter-score').addEventListener('change', renderTable);
+document.getElementById('filter-owner').addEventListener('change', renderTable);
  
 function exportCSV() {
   const recs = getFiltered();
