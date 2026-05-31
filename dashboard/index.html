@@ -394,7 +394,7 @@ function renderTable() {
     const sc    = r.score || 0;
     const scCls = sc >= 70 ? 'score-high' : sc >= 50 ? 'score-mid' : 'score-low';
     const flags = (r.flags || []).map(f => `<span class="flag">${f}</span>`).join('');
-    const amt   = r.amount ? '$' + Number(r.amount).toLocaleString() : '—';
+    const amt   = (r.amount != null && r.amount !== '') ? (r.amount > 0 ? '$' + Number(r.amount).toLocaleString() : '<span style="color:var(--muted)">$0</span>') : '—';
     const propA = [r.prop_address, r.prop_city, r.prop_state, r.prop_zip].filter(Boolean).join(', ');
     const mailA = [r.mail_address, r.mail_city, r.mail_state, r.mail_zip].filter(Boolean).join(', ');
     const link  = r.clerk_url ? `<a href="${r.clerk_url}" target="_blank" rel="noopener">🔗 View</a>` : '—';
