@@ -105,7 +105,10 @@ def _is_date(s):
     return bool(re.match(r"^\d{1,2}/\d{1,2}/\d{4}$",s.strip()))
 
 def _is_doc_num(s):
-    return bool(re.match(r"^\d{10,}$",s.strip()))
+    s = s.strip()
+    # Dallas: all digits 10+ chars e.g. 202600111370
+    # Tarrant: letter prefix + digits e.g. D205321418
+    return bool(re.match(r"^\d{10,}$", s) or re.match(r"^[A-Z]\d{6,}$", s))
 
 def _is_person(name):
     u = name.upper()
@@ -349,6 +352,11 @@ class TarrantScraper:
                         g2 = raw_cells[4].strip()
                         if g2 and g2 not in ("N/A","--/--/--") and not _is_date(g2):
                             grantee = g2
+                    # Tarrant doc num at index 7 e.g. D205321418
+                    if not doc_num and len(raw_cells) >= 8:
+                        candidate = raw_cells[7].strip()
+                        if _is_doc_num(candidate):
+                            doc_num = candidate
                     if len(raw_cells) >= 10:
                         city = raw_cells[9].strip()
                         if city and city not in ("N/A","--/--/--"):
