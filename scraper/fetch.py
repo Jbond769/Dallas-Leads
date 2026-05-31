@@ -74,9 +74,13 @@ TARGET_KEYWORDS = {
 }
 
 SEARCH_DOC_TYPES = [
-    "Lis Pendens","Notice of Foreclosure","Tax Deed","Judgment",
-    "Federal Tax Lien","State Tax Lien","Mechanic Lien",
-    "Hospital Lien","Lien","Probate","Notice of Commencement",
+    "Lis Pendens",
+    "Notice of Foreclosure",
+    "Tax Deed",
+    "Judgment",
+    "Federal Tax Lien",
+    "State Tax Lien",
+    "Probate",
 ]
 
 SKIP_TERMS = (
@@ -172,9 +176,6 @@ async def _lookup_dcad(context, owner_name):
         raw_html = detail_content
         info = {}
         all_text = all_text.replace("\xa0", " ")
-
-        # Debug: log page text so we can see DCAD format
-        log.info(f"    DCAD detail snippet: {all_text[:600].replace(chr(10),' ')!r}")
 
         m = re.search(r"Address:\s*(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+(?:Neighborhood|Mapsco|Suite|Bldg|DCAD|Property))", all_text, re.I)
         if m:
@@ -438,7 +439,16 @@ class DallasScraper:
 
             await browser.close()
 
-        all_records = [r for r in all_records if r.get("cat") and r["cat"] != "OTHER"]
+        # Remove non-distressed doc types: releases, assignments, transfers
+        EXCLUDE_TYPES = (
+            "RELEASE", "ASSIGNMENT", "TRANSFER", "SATISFACTION",
+            "DISCHARGE", "CANCELLATION", "RECONVEYANCE",
+        )
+        all_records = [
+            r for r in all_records
+            if r.get("cat") and r["cat"] != "OTHER"
+            and not any(ex in (r.get("doc_type") or "").upper() for ex in EXCLUDE_TYPES)
+        ]
         log.info(f"Total: {len(all_records)}")
         return all_records
 
