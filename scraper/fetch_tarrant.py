@@ -658,7 +658,16 @@ class TarrantScraper:
 
             await browser.close()
 
-        all_records = [r for r in all_records if r.get("cat") and r["cat"] != "OTHER"]
+        # Remove non-distressed doc types: releases, assignments, transfers
+        EXCLUDE_TYPES = (
+            "RELEASE", "ASSIGNMENT", "TRANSFER", "SATISFACTION",
+            "DISCHARGE", "CANCELLATION", "RECONVEYANCE",
+        )
+        all_records = [
+            r for r in all_records
+            if r.get("cat") and r["cat"] != "OTHER"
+            and not any(ex in (r.get("doc_type") or "").upper() for ex in EXCLUDE_TYPES)
+        ]
         log.info(f"Total: {len(all_records)}")
         return all_records
 
