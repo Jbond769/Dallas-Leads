@@ -382,8 +382,12 @@ function getFiltered() {
     if (ownerType) {
       const u = (r.owner || '').toUpperCase();
       const isLLC = LLC_TERMS.some(t => u.includes(t));
+      const granteeU = (r.grantee || r.person_name || '').toUpperCase();
+      const granteeIsLLC = LLC_TERMS.some(t => granteeU.includes(t));
+      const hasPersonGrantee = granteeU && !granteeIsLLC;
       if (ownerType === 'llc' && !isLLC) return false;
-      if (ownerType === 'person' && isLLC) return false;
+      // Person Only: show if owner is a person, OR if grantee is a person (bank as owner)
+      if (ownerType === 'person' && isLLC && !hasPersonGrantee) return false;
     }
     if (q) {
       const haystack = [r.owner, r.prop_address, r.mail_address, r.doc_num, r.doc_type, r.grantee]
@@ -429,7 +433,10 @@ function renderTable() {
       <td><span class="score ${scCls}">${sc}</span></td>
       <td>${countyTag}<span class="badge badge-${r.cat}">${r.cat}</span><br/><span style="color:var(--muted);font-size:10px">${r.cat_label||''}</span></td>
       <td style="white-space:nowrap">${r.filed||'—'}</td>
-      <td>${r.owner||'—'}</td>
+      <td>
+        ${r.owner||'—'}
+        ${(r.person_name || (r.grantee && r.grantee !== r.owner)) ? `<br/><span style="color:var(--green);font-size:10px">👤 ${r.person_name || r.grantee}</span>` : ''}
+      </td>
       <td>${propA||'—'}</td>
       <td>${mailA||'—'}</td>
       <td style="white-space:nowrap">${amt}</td>
