@@ -629,15 +629,31 @@ class TarrantScraper:
                 log.info(f"  Skipped {skipped_date} records outside date range")
             log.info(f"  → {len(all_records)} total records from date search")
 
-            # TAD address lookup for real person owners
-            person_records = [r for r in all_records if r.get("owner") and _is_person(r["owner"]) and not r.get("prop_address")]
+            # TAD address lookup
+            # If owner is a business, try grantee (the actual homeowner) instead
+            def _get_lookup_name(r):
+                if _is_person(r.get("owner", "")):
+                    return r["owner"], "owner"
+                grantee = r.get("grantee", "")
+                if grantee and _is_person(grantee):
+                    return grantee, "grantee"
+                return None, None
+
+            person_records = []
+            for r in all_records:
+                name, source = _get_lookup_name(r)
+                if name and not r.get("prop_address"):
+                    person_records.append((r, name, source))
+
             log.info(f"Looking up {len(person_records)} person records on TAD ...")
-            for i, r in enumerate(person_records[:50]):
-                info = await _lookup_tad(context, r["owner"])
+            for i, (r, name, source) in enumerate(person_records[:50]):
+                info = await _lookup_tad(context, name)
                 for f in ["prop_address","prop_city","prop_zip","mail_address","mail_city","mail_state","mail_zip"]:
                     if not r.get(f) and info.get(f):
                         r[f] = info[f]
-                log.info(f"  TAD {i+1}/{min(len(person_records),50)}: '{r['owner']}' → addr='{r.get('prop_address','')}' city='{r.get('prop_city','')}' zip='{r.get('prop_zip','')}'")
+                if source == "grantee" and not r.get("person_name"):
+                    r["person_name"] = name
+                log.info(f"  TAD {i+1}/{min(len(person_records),50)}: '{name}' ({source}) → addr='{r.get('prop_address','')}' city='{r.get('prop_city','')}' zip='{r.get('prop_zip','')}'")
                 await asyncio.sleep(0.5)
 
             await browser.close()
