@@ -613,10 +613,20 @@ class TarrantScraper:
 
             # Tarrant: search once with date range only, classify by doc type in parser
             recs = await self._search_all(page, from_str, to_str)
+            date_from_iso = self.date_from.strftime("%Y-%m-%d")
+            date_to_iso   = self.date_to.strftime("%Y-%m-%d")
+            skipped_date  = 0
             for r in recs:
+                # Post-filter: reject records outside our date range
+                filed = r.get("filed", "")
+                if filed and (filed < date_from_iso or filed > date_to_iso):
+                    skipped_date += 1
+                    continue
                 key = r.get("doc_num") or f"{r['doc_type']}{r['filed']}{r['owner']}"
                 if key and key not in seen:
                     seen.add(key); all_records.append(r)
+            if skipped_date:
+                log.info(f"  Skipped {skipped_date} records outside date range")
             log.info(f"  → {len(all_records)} total records from date search")
 
             # TAD address lookup for real person owners
