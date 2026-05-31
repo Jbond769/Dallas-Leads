@@ -364,9 +364,17 @@ function getFiltered() {
   const base  = getActiveRecords();
  
   const ownerType = document.getElementById('filter-owner').value;
-  const LLC_TERMS = ['LLC','INC','CORP','TRUST','LTD','LP','BANK','MORTGAGE',
+  const LLC_TERMS = [
+    'LLC','INC','CORP','TRUST','LTD','LP','BANK','MORTGAGE',
     'CAPITAL','FINANCIAL','HOLDINGS','GROUP','PARTNERS','FUND','SERVICES',
-    'ASSOCIATION','BOARD','FEDERAL','NATIONAL','ELECTRONIC','MERS'];
+    'ASSOCIATION','BOARD','FEDERAL','NATIONAL','ELECTRONIC','MERS',
+    'CREDIT','MANAGEMENT','INVESTMENT','PROPERTIES','REALTY','VENTURES',
+    'SOLUTIONS','SYSTEMS','ENTERPRISES','INDUSTRIES','CONSTRUCTION',
+    'DEVELOPMENT','ACQUISITIONS','LENDING','FUNDING','EQUITY',
+    ' CITY',' COUNTY',' DISTRICT','MUNICIPALITY','GOVERNMENT',
+    'NEIGHBORHOOD','HOUSING','COORDINATING','EDUCATION','STAPLES',
+    'HARVEST','JPMORGAN','CHASE','WHOLESALE','HOMEOWNERS'
+  ];
  
   return base.filter(r => {
     if (cat && r.cat !== cat) return false;
