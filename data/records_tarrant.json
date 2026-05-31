@@ -1,12 +1,12 @@
 {
-  "fetched_at": "2026-05-31T14:37:12.827574Z",
+  "fetched_at": "2026-05-31T14:52:47.093927Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
   "date_range": "2026-05-24 to 2026-05-31",
   "total": 5,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "",
+      "doc_num": "D205317099",
       "doc_type": "JUDGMENT",
       "filed": "2005-10-24",
       "cat": "JUD",
@@ -15,7 +15,7 @@
       "grantee": "WHITE DEBORAH A",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D205317099",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -30,7 +30,7 @@
       "score": 40
     },
     {
-      "doc_num": "",
+      "doc_num": "D205322102",
       "doc_type": "LIEN",
       "filed": "2005-10-28",
       "cat": "LN",
@@ -39,7 +39,7 @@
       "grantee": "WRIGHT RANDALL R SR",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D205322102",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -54,7 +54,7 @@
       "score": 40
     },
     {
-      "doc_num": "",
+      "doc_num": "D205327971",
       "doc_type": "JUDGMENT",
       "filed": "2005-11-02",
       "cat": "JUD",
@@ -63,7 +63,7 @@
       "grantee": "DWIGHT E DENMAN PC",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D205327971",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -78,7 +78,7 @@
       "score": 40
     },
     {
-      "doc_num": "",
+      "doc_num": "D205327255",
       "doc_type": "JUDGMENT",
       "filed": "2005-11-02",
       "cat": "JUD",
@@ -87,7 +87,7 @@
       "grantee": "WHATLEY CORNELIA",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D205327255",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -102,7 +102,7 @@
       "score": 40
     },
     {
-      "doc_num": "",
+      "doc_num": "D205321415",
       "doc_type": "LIEN",
       "filed": "2005-10-27",
       "cat": "LN",
@@ -111,7 +111,7 @@
       "grantee": "THOMSON RICHARD L",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D205321415",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
