@@ -127,7 +127,6 @@ def _dcad_query(name):
 
 
 async def _lookup_dcad(context, owner_name):
-    """Query DCAD owner search and return address info. Uses a fresh page each call."""
     if not _is_person(owner_name):
         return {}
     query = _dcad_query(owner_name)
@@ -153,7 +152,6 @@ async def _lookup_dcad(context, owner_name):
         content = await page.content()
         soup = BeautifulSoup(content, "lxml")
 
-        # Find first AcctDetail link
         detail_link = None
         for a in soup.find_all("a", href=True):
             if "AcctDetail" in a["href"]:
@@ -171,22 +169,14 @@ async def _lookup_dcad(context, owner_name):
         detail_content = await page.content()
         dsoup = BeautifulSoup(detail_content, "lxml")
         all_text = dsoup.get_text(" ", strip=True)
-        # (debug snippet removed)
-        # Also keep raw HTML for zip extraction (zip may be in attributes/links not in text)
         raw_html = detail_content
-
         info = {}
-
-        # Normalize non-breaking spaces to regular spaces
         all_text = all_text.replace("\xa0", " ")
 
-        # DCAD format: "Address: 1218  PATRICIA LN Neighborhood: ... Mapsco: 29-A (GARLAND) ..."
-        # Strategy 1: grab street after "Address:" stop at Neighborhood/Mapsco/Suite/Bldg
         m = re.search(r"Address:\s*(\d+\s+[A-Z0-9][A-Z0-9 ]{3,}?)(?:\s{2,}|\s+(?:Neighborhood|Mapsco|Suite|Bldg|DCAD|Property))", all_text, re.I)
         if m:
             info["prop_address"] = re.sub(r"\s+", " ", m.group(1)).strip()
 
-        # Strategy 2: scan for street number + words + known suffix
         if not info.get("prop_address"):
             m = re.search(
                 r"\b(\d{3,5}\s+(?:[A-Z]+\s+){1,4}(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL|PKWY|HWY|LOOP|PASS|XING|TRCE|COVE|CV|RUN|BND|PARK|WALK))\b",
@@ -197,12 +187,10 @@ async def _lookup_dcad(context, owner_name):
                 if not any(b in candidate.upper() for b in bad):
                     info["prop_address"] = candidate
 
-        # City is in parentheses after Mapsco: "Mapsco: 29-A (GARLAND)" or "Mapsco: 64-G (DALLAS)"
         m_city = re.search(r"Mapsco:\s*[\w\-]+\s+\(([A-Z][A-Z ]+)\)", all_text, re.I)
         if m_city:
             info["prop_city"] = m_city.group(1).strip().title()
 
-        # Zip: search visible text first, then raw HTML (zip may be in href/attributes)
         zip_matches = re.findall(r"\b(7[5-9]\d{3})\b", all_text)
         if not zip_matches:
             zip_matches = re.findall(r"\b(7[5-9]\d{3})\b", raw_html)
@@ -210,8 +198,6 @@ async def _lookup_dcad(context, owner_name):
             info["prop_zip"]   = zip_matches[0]
             info["prop_state"] = "TX"
 
-        # Zip from mailing/owner block: "GARLAND, TEXAS  75042" or "DALLAS TX 75236"
-        # Also try raw HTML decoded (replace &nbsp; entities)
         if not info.get("prop_zip"):
             html_decoded = raw_html.replace("&nbsp;", " ")
             zip_html = re.findall(r"\b(7[5-9]\d{3})\b", html_decoded)
@@ -219,20 +205,15 @@ async def _lookup_dcad(context, owner_name):
                 info["prop_zip"]   = zip_html[0]
                 info["prop_state"] = "TX"
 
-        # Zip from owner mailing line in visible text
         if not info.get("prop_zip"):
             m_zip2 = re.search(r"(?:TEXAS|TX)[,\s]+(7[5-9]\d{3})", all_text, re.I)
             if m_zip2:
                 info["prop_zip"]   = m_zip2.group(1)
                 info["prop_state"] = "TX"
 
-        # Mailing address — look for owner mailing section
-        # Format: "HENRY NYRONE L & VASQUEZ ARIEL C 1218 PATRICIA LN GARLAND, TEXAS  75042"
-        # Try to get mail address from owner block if different from situs
         m3 = re.search(r"Owner \(Current \d{4}\)\s+(.+?)\s{3,}", all_text, re.I)
         if m3:
             owner_block = m3.group(1).strip()
-            # Extract trailing address from owner block
             ma = re.search(r"(\d+\s+[A-Z0-9 ]+(?:LN|DR|ST|AVE|BLVD|RD|WAY|CT|CIR|PL|TRL)[^\d]*)", owner_block, re.I)
             if ma:
                 info["mail_address"] = re.sub(r"\s+", " ", ma.group(1)).strip()
@@ -402,16 +383,25 @@ class DallasScraper:
             except Exception as exc:
                 log.error(f"Portal load failed: {exc}"); await browser.close(); return []
 
-            from_str = self.date_from.strftime("%m/%d/%Y")
-            to_str   = self.date_to.strftime("%m/%d/%Y")
+            from_str     = self.date_from.strftime("%m/%d/%Y")
+            to_str       = self.date_to.strftime("%m/%d/%Y")
+            date_from_iso = self.date_from.strftime("%Y-%m-%d")
+            date_to_iso   = self.date_to.strftime("%Y-%m-%d")
 
             for dt in SEARCH_DOC_TYPES:
                 recs = await self._search_one(page, dt, from_str, to_str)
-                added = 0
+                added = 0; skipped_date = 0
                 for r in recs:
+                    # Post-filter: reject records outside our date range
+                    filed = r.get("filed", "")
+                    if filed and (filed < date_from_iso or filed > date_to_iso):
+                        skipped_date += 1
+                        continue
                     key = r.get("doc_num") or f"{r['doc_type']}{r['filed']}{r['owner']}"
                     if key and key not in seen:
                         seen.add(key); all_records.append(r); added += 1
+                if skipped_date:
+                    log.info(f"  Skipped {skipped_date} records outside date range")
                 log.info(f"  → {added} new for '{dt}' (total: {len(all_records)})")
                 await asyncio.sleep(1)
 
