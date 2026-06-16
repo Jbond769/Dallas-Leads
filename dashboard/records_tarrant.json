@@ -1,8 +1,62 @@
 {
-  "fetched_at": "2026-06-15T13:08:13.686451Z",
+  "fetched_at": "2026-06-16T12:08:10.522366Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-06-08 to 2026-06-15",
-  "total": 0,
+  "date_range": "2026-06-09 to 2026-06-16",
+  "total": 2,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "D226110541",
+      "doc_type": "LIEN",
+      "filed": "2026-06-09",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "SENDERA RANCH MASTER ASSOCIATION INC",
+      "grantee": "MC AVOY DAVID",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226110541",
+      "prop_address": "",
+      "prop_city": "Subdivision: SENDERA RANCH, Lot: 10, Block: 74",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "MC AVOY DAVID"
+    },
+    {
+      "doc_num": "D226112980",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-06-11",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "FORD MOTOR CREDIT COMPANY",
+      "grantee": "SATTERWHITE KARREE",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226112980",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "SATTERWHITE KARREE"
+    }
+  ]
 }
