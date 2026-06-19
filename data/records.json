@@ -1,36 +1,10 @@
 {
-  "fetched_at": "2026-06-18T11:05:06.896285Z",
+  "fetched_at": "2026-06-19T11:14:05.177484Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-06-11 to 2026-06-18",
+  "date_range": "2026-06-12 to 2026-06-19",
   "total": 5,
-  "with_address": 1,
+  "with_address": 0,
   "records": [
-    {
-      "doc_num": "202600125635",
-      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
-      "filed": "2026-06-11",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "WESTHAVEN BUILDERS LLC",
-      "grantee": "REED PLUMBING INC",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600125635",
-      "prop_address": "",
-      "prop_city": "ROWLETT",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55
-    },
     {
       "doc_num": "202600126452",
       "doc_type": "LIS PENDENS (NOTICE OF)",
@@ -58,43 +32,16 @@
       "score": 55
     },
     {
-      "doc_num": "202600125648",
+      "doc_num": "202600126429",
       "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-06-11",
+      "filed": "2026-06-12",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "CITIBANK",
-      "grantee": "THOMAS CHARLES E",
+      "owner": "SCIL TEXAS LLC DBA",
+      "grantee": "DOTSON KRISTINI",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600125648",
-      "prop_address": "5600 JUNIUS ST",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "75218",
-      "mail_address": "9941 WOODGROVE DR DALLAS, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Judgment lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50,
-      "person_name": "THOMAS CHARLES E"
-    },
-    {
-      "doc_num": "202600125726",
-      "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-06-11",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "CAPITAL ONE",
-      "grantee": "BAQUIRAN ROSIELYN V",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600125726",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600126429",
       "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
@@ -105,10 +52,38 @@
       "mail_zip": "",
       "flags": [
         "Judgment lien",
-        "New this week"
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45,
-      "person_name": "BAQUIRAN ROSIELYN V"
+      "score": 55,
+      "person_name": "DOTSON KRISTINI"
+    },
+    {
+      "doc_num": "202600127606",
+      "doc_type": "ABSTRACT OF JUDGMENT",
+      "filed": "2026-06-15",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "VELOCITY INVESTMENTS LLC",
+      "grantee": "CHOWDHURY MC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600127606",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "CHOWDHURY MC"
     },
     {
       "doc_num": "202600126745",
@@ -135,6 +110,31 @@
       ],
       "score": 45,
       "person_name": "GAMINO CYNTHIA B"
+    },
+    {
+      "doc_num": "202600127745",
+      "doc_type": "LIS PENDENS (NOTICE OF)",
+      "filed": "2026-06-15",
+      "cat": "LP",
+      "cat_label": "Lis Pendens",
+      "owner": "HRUSKA ROB",
+      "grantee": "HERNANDEZ DANIEL",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600127745",
+      "prop_address": "",
+      "prop_city": "DALLAS",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lis pendens",
+        "New this week"
+      ],
+      "score": 45
     }
   ]
 }
