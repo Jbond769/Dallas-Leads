@@ -1,8 +1,113 @@
 {
-  "fetched_at": "2026-06-20T10:02:18.766351Z",
+  "fetched_at": "2026-06-21T10:29:30.066149Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-06-13 to 2026-06-20",
-  "total": 0,
+  "date_range": "2026-06-14 to 2026-06-21",
+  "total": 4,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "D226114602",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-06-15",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "INTEGRAS CAPITAL RECOVERY LLC",
+      "grantee": "TROY TONY B",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226114602",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "TROY TONY B"
+    },
+    {
+      "doc_num": "D226115227",
+      "doc_type": "HOCHNER JULIEN",
+      "filed": "2026-06-15",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "WEEKLEY HOMES LLC",
+      "grantee": "HOCHNER JULIEN",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226115227",
+      "prop_address": "",
+      "prop_city": "MANSFIELD, Subdivision: SOUTHPOINTE, Lot: 44, Block: 1",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "HOCHNER JULIEN"
+    },
+    {
+      "doc_num": "D226114522",
+      "doc_type": "LIEN",
+      "filed": "2026-06-15",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "GRAPEVINE CITY",
+      "grantee": "ALAVI FAMILY TRUST",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226114522",
+      "prop_address": "",
+      "prop_city": "GRAPEVINE, Subdivision: GRAPEVINE MILLS, Lot: 4, Block: 2",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226114745",
+      "doc_type": "MECHANICS LIEN AFFIDAVIT",
+      "filed": "2026-06-15",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "ACTION GYPSUM SUPPLY LP",
+      "grantee": "FW BABERS MANOR LP",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226114745",
+      "prop_address": "",
+      "prop_city": "Subdivision: EASTWOOD, Lot: 1, Block: 33R",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Mechanic lien",
+        "New this week"
+      ],
+      "score": 45
+    }
+  ]
 }
