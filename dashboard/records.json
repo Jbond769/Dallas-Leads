@@ -1,9 +1,9 @@
 {
-  "fetched_at": "2026-06-21T10:25:02.586113Z",
+  "fetched_at": "2026-06-22T12:43:33.121964Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-06-14 to 2026-06-21",
+  "date_range": "2026-06-15 to 2026-06-22",
   "total": 7,
-  "with_address": 1,
+  "with_address": 0,
   "records": [
     {
       "doc_num": "202600127606",
@@ -137,32 +137,6 @@
       "score": 55
     },
     {
-      "doc_num": "202600128746",
-      "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-06-16",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "LANDKOF EILA",
-      "grantee": "YOUNG LITTLETON",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600128746",
-      "prop_address": "939 CAROM WAY",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "211 HOPE ST #",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Judgment lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50
-    },
-    {
       "doc_num": "202600127745",
       "doc_type": "LIS PENDENS (NOTICE OF)",
       "filed": "2026-06-15",
@@ -183,6 +157,31 @@
       "mail_zip": "",
       "flags": [
         "Lis pendens",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "202600128746",
+      "doc_type": "ABSTRACT OF JUDGMENT",
+      "filed": "2026-06-16",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "LANDKOF EILA",
+      "grantee": "YOUNG LITTLETON",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600128746",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
         "New this week"
       ],
       "score": 45

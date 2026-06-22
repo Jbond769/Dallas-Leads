@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-06-21T10:29:30.066149Z",
+  "fetched_at": "2026-06-22T12:51:50.934394Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-06-14 to 2026-06-21",
-  "total": 4,
+  "date_range": "2026-06-15 to 2026-06-22",
+  "total": 5,
   "with_address": 0,
   "records": [
     {
@@ -108,6 +108,32 @@
         "New this week"
       ],
       "score": 45
+    },
+    {
+      "doc_num": "D226115309",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-06-15",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "WELLS FARGO BANK",
+      "grantee": "BARRETT KOLTON C",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226115309",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "BARRETT KOLTON C"
     }
   ]
 }
