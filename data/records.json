@@ -1,77 +1,21 @@
 {
-  "fetched_at": "2026-06-25T10:11:31.102890Z",
+  "fetched_at": "2026-06-26T10:14:06.182385Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-06-18 to 2026-06-25",
-  "total": 5,
-  "with_address": 3,
+  "date_range": "2026-06-19 to 2026-06-26",
+  "total": 2,
+  "with_address": 0,
   "records": [
     {
-      "doc_num": "202600131289",
-      "doc_type": "FEDERAL TAX LIEN",
-      "filed": "2026-06-18",
-      "cat": "LNFED",
-      "cat_label": "Federal Tax Lien",
-      "owner": "CLAYBORN INC",
-      "grantee": "U S A INTERNAL REVENUE SERVICE",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600131289",
-      "prop_address": "3008 W JEFFERSON BLVD",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "76102",
-      "mail_address": "801 CHERRY ST UNIT",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Tax lien",
-        "New this week",
-        "Has property address",
-        "LLC/corp owner"
-      ],
-      "score": 60,
-      "person_name": "U S A INTERNAL REVENUE SERVICE"
-    },
-    {
-      "doc_num": "202600131288",
-      "doc_type": "FEDERAL TAX LIEN",
-      "filed": "2026-06-18",
-      "cat": "LNFED",
-      "cat_label": "Federal Tax Lien",
-      "owner": "WING CITY LLC",
-      "grantee": "U S A INTERNAL REVENUE SERVICE",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600131288",
-      "prop_address": "3008 W JEFFERSON BLVD",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "76102",
-      "mail_address": "801 CHERRY ST UNIT",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Tax lien",
-        "New this week",
-        "Has property address",
-        "LLC/corp owner"
-      ],
-      "score": 60,
-      "person_name": "U S A INTERNAL REVENUE SERVICE"
-    },
-    {
-      "doc_num": "202600131071",
+      "doc_num": "202600132697",
       "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-06-18",
+      "filed": "2026-06-22",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "SOUTHWOOD FINANCIAL TRUST I",
-      "grantee": "WHALEY JEREMIAH W",
+      "owner": "ALISONS CORNER 2012 LLC",
+      "grantee": "4B CONSTRUCTION SERVICES LLC",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600131071",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600132697",
       "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
@@ -85,8 +29,7 @@
         "New this week",
         "LLC/corp owner"
       ],
-      "score": 55,
-      "person_name": "WHALEY JEREMIAH W"
+      "score": 55
     },
     {
       "doc_num": "202600131629",
@@ -114,32 +57,6 @@
       ],
       "score": 55,
       "person_name": "HAYS CLINT AIF"
-    },
-    {
-      "doc_num": "202600131054",
-      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
-      "filed": "2026-06-18",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "COVE DALLAS MULTIFAMILY 59 DBA",
-      "grantee": "STAR PERSONNEL II LLC",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600131054",
-      "prop_address": "1255 W PLEASANT RUN RD",
-      "prop_city": "LANCASTER",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "59 DST 2958 COLUMBIA ST TORRANCE, CALIFORNIA",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50
     }
   ]
 }
