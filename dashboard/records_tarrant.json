@@ -1,8 +1,88 @@
 {
-  "fetched_at": "2026-06-26T10:20:04.399472Z",
+  "fetched_at": "2026-06-27T09:28:26.893162Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-06-19 to 2026-06-26",
-  "total": 0,
+  "date_range": "2026-06-20 to 2026-06-27",
+  "total": 3,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "D226118870",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-06-22",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "DAIMLER TRUCK FINANCIAL SERVICES USA LLC",
+      "grantee": "JAMES MARSHA RENEE",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226118870",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "JAMES MARSHA RENEE"
+    },
+    {
+      "doc_num": "D226118843",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-06-22",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "SYNCHRONY BANK",
+      "grantee": "JOPLIN CAROLINE J",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226118843",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "JOPLIN CAROLINE J"
+    },
+    {
+      "doc_num": "D226118914",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-06-22",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "FROST BANK",
+      "grantee": "ALLISON COREY SR",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226118914",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "ALLISON COREY SR"
+    }
+  ]
 }
