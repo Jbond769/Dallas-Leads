@@ -1,21 +1,21 @@
 {
-  "fetched_at": "2026-06-29T11:58:53.656887Z",
+  "fetched_at": "2026-06-30T10:32:06.877584Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-06-22 to 2026-06-29",
+  "date_range": "2026-06-23 to 2026-06-30",
   "total": 3,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226118870",
+      "doc_num": "D226120195",
       "doc_type": "JUDGMENT",
-      "filed": "2026-06-22",
+      "filed": "2026-06-23",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "DAIMLER TRUCK FINANCIAL SERVICES USA LLC",
-      "grantee": "JAMES MARSHA RENEE",
+      "owner": "TEXAS TRUST CREDIT UNION",
+      "grantee": "CHANDLER KENDRICK",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226118870",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226120195",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -30,19 +30,19 @@
         "LLC/corp owner"
       ],
       "score": 55,
-      "person_name": "JAMES MARSHA RENEE"
+      "person_name": "CHANDLER KENDRICK"
     },
     {
-      "doc_num": "D226118843",
+      "doc_num": "D226121246",
       "doc_type": "JUDGMENT",
-      "filed": "2026-06-22",
+      "filed": "2026-06-24",
       "cat": "JUD",
       "cat_label": "Judgment",
       "owner": "SYNCHRONY BANK",
-      "grantee": "JOPLIN CAROLINE J",
+      "grantee": "CRUZ JOSEPH",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226118843",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226121246",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -56,21 +56,21 @@
         "New this week"
       ],
       "score": 45,
-      "person_name": "JOPLIN CAROLINE J"
+      "person_name": "CRUZ JOSEPH"
     },
     {
-      "doc_num": "D226118914",
-      "doc_type": "JUDGMENT",
-      "filed": "2026-06-22",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "FROST BANK",
-      "grantee": "ALLISON COREY SR",
+      "doc_num": "D226121921",
+      "doc_type": "LIEN",
+      "filed": "2026-06-24",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "MARINE CREEK RANCH EAST OWNERS ASSOCIATION",
+      "grantee": "BODDU SUDHAKAR",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226118914",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226121921",
       "prop_address": "",
-      "prop_city": "Fort Worth",
+      "prop_city": "Subdivision: MARINE CREEK RANCH, Lot: 33, Block: 18",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -78,11 +78,11 @@
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Judgment lien",
+        "Lien",
         "New this week"
       ],
       "score": 45,
-      "person_name": "ALLISON COREY SR"
+      "person_name": "BODDU SUDHAKAR"
     }
   ]
 }
