@@ -1,23 +1,23 @@
 {
-  "fetched_at": "2026-07-02T10:00:57.879215Z",
+  "fetched_at": "2026-07-03T09:54:02.167646Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-06-25 to 2026-07-02",
+  "date_range": "2026-06-26 to 2026-07-03",
   "total": 2,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226122165",
-      "doc_type": "JUDGMENT",
-      "filed": "2026-06-25",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "GREEN MOUNTAIN ELECTRIC SUPPLY INC",
-      "grantee": "ZERO DISTRIBUTION LLC",
+      "doc_num": "D226123742",
+      "doc_type": "MECHANICS LIEN AFFIDAVIT",
+      "filed": "2026-06-26",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "JDR RESTORATION AND REMODELING INC",
+      "grantee": "WHITT RONALD J",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226122165",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226123742",
       "prop_address": "",
-      "prop_city": "Fort Worth",
+      "prop_city": "Subdivision: WALNUT CREEK VALLEY, Lot: 11, Block: 7",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -25,11 +25,12 @@
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Judgment lien",
+        "Mechanic lien",
         "New this week",
         "LLC/corp owner"
       ],
-      "score": 55
+      "score": 55,
+      "person_name": "WHITT RONALD J"
     },
     {
       "doc_num": "D226123361",
