@@ -1,23 +1,23 @@
 {
-  "fetched_at": "2026-07-03T09:54:02.167646Z",
+  "fetched_at": "2026-07-04T09:17:29.568429Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-06-26 to 2026-07-03",
-  "total": 2,
+  "date_range": "2026-06-27 to 2026-07-04",
+  "total": 1,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226123742",
+      "doc_num": "D226124212",
       "doc_type": "MECHANICS LIEN AFFIDAVIT",
-      "filed": "2026-06-26",
+      "filed": "2026-06-29",
       "cat": "LNMECH",
       "cat_label": "Mechanic Lien",
-      "owner": "JDR RESTORATION AND REMODELING INC",
-      "grantee": "WHITT RONALD J",
+      "owner": "CIRCLE H CONTRACTORS LP",
+      "grantee": "BROOKS HOMES INC",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226123742",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226124212",
       "prop_address": "",
-      "prop_city": "Subdivision: WALNUT CREEK VALLEY, Lot: 11, Block: 7",
+      "prop_city": "KENNEDALE, Subdivision: RAY JONES, Lot: 1",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -26,37 +26,9 @@
       "mail_zip": "",
       "flags": [
         "Mechanic lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55,
-      "person_name": "WHITT RONALD J"
-    },
-    {
-      "doc_num": "D226123361",
-      "doc_type": "JUDGMENT",
-      "filed": "2026-06-26",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "SYNCHRONY BANK",
-      "grantee": "JEFFERSON KRYSTINA S",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226123361",
-      "prop_address": "",
-      "prop_city": "Fort Worth",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Judgment lien",
         "New this week"
       ],
-      "score": 45,
-      "person_name": "JEFFERSON KRYSTINA S"
+      "score": 45
     }
   ]
 }

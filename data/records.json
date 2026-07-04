@@ -1,36 +1,10 @@
 {
-  "fetched_at": "2026-07-03T09:49:54.030217Z",
+  "fetched_at": "2026-07-04T09:13:29.627863Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-06-26 to 2026-07-03",
-  "total": 5,
-  "with_address": 2,
+  "date_range": "2026-06-27 to 2026-07-04",
+  "total": 1,
+  "with_address": 1,
   "records": [
-    {
-      "doc_num": "202600136591",
-      "doc_type": "HOSPITAL LIEN",
-      "filed": "2026-06-26",
-      "cat": "MEDLN",
-      "cat_label": "Hospital Lien",
-      "owner": "BROOKS JIMMIE",
-      "grantee": "METHODIST HEALTH SYSTEM DBA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600136591",
-      "prop_address": "4409 CARLTON DR",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "75043",
-      "mail_address": "4409 CARLTON DR GARLAND, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50
-    },
     {
       "doc_num": "202600136967",
       "doc_type": "ASSESSMENT LIEN BY HOMEOWNERS ASN",
@@ -56,81 +30,6 @@
         "Has property address"
       ],
       "score": 50
-    },
-    {
-      "doc_num": "202600136587",
-      "doc_type": "HOSPITAL LIEN",
-      "filed": "2026-06-26",
-      "cat": "MEDLN",
-      "cat_label": "Hospital Lien",
-      "owner": "TOMIN TOMAS NIX",
-      "grantee": "METHODIST HEALTH SYSTEM DBA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600136587",
-      "prop_address": "",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week"
-      ],
-      "score": 45
-    },
-    {
-      "doc_num": "202600136550",
-      "doc_type": "HOSPITAL LIEN",
-      "filed": "2026-06-26",
-      "cat": "MEDLN",
-      "cat_label": "Hospital Lien",
-      "owner": "GARDUNO JENNIFER",
-      "grantee": "METHODIST HEALTH SYSTEM DBA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600136550",
-      "prop_address": "",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week"
-      ],
-      "score": 45
-    },
-    {
-      "doc_num": "202600136393",
-      "doc_type": "LIENDO KELLY LEIGH",
-      "filed": "2026-06-26",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "LIENDO KELLY LEIGH",
-      "grantee": "CMG MORTGAGE INC DBA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600136393",
-      "prop_address": "",
-      "prop_city": "ROWLETT",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week"
-      ],
-      "score": 45
     }
   ]
 }
