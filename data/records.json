@@ -1,47 +1,48 @@
 {
-  "fetched_at": "2026-07-08T09:20:37.345054Z",
+  "fetched_at": "2026-07-09T10:18:17.736769Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-07-01 to 2026-07-08",
-  "total": 3,
-  "with_address": 0,
+  "date_range": "2026-07-02 to 2026-07-09",
+  "total": 4,
+  "with_address": 1,
   "records": [
     {
-      "doc_num": "202600139755",
-      "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-07-01",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "JPMORGAN CHASE BANK",
-      "grantee": "BELL CRAMER ASHLIE",
+      "doc_num": "202600140620",
+      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
+      "filed": "2026-07-02",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "SHILLOW GLORIA D ESTATE",
+      "grantee": "DUNCANVILLE CITY",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600139755",
-      "prop_address": "",
-      "prop_city": "Dallas",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600140620",
+      "prop_address": "1015 DOVE CREEK DR",
+      "prop_city": "DUNCANVILLE",
       "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
+      "prop_zip": "75116",
+      "mail_address": "1015 DOVE CREEK DR DUNCANVILLE, TEXAS",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Judgment lien",
-        "New this week"
+        "Lien",
+        "New this week",
+        "Has property address",
+        "LLC/corp owner"
       ],
-      "score": 45,
-      "person_name": "BELL CRAMER ASHLIE"
+      "score": 60
     },
     {
-      "doc_num": "202600139776",
-      "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-07-01",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "JPMORGAN CHASE BANK",
-      "grantee": "SEGOVIA ELMER U MELENDEZ",
+      "doc_num": "202600140591",
+      "doc_type": "STATE TAX LIEN",
+      "filed": "2026-07-02",
+      "cat": "LNCORPTX",
+      "cat_label": "State Tax Lien",
+      "owner": "RAISING THE BAR LLC",
+      "grantee": "TEXAS STATE OF",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600139776",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600140591",
       "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
@@ -51,23 +52,23 @@
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Judgment lien",
-        "New this week"
+        "Tax lien",
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45,
-      "person_name": "SEGOVIA ELMER U MELENDEZ"
+      "score": 55
     },
     {
-      "doc_num": "202600139777",
+      "doc_num": "202600140993",
       "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-07-01",
+      "filed": "2026-07-02",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "JPMORGAN CHASE BANK",
-      "grantee": "BRICENO WILLIE J",
+      "owner": "ELEVATED TRADING LLC",
+      "grantee": "RELIABLE ROOFING&CONSTRUCTION TEXAS LLC",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600139777",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600140993",
       "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
@@ -78,10 +79,36 @@
       "mail_zip": "",
       "flags": [
         "Judgment lien",
-        "New this week"
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45,
-      "person_name": "BRICENO WILLIE J"
+      "score": 55
+    },
+    {
+      "doc_num": "202600140847",
+      "doc_type": "STATE TAX LIEN",
+      "filed": "2026-07-02",
+      "cat": "LNCORPTX",
+      "cat_label": "State Tax Lien",
+      "owner": "WINPIN 85 INVESTMENTS LLC",
+      "grantee": "TEXAS STATE OF",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600140847",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Tax lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
     }
   ]
 }
