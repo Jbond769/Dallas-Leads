@@ -1,74 +1,21 @@
 {
-  "fetched_at": "2026-07-09T10:18:17.736769Z",
+  "fetched_at": "2026-07-10T10:14:12.617501Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-07-02 to 2026-07-09",
-  "total": 4,
-  "with_address": 1,
+  "date_range": "2026-07-03 to 2026-07-10",
+  "total": 1,
+  "with_address": 0,
   "records": [
     {
-      "doc_num": "202600140620",
-      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
-      "filed": "2026-07-02",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "SHILLOW GLORIA D ESTATE",
-      "grantee": "DUNCANVILLE CITY",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600140620",
-      "prop_address": "1015 DOVE CREEK DR",
-      "prop_city": "DUNCANVILLE",
-      "prop_state": "TX",
-      "prop_zip": "75116",
-      "mail_address": "1015 DOVE CREEK DR DUNCANVILLE, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "Has property address",
-        "LLC/corp owner"
-      ],
-      "score": 60
-    },
-    {
-      "doc_num": "202600140591",
-      "doc_type": "STATE TAX LIEN",
-      "filed": "2026-07-02",
-      "cat": "LNCORPTX",
-      "cat_label": "State Tax Lien",
-      "owner": "RAISING THE BAR LLC",
-      "grantee": "TEXAS STATE OF",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600140591",
-      "prop_address": "",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Tax lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55
-    },
-    {
-      "doc_num": "202600140993",
+      "doc_num": "202600142927",
       "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-07-02",
+      "filed": "2026-07-06",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "ELEVATED TRADING LLC",
-      "grantee": "RELIABLE ROOFING&CONSTRUCTION TEXAS LLC",
+      "owner": "SYNCHRONY BANK",
+      "grantee": "PETERSON DYLAN",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600140993",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600142927",
       "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
@@ -79,36 +26,10 @@
       "mail_zip": "",
       "flags": [
         "Judgment lien",
-        "New this week",
-        "LLC/corp owner"
+        "New this week"
       ],
-      "score": 55
-    },
-    {
-      "doc_num": "202600140847",
-      "doc_type": "STATE TAX LIEN",
-      "filed": "2026-07-02",
-      "cat": "LNCORPTX",
-      "cat_label": "State Tax Lien",
-      "owner": "WINPIN 85 INVESTMENTS LLC",
-      "grantee": "TEXAS STATE OF",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600140847",
-      "prop_address": "",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Tax lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55
+      "score": 45,
+      "person_name": "PETERSON DYLAN"
     }
   ]
 }
