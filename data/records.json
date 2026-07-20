@@ -1,9 +1,9 @@
 {
-  "fetched_at": "2026-07-19T09:01:11.172967Z",
+  "fetched_at": "2026-07-20T09:49:41.698939Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-07-12 to 2026-07-19",
+  "date_range": "2026-07-13 to 2026-07-20",
   "total": 6,
-  "with_address": 0,
+  "with_address": 1,
   "records": [
     {
       "doc_num": "202600149395",
@@ -58,29 +58,30 @@
       "score": 55
     },
     {
-      "doc_num": "202600148939",
-      "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-07-13",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "HOWARD DUSTIN",
-      "grantee": "SOATES FELIPE",
+      "doc_num": "202600148963",
+      "doc_type": "ASSESSMENT LIEN BY HOMEOWNERS ASN",
+      "filed": "2026-07-14",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "GARZA RAMIRO",
+      "grantee": "HAYS CLINT AIF",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600148939",
-      "prop_address": "",
-      "prop_city": "Dallas",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600148963",
+      "prop_address": "7823 COURTNEY ST",
+      "prop_city": "DALLAS",
       "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
+      "prop_zip": "75217",
+      "mail_address": "7823 COURTNEY ST DALLAS, TEXAS",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Judgment lien",
-        "New this week"
+        "Lien",
+        "New this week",
+        "Has property address"
       ],
-      "score": 45
+      "score": 50
     },
     {
       "doc_num": "202600149339",
@@ -134,18 +135,18 @@
       "score": 45
     },
     {
-      "doc_num": "202600148963",
-      "doc_type": "ASSESSMENT LIEN BY HOMEOWNERS ASN",
-      "filed": "2026-07-14",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "GARZA RAMIRO",
-      "grantee": "HAYS CLINT AIF",
+      "doc_num": "202600148939",
+      "doc_type": "ABSTRACT OF JUDGMENT",
+      "filed": "2026-07-13",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "HOWARD DUSTIN",
+      "grantee": "SOATES FELIPE",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600148963",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600148939",
       "prop_address": "",
-      "prop_city": "DALLAS",
+      "prop_city": "Dallas",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -153,7 +154,7 @@
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Lien",
+        "Judgment lien",
         "New this week"
       ],
       "score": 45
