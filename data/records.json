@@ -1,8 +1,86 @@
 {
-  "fetched_at": "2026-07-27T10:32:19.772022Z",
+  "fetched_at": "2026-07-28T09:30:38.306317Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-07-20 to 2026-07-27",
-  "total": 0,
+  "date_range": "2026-07-21 to 2026-07-28",
+  "total": 3,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "202600156254",
+      "doc_type": "ABSTRACT OF JUDGMENT",
+      "filed": "2026-07-22",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "IMH CITY VIEW PLANO LLC",
+      "grantee": "BRACANE COMPANY INC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600156254",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
+    },
+    {
+      "doc_num": "202600156848",
+      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
+      "filed": "2026-07-22",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "PECOS HOUSING FINANCE CORP",
+      "grantee": "THURGOOD INC DBA",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600156848",
+      "prop_address": "",
+      "prop_city": "IRVING",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
+    },
+    {
+      "doc_num": "202600157319",
+      "doc_type": "PROBATE PROCEEDINGS",
+      "filed": "2026-07-23",
+      "cat": "PRO",
+      "cat_label": "Probate / Estate",
+      "owner": "CONDO LAVADA ZELL DECD",
+      "grantee": "CONDO LAVADA ZELL DECD",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600157319",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Probate / estate",
+        "New this week"
+      ],
+      "score": 45
+    }
+  ]
 }
