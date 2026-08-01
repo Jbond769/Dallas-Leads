@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-07-31T09:41:02.371123Z",
+  "fetched_at": "2026-08-01T09:06:03.902737Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-07-24 to 2026-07-31",
-  "total": 2,
+  "date_range": "2026-07-25 to 2026-08-01",
+  "total": 1,
   "with_address": 0,
   "records": [
     {
@@ -30,33 +30,6 @@
         "LLC/corp owner"
       ],
       "score": 55
-    },
-    {
-      "doc_num": "D226144137",
-      "doc_type": "JUDGMENT",
-      "filed": "2026-07-24",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "MIDLAND CREDIT MANAGEMENT INC",
-      "grantee": "JACOBSON KIM",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226144137",
-      "prop_address": "",
-      "prop_city": "Fort Worth",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Judgment lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55,
-      "person_name": "JACOBSON KIM"
     }
   ]
 }
