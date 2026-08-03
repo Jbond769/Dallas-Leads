@@ -1,8 +1,35 @@
 {
-  "fetched_at": "2026-08-02T09:10:29.036122Z",
+  "fetched_at": "2026-08-03T10:38:06.261758Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-07-26 to 2026-08-02",
-  "total": 0,
+  "date_range": "2026-07-27 to 2026-08-03",
+  "total": 1,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "D226144874",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-07-27",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "RESIDEO LLC",
+      "grantee": "CANNON SYSTEM DESIGN LLC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226144874",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
+    }
+  ]
 }
