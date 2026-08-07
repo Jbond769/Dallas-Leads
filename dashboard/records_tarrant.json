@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-08-06T09:40:28.195745Z",
+  "fetched_at": "2026-08-07T08:10:47.942011Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-07-30 to 2026-08-06",
-  "total": 3,
+  "date_range": "2026-07-31 to 2026-08-07",
+  "total": 6,
   "with_address": 0,
   "records": [
     {
@@ -26,6 +26,32 @@
       "mail_zip": "",
       "flags": [
         "Judgment lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
+    },
+    {
+      "doc_num": "D226148981",
+      "doc_type": "MECHANICS LIEN AFFIDAVIT",
+      "filed": "2026-07-31",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "HD SUPPLY FACILITIES MAINTENANCE LTD",
+      "grantee": "SPI CHISHOLM TRAIL 328 DE LLC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226148981",
+      "prop_address": "",
+      "prop_city": "FORT WORTH, Subdivision: OVERTON SOUTH, Lot: 1, Block: 20",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Mechanic lien",
         "New this week",
         "LLC/corp owner"
       ],
@@ -58,18 +84,18 @@
       "score": 55
     },
     {
-      "doc_num": "D226148029",
+      "doc_num": "D226148721",
       "doc_type": "LIEN",
-      "filed": "2026-07-30",
+      "filed": "2026-07-31",
       "cat": "LN",
       "cat_label": "Lien",
-      "owner": "MANSFIELD CITY",
-      "grantee": "ANDERSON BENJAMIN",
+      "owner": "FORT WORTH PARKVIEW HOMEOWNERS ASSOCIATION",
+      "grantee": "MAYO JAMES",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226148029",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226148721",
       "prop_address": "",
-      "prop_city": "Fort Worth",
+      "prop_city": "FORT WORTH, Subdivision: CREEKSIDE ESTATES, Lot: 53, Block: 6",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -81,7 +107,58 @@
         "New this week"
       ],
       "score": 45,
-      "person_name": "ANDERSON BENJAMIN"
+      "person_name": "MAYO JAMES"
+    },
+    {
+      "doc_num": "D226148712",
+      "doc_type": "LIEN",
+      "filed": "2026-07-31",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "FORT WORTH PARKVIEW HOMEOWNERS' ASSOCIATION",
+      "grantee": "HALL JANICE",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226148712",
+      "prop_address": "",
+      "prop_city": "FORT WORTH, Subdivision: CREEKSIDE ESTATES, Lot: 5, Block: 9",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "HALL JANICE"
+    },
+    {
+      "doc_num": "D226148689",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-07-31",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "NIELSEN DARRIN",
+      "grantee": "CASH FLOW ASSETS LLC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226148689",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week"
+      ],
+      "score": 45
     }
   ]
 }
