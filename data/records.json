@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-08-12T08:08:49.448430Z",
+  "fetched_at": "2026-08-13T08:10:48.261933Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-08-05 to 2026-08-12",
-  "total": 7,
+  "date_range": "2026-08-06 to 2026-08-13",
+  "total": 6,
   "with_address": 3,
   "records": [
     {
@@ -58,26 +58,26 @@
       "score": 50
     },
     {
-      "doc_num": "202600167481",
-      "doc_type": "STATE TAX LIEN",
-      "filed": "2026-08-05",
-      "cat": "LNCORPTX",
-      "cat_label": "State Tax Lien",
-      "owner": "MOSS PETROLEUM COMPANY",
-      "grantee": "TEXAS STATE OF",
+      "doc_num": "202600168157",
+      "doc_type": "ASSESSMENT LIEN BY HOMEOWNERS ASN",
+      "filed": "2026-08-06",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "PAGELS CAYLA ANN",
+      "grantee": "SANDHURST MANOR CONDOMINIUM ASSOCIATION INC",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600167481",
-      "prop_address": "134 RIVEREDGE DR",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600168157",
+      "prop_address": "6017 SANDHURST LN",
       "prop_city": "Dallas",
       "prop_state": "TX",
-      "prop_zip": "75207",
-      "mail_address": "134 RIVEREDGE DR DALLAS, TEXAS",
+      "prop_zip": "75206",
+      "mail_address": "6017 SANDHURST LN DALLAS, TEXAS",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Tax lien",
+        "Lien",
         "New this week",
         "Has property address"
       ],
@@ -129,31 +129,6 @@
       "mail_zip": "",
       "flags": [
         "Lien",
-        "New this week"
-      ],
-      "score": 45
-    },
-    {
-      "doc_num": "202600167009",
-      "doc_type": "LIS PENDENS (NOTICE OF)",
-      "filed": "2026-08-05",
-      "cat": "LP",
-      "cat_label": "Lis Pendens",
-      "owner": "DALLAS CITY",
-      "grantee": "COLUMBIA PACKING OF TEXAS LTD",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600167009",
-      "prop_address": "",
-      "prop_city": "DALLAS",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lis pendens",
         "New this week"
       ],
       "score": 45
