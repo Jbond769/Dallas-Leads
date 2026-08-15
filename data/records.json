@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-08-14T08:06:50.537312Z",
+  "fetched_at": "2026-08-15T07:21:42.535375Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-08-07 to 2026-08-14",
-  "total": 7,
+  "date_range": "2026-08-08 to 2026-08-15",
+  "total": 4,
   "with_address": 0,
   "records": [
     {
@@ -108,83 +108,6 @@
         "LLC/corp owner"
       ],
       "score": 55
-    },
-    {
-      "doc_num": "202600169533",
-      "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-08-07",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "AD BUYS HOUSES LLC",
-      "grantee": "AUBREY ALISHA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600169533",
-      "prop_address": "",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Judgment lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55,
-      "person_name": "AUBREY ALISHA"
-    },
-    {
-      "doc_num": "202600169254",
-      "doc_type": "ASSESSMENT LIEN BY HOMEOWNERS ASN",
-      "filed": "2026-08-07",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "SIMPSON KRISTI JAMELLE",
-      "grantee": "AUSTIN JUDD A JR AIF",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600169254",
-      "prop_address": "",
-      "prop_city": "GARLAND",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week"
-      ],
-      "score": 45
-    },
-    {
-      "doc_num": "202600169333",
-      "doc_type": "ASSESSMENT LIEN BY HOMEOWNERS ASN",
-      "filed": "2026-08-07",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "NAGAI GEORGE",
-      "grantee": "HAYS CLINT",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600169333",
-      "prop_address": "",
-      "prop_city": "RICHARDSON",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week"
-      ],
-      "score": 45
     }
   ]
 }
