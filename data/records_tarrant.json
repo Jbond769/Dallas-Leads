@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-08-26T07:40:38.972411Z",
+  "fetched_at": "2026-08-27T18:02:37.893310Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-08-19 to 2026-08-26",
-  "total": 2,
+  "date_range": "2026-08-20 to 2026-08-27",
+  "total": 6,
   "with_address": 0,
   "records": [
     {
@@ -33,16 +33,16 @@
       "person_name": "MAINA ROSE N"
     },
     {
-      "doc_num": "D226161850",
+      "doc_num": "D226163082",
       "doc_type": "JUDGMENT",
-      "filed": "2026-08-19",
+      "filed": "2026-08-20",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "CITIBANK",
-      "grantee": "RITTER NICHOLAS F",
+      "owner": "STELLANTIS FINANCIAL SERVICES INC",
+      "grantee": "WEBSTER DARCELL DALONTE",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226161850",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226163082",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -53,10 +53,118 @@
       "mail_zip": "",
       "flags": [
         "Judgment lien",
-        "New this week"
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45,
-      "person_name": "RITTER NICHOLAS F"
+      "score": 55,
+      "person_name": "WEBSTER DARCELL DALONTE"
+    },
+    {
+      "doc_num": "D226163182",
+      "doc_type": "LIEN",
+      "filed": "2026-08-20",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "WALNUT CREEK NORTH HOMEOWNER'S ASSOCIATION INC",
+      "grantee": "1302 LAKE MEADOW TRUST",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226163182",
+      "prop_address": "",
+      "prop_city": "MANSFIELD, Subdivision: WALNUT CREEK NORTH, Lot: 18, Block: 6",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
+    },
+    {
+      "doc_num": "D226162993",
+      "doc_type": "MECHANICS LIEN AFFIDAVIT",
+      "filed": "2026-08-20",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "LOCHRIDGE-PRIEST INC",
+      "grantee": "STAR TELEGRAM",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226162993",
+      "prop_address": "",
+      "prop_city": "Subdivision: HIRSCHFIELD, Lot: 2R, Block: 74",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Mechanic lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "STAR TELEGRAM"
+    },
+    {
+      "doc_num": "D226163370",
+      "doc_type": "LIEN",
+      "filed": "2026-08-20",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "NORTHPOINTE RESIDENTIAL COMMUNITY INC",
+      "grantee": "RIVAS ESTEBAN M RUIZ",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226163370",
+      "prop_address": "",
+      "prop_city": "Subdivision: NORTHPOINTE, Lot: 29, Block: T",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "RIVAS ESTEBAN M RUIZ"
+    },
+    {
+      "doc_num": "D226163360",
+      "doc_type": "LIEN",
+      "filed": "2026-08-20",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "NORTHPOINTE RESIDENTIAL COMMUNITY INC",
+      "grantee": "REYES DELMAR EVENOR",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226163360",
+      "prop_address": "",
+      "prop_city": "Subdivision: NORTHPOINTE, Lot: 54, Block: A",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "REYES DELMAR EVENOR"
     }
   ]
 }
