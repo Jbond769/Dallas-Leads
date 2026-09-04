@@ -1,59 +1,8 @@
 {
-  "fetched_at": "2026-09-03T11:51:32.438306Z",
+  "fetched_at": "2026-09-04T11:56:53.116567Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-08-27 to 2026-09-03",
-  "total": 2,
+  "date_range": "2026-08-28 to 2026-09-04",
+  "total": 0,
   "with_address": 0,
-  "records": [
-    {
-      "doc_num": "D226167927",
-      "doc_type": "STATE TAX LIEN - PROPERTY",
-      "filed": "2026-08-27",
-      "cat": "LNCORPTX",
-      "cat_label": "State Tax Lien",
-      "owner": "TEXAS LOTTERY",
-      "grantee": "AUSAD CORPORATION LLC",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226167927",
-      "prop_address": "",
-      "prop_city": "Fort Worth",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Tax lien",
-        "New this week"
-      ],
-      "score": 45
-    },
-    {
-      "doc_num": "D226168782",
-      "doc_type": "CHILD SUPPORT LIEN",
-      "filed": "2026-08-28",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "TEXAS STATE ATTORNEY GENERAL",
-      "grantee": "GRAY DANIELLE SHACOLE",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226168782",
-      "prop_address": "",
-      "prop_city": "Fort Worth",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week"
-      ],
-      "score": 45
-    }
-  ]
+  "records": []
 }
