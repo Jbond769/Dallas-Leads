@@ -1,8 +1,86 @@
 {
-  "fetched_at": "2026-09-04T11:56:53.116567Z",
+  "fetched_at": "2026-09-05T11:05:02.840458Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-08-28 to 2026-09-04",
-  "total": 0,
+  "date_range": "2026-08-29 to 2026-09-05",
+  "total": 3,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "D226171880",
+      "doc_type": "LIEN",
+      "filed": "2026-09-01",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "VIRIDIAN RESIDENTIAL ASSOCIATION INC",
+      "grantee": "MANEDRROO INDU",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226171880",
+      "prop_address": "",
+      "prop_city": "ARLINGTON, Subdivision: VIRIDIAN VILLAGE 1F, Lot: 13",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "MANEDRROO INDU"
+    },
+    {
+      "doc_num": "D226171709",
+      "doc_type": "STATE TAX LIEN - PROPERTY",
+      "filed": "2026-09-01",
+      "cat": "LNCORPTX",
+      "cat_label": "State Tax Lien",
+      "owner": "TEXAS STATE",
+      "grantee": "PTCAA TEXAS LP",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226171709",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Tax lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226171713",
+      "doc_type": "STATE TAX LIEN - PROPERTY",
+      "filed": "2026-09-01",
+      "cat": "LNCORPTX",
+      "cat_label": "State Tax Lien",
+      "owner": "TEXAS STATE",
+      "grantee": "RALLY HOUSE OF TEXAS INC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226171713",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Tax lien",
+        "New this week"
+      ],
+      "score": 45
+    }
+  ]
 }
