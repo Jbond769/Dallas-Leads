@@ -1,35 +1,8 @@
 {
-  "fetched_at": "2026-09-07T13:07:45.789997Z",
+  "fetched_at": "2026-09-08T11:53:31.141823Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-08-31 to 2026-09-07",
-  "total": 1,
+  "date_range": "2026-09-01 to 2026-09-08",
+  "total": 0,
   "with_address": 0,
-  "records": [
-    {
-      "doc_num": "202600184531",
-      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
-      "filed": "2026-08-31",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "HEDGESTONE INVESTMENTS LLC",
-      "grantee": "ESTRADA READY MIX CONCRETE LLC",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600184531",
-      "prop_address": "",
-      "prop_city": "DALLAS",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55
-    }
-  ]
+  "records": []
 }

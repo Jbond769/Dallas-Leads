@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-09-07T13:11:00.136130Z",
+  "fetched_at": "2026-09-08T11:54:53.869375Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-08-31 to 2026-09-07",
-  "total": 3,
+  "date_range": "2026-09-01 to 2026-09-08",
+  "total": 4,
   "with_address": 0,
   "records": [
     {
@@ -81,6 +81,32 @@
         "New this week"
       ],
       "score": 45
+    },
+    {
+      "doc_num": "D226170659",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-09-01",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "FROST BANK",
+      "grantee": "DAVIS DENZEL",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226170659",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "DAVIS DENZEL"
     }
   ]
 }
