@@ -1,23 +1,23 @@
 {
-  "fetched_at": "2026-09-10T12:01:49.600645Z",
+  "fetched_at": "2026-09-11T12:00:13.907531Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-09-03 to 2026-09-10",
+  "date_range": "2026-09-04 to 2026-09-11",
   "total": 2,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226173194",
+      "doc_num": "D226174453",
       "doc_type": "MECHANICS LIEN AFFIDAVIT",
-      "filed": "2026-09-03",
+      "filed": "2026-09-04",
       "cat": "LNMECH",
       "cat_label": "Mechanic Lien",
-      "owner": "CANYONDALE LP",
-      "grantee": "CENTER STREET COMPLEX LLC",
+      "owner": "HSF CONCRETE LLC",
+      "grantee": "LONE STAR CONCRETE SYSTEMS",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226173194",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226174453",
       "prop_address": "",
-      "prop_city": "Subdivision: ORIGINAL TOWN ARLINGTON, Lot: 1R1A, Block: 2",
+      "prop_city": "WESTLAKE, Subdivision: WESTLAKE ENTRADA, Lot: 5, Block: M",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -26,21 +26,23 @@
       "mail_zip": "",
       "flags": [
         "Mechanic lien",
-        "New this week"
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45
+      "score": 55,
+      "person_name": "LONE STAR CONCRETE SYSTEMS"
     },
     {
-      "doc_num": "D226172997",
+      "doc_num": "D226174535",
       "doc_type": "JUDGMENT",
-      "filed": "2026-09-03",
+      "filed": "2026-09-04",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "CAPITAL ONE",
-      "grantee": "SHIRLEY MARCY",
+      "owner": "EASY STONES DOING BUSINESS AS",
+      "grantee": "LONE STAR GRANITE AND FLOORS LLC",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226172997",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226174535",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -53,8 +55,7 @@
         "Judgment lien",
         "New this week"
       ],
-      "score": 45,
-      "person_name": "SHIRLEY MARCY"
+      "score": 45
     }
   ]
 }
