@@ -1,64 +1,10 @@
 {
-  "fetched_at": "2026-09-18T12:06:50.119277Z",
+  "fetched_at": "2026-09-19T11:47:20.636957Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-09-11 to 2026-09-18",
-  "total": 6,
+  "date_range": "2026-09-12 to 2026-09-19",
+  "total": 5,
   "with_address": 0,
   "records": [
-    {
-      "doc_num": "D226178038",
-      "doc_type": "LIEN",
-      "filed": "2026-09-11",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "LAKE PARKS WEST HOMEOWNERS ASSOCIATION INC",
-      "grantee": "FLOYD RODERICK",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226178038",
-      "prop_address": "",
-      "prop_city": "Subdivision: LAKE PARKS WEST, Lot: 14, Block: 2",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55,
-      "person_name": "FLOYD RODERICK"
-    },
-    {
-      "doc_num": "D226178036",
-      "doc_type": "LIEN",
-      "filed": "2026-09-11",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "LAKE PARKS WEST HOMEOWNERS ASSOCIATION INC",
-      "grantee": "MWAKITWILE JOHNSON",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226178036",
-      "prop_address": "",
-      "prop_city": "Subdivision: LAKE PARKS WEST, Lot: 38, Block: 1",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55,
-      "person_name": "MWAKITWILE JOHNSON"
-    },
     {
       "doc_num": "D226179225",
       "doc_type": "LIEN",
@@ -87,43 +33,16 @@
       "person_name": "SALAZAR LOUIS F"
     },
     {
-      "doc_num": "D226180578",
-      "doc_type": "LIEN",
-      "filed": "2026-09-15",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "VISTA WEST HOMEOWNERS ASSOCIATION INC",
-      "grantee": "MOLINAR JOHN JR",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226180578",
-      "prop_address": "",
-      "prop_city": "Subdivision: VISTA WEST II, Lot: 1, Block: 7",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55,
-      "person_name": "MOLINAR JOHN JR"
-    },
-    {
-      "doc_num": "D226177932",
+      "doc_num": "D226179241",
       "doc_type": "JUDGMENT",
-      "filed": "2026-09-11",
+      "filed": "2026-09-14",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "CAPITAL ONE",
-      "grantee": "BRAWNER KRISTIN ASHLEY",
+      "owner": "TEXAS TREE TOPS TREE SERVICES LLC",
+      "grantee": "BUSINESS RISING LLC",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226177932",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226179241",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -134,10 +53,10 @@
       "mail_zip": "",
       "flags": [
         "Judgment lien",
-        "New this week"
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45,
-      "person_name": "BRAWNER KRISTIN ASHLEY"
+      "score": 55
     },
     {
       "doc_num": "D226179245",
@@ -160,6 +79,56 @@
       "mail_zip": "",
       "flags": [
         "Lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226178973",
+      "doc_type": "LIEN",
+      "filed": "2026-09-14",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "TEXAS HEALTH HUGULEY HOSPITAL",
+      "grantee": "ALFORD JANPRIS",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226178973",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226179563",
+      "doc_type": "MECHANICS LIEN AFFIDAVIT",
+      "filed": "2026-09-14",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "GFS TEXAS",
+      "grantee": "HAMPTON INN",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226179563",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Mechanic lien",
         "New this week"
       ],
       "score": 45
