@@ -1,7 +1,7 @@
 {
-  "fetched_at": "2026-09-20T11:54:37.363602Z",
+  "fetched_at": "2026-09-21T13:28:01.729044Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-09-13 to 2026-09-20",
+  "date_range": "2026-09-14 to 2026-09-21",
   "total": 16,
   "with_address": 7,
   "records": [
@@ -201,7 +201,7 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600198422",
-      "prop_address": "6319 JEANE ST",
+      "prop_address": "2141 MACK LN",
       "prop_city": "DALLAS",
       "prop_state": "TX",
       "prop_zip": "75227",
