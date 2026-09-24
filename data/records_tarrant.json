@@ -1,8 +1,112 @@
 {
-  "fetched_at": "2026-09-23T12:36:44.249241Z",
+  "fetched_at": "2026-09-24T12:28:18.226276Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-09-16 to 2026-09-23",
-  "total": 0,
+  "date_range": "2026-09-17 to 2026-09-24",
+  "total": 4,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "D226182213",
+      "doc_type": "PROBATE",
+      "filed": "2026-09-17",
+      "cat": "PRO",
+      "cat_label": "Probate / Estate",
+      "owner": "ZUNIGA MAGDALENA H ESTATE",
+      "grantee": "VALLE JESUS JR",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182213",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Probate / estate",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
+    },
+    {
+      "doc_num": "D226182793",
+      "doc_type": "CHILD SUPPORT LIEN",
+      "filed": "2026-09-18",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "TEXAS STATE ATTORNEY GENERAL",
+      "grantee": "TORRES RIGOBERTO GONZALEZ",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182793",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226182223",
+      "doc_type": "LIEN",
+      "filed": "2026-09-17",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "TARRANT COUNTY HOSPITAL DISTRICT",
+      "grantee": "NEALY DEMARCUS R",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182223",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "NEALY DEMARCUS R"
+    },
+    {
+      "doc_num": "D226182226",
+      "doc_type": "LIEN",
+      "filed": "2026-09-17",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "TARRANT COUNTY HOSPITAL DISTRICT",
+      "grantee": "ALLEN BRANDON M JR",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182226",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "ALLEN BRANDON M JR"
+    }
+  ]
 }
