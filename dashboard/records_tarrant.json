@@ -1,23 +1,23 @@
 {
-  "fetched_at": "2026-09-24T12:28:18.226276Z",
+  "fetched_at": "2026-09-25T12:27:37.264248Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-09-17 to 2026-09-24",
-  "total": 4,
+  "date_range": "2026-09-18 to 2026-09-25",
+  "total": 8,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226182213",
-      "doc_type": "PROBATE",
-      "filed": "2026-09-17",
-      "cat": "PRO",
-      "cat_label": "Probate / Estate",
-      "owner": "ZUNIGA MAGDALENA H ESTATE",
-      "grantee": "VALLE JESUS JR",
+      "doc_num": "D226182771",
+      "doc_type": "LIEN",
+      "filed": "2026-09-18",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "FORT WORTH CITY",
+      "grantee": "EZELL ROBERT",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182213",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182771",
       "prop_address": "",
-      "prop_city": "Fort Worth",
+      "prop_city": "FORT WORTH, Subdivision: POLYTECHNIC HEIGHTS, Lot: 3, Block: 30",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -25,11 +25,11 @@
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Probate / estate",
-        "New this week",
-        "LLC/corp owner"
+        "Lien",
+        "New this week"
       ],
-      "score": 55
+      "score": 45,
+      "person_name": "EZELL ROBERT"
     },
     {
       "doc_num": "D226182793",
@@ -57,18 +57,18 @@
       "score": 45
     },
     {
-      "doc_num": "D226182223",
+      "doc_num": "D226182740",
       "doc_type": "LIEN",
-      "filed": "2026-09-17",
+      "filed": "2026-09-18",
       "cat": "LN",
       "cat_label": "Lien",
-      "owner": "TARRANT COUNTY HOSPITAL DISTRICT",
-      "grantee": "NEALY DEMARCUS R",
+      "owner": "FORT WORTH CITY",
+      "grantee": "SOCO MONOLITH LLC",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182223",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182740",
       "prop_address": "",
-      "prop_city": "Fort Worth",
+      "prop_city": "FORT WORTH, Subdivision: EASTWOOD TERRACE, Lot: 16, Block: 11",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -79,20 +79,44 @@
         "Lien",
         "New this week"
       ],
-      "score": 45,
-      "person_name": "NEALY DEMARCUS R"
+      "score": 45
     },
     {
-      "doc_num": "D226182226",
+      "doc_num": "D226182754",
       "doc_type": "LIEN",
-      "filed": "2026-09-17",
+      "filed": "2026-09-18",
       "cat": "LN",
       "cat_label": "Lien",
-      "owner": "TARRANT COUNTY HOSPITAL DISTRICT",
-      "grantee": "ALLEN BRANDON M JR",
+      "owner": "FORT WORTH CITY",
+      "grantee": "1233 E ROSEDALE TRUST",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182226",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182754",
+      "prop_address": "",
+      "prop_city": "FORT WORTH, Subdivision: ENGLEWOOD HEIGHTS, Lot: 7, Block: 17",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226182797",
+      "doc_type": "CHILD SUPPORT LIEN",
+      "filed": "2026-09-18",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "TEXAS STATE ATTORNEY GENERAL",
+      "grantee": "GONZALEZ-MENDOZA GUADALUPE JAVIER",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182797",
       "prop_address": "",
       "prop_city": "Fort Worth",
       "prop_state": "TX",
@@ -105,8 +129,82 @@
         "Lien",
         "New this week"
       ],
-      "score": 45,
-      "person_name": "ALLEN BRANDON M JR"
+      "score": 45
+    },
+    {
+      "doc_num": "D226182746",
+      "doc_type": "LIEN",
+      "filed": "2026-09-18",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "FORT WORTH CITY",
+      "grantee": "VOLK PROPERTIES LLC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226182746",
+      "prop_address": "",
+      "prop_city": "FORT WORTH, Subdivision: SUMMER CREEK RANCH, Lot: 14, Block: 31",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226184181",
+      "doc_type": "FEDERAL TAX LIEN ON REAL PROPERTY",
+      "filed": "2026-09-21",
+      "cat": "LNFED",
+      "cat_label": "Federal Tax Lien",
+      "owner": "U S A INTERNAL REVENUE SERVICE",
+      "grantee": "JACKSON BRIAN D",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226184181",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Tax lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226184184",
+      "doc_type": "FEDERAL TAX LIEN ON REAL PROPERTY",
+      "filed": "2026-09-21",
+      "cat": "LNFED",
+      "cat_label": "Federal Tax Lien",
+      "owner": "U S A INTERNAL REVENUE SERVICE",
+      "grantee": "ROBERT A HIGGINS & ASSOCIATES PC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226184184",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Tax lien",
+        "New this week"
+      ],
+      "score": 45
     }
   ]
 }

@@ -1,0 +1,6 @@
+First Name,Last Name,Mailing Address,Mailing City,Mailing State,Mailing Zip,Property Address,Property City,Property State,Property Zip,Lead Type,Document Type,Date Filed,Document Number,Amount/Debt Owed,Seller Score,Motivated Seller Flags,Source,Public Records URL
+GARLAND,CITY,"1114 BOWIE ST GARLAND, TEXAS",,TX,,1114 BOWIE ST,GARLAND,TX,75040,Lis Pendens,LIS PENDENS (NOTICE OF),2026-09-21,202600202563,0.0,50,Lis pendens; New this week; Has property address,Dallas County Clerk,https://dallas.tx.publicsearch.us/doc/202600202563
+DALLAS,CITY,"7647 JACOBIE BLVD DALLAS, TEXAS",,TX,,7647 JACOBIE BLVD,DALLAS,TX,75217,Lien,LABOR LIEN,2026-09-21,202600202573,0.0,50,Lien; New this week; Has property address,Dallas County Clerk,https://dallas.tx.publicsearch.us/doc/202600202573
+DALLAS,CITY,,,TX,,,DALLAS,TX,,Lien,LABOR LIEN,2026-09-21,202600202869,0.0,45,Lien; New this week,Dallas County Clerk,https://dallas.tx.publicsearch.us/doc/202600202869
+DALLAS,CITY,,,TX,,,DALLAS,TX,,Lien,LABOR LIEN,2026-09-21,202600202881,0.0,45,Lien; New this week,Dallas County Clerk,https://dallas.tx.publicsearch.us/doc/202600202881
+DALLAS,CITY,,,TX,,,DALLAS,TX,,Lien,LABOR LIEN,2026-09-21,202600202879,0.0,45,Lien; New this week,Dallas County Clerk,https://dallas.tx.publicsearch.us/doc/202600202879
