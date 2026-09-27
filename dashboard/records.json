@@ -1,7 +1,7 @@
 {
-  "fetched_at": "2026-09-26T11:56:46.112959Z",
+  "fetched_at": "2026-09-27T12:34:47.141215Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-09-19 to 2026-09-26",
+  "date_range": "2026-09-20 to 2026-09-27",
   "total": 10,
   "with_address": 3,
   "records": [
@@ -84,6 +84,60 @@
       "score": 55
     },
     {
+      "doc_num": "202600202563",
+      "doc_type": "LIS PENDENS (NOTICE OF)",
+      "filed": "2026-09-21",
+      "cat": "LP",
+      "cat_label": "Lis Pendens",
+      "owner": "GARLAND CITY",
+      "grantee": "PODANY CHARLOTTE VIRGINIA",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600202563",
+      "prop_address": "1114 BOWIE ST",
+      "prop_city": "GARLAND",
+      "prop_state": "TX",
+      "prop_zip": "75040",
+      "mail_address": "1114 BOWIE ST GARLAND, TEXAS",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lis pendens",
+        "New this week",
+        "Has property address"
+      ],
+      "score": 50,
+      "person_name": "PODANY CHARLOTTE VIRGINIA"
+    },
+    {
+      "doc_num": "202600202573",
+      "doc_type": "LABOR LIEN",
+      "filed": "2026-09-21",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "DALLAS CITY",
+      "grantee": "LOPEZ MARIA TRINIDAD",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600202573",
+      "prop_address": "4214 S FITZHUGH AVE",
+      "prop_city": "DALLAS",
+      "prop_state": "TX",
+      "prop_zip": "75218",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "Has property address"
+      ],
+      "score": 50,
+      "person_name": "LOPEZ MARIA TRINIDAD"
+    },
+    {
       "doc_num": "202600203283",
       "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
       "filed": "2026-09-21",
@@ -108,60 +162,6 @@
         "Has property address"
       ],
       "score": 50
-    },
-    {
-      "doc_num": "202600202563",
-      "doc_type": "LIS PENDENS (NOTICE OF)",
-      "filed": "2026-09-21",
-      "cat": "LP",
-      "cat_label": "Lis Pendens",
-      "owner": "GARLAND CITY",
-      "grantee": "PODANY CHARLOTTE VIRGINIA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600202563",
-      "prop_address": "1205 LOUROCK DR",
-      "prop_city": "GARLAND",
-      "prop_state": "TX",
-      "prop_zip": "75040",
-      "mail_address": "1205 LOUROCK ST GARLAND, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lis pendens",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50,
-      "person_name": "PODANY CHARLOTTE VIRGINIA"
-    },
-    {
-      "doc_num": "202600202573",
-      "doc_type": "LABOR LIEN",
-      "filed": "2026-09-21",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "DALLAS CITY",
-      "grantee": "LOPEZ MARIA TRINIDAD",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600202573",
-      "prop_address": "2607 KLONDIKE DR",
-      "prop_city": "DALLAS",
-      "prop_state": "TX",
-      "prop_zip": "75228",
-      "mail_address": "2607 KLONDIKE DR DALLAS, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50,
-      "person_name": "LOPEZ MARIA TRINIDAD"
     },
     {
       "doc_num": "202600202869",
