@@ -1,8 +1,34 @@
 {
-  "fetched_at": "2026-10-02T13:25:30.413496Z",
+  "fetched_at": "2026-10-03T12:13:38.193683Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-09-25 to 2026-10-02",
-  "total": 0,
+  "date_range": "2026-09-26 to 2026-10-03",
+  "total": 1,
   "with_address": 0,
-  "records": []
+  "records": [
+    {
+      "doc_num": "D226188364",
+      "doc_type": "MECHANICS LIEN",
+      "filed": "2026-09-28",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "JENKINS AARON",
+      "grantee": "JOHN ASKEW COMPANY",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226188364",
+      "prop_address": "",
+      "prop_city": "KELLER, Subdivision: ESTES FARM TRACTS, Lot: 1",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Mechanic lien",
+        "New this week"
+      ],
+      "score": 45
+    }
+  ]
 }
