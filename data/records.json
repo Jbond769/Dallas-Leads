@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-10-05T15:24:15.639261Z",
+  "fetched_at": "2026-10-06T13:45:59.154827Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-09-28 to 2026-10-05",
-  "total": 7,
+  "date_range": "2026-09-29 to 2026-10-06",
+  "total": 6,
   "with_address": 4,
   "records": [
     {
@@ -34,33 +34,6 @@
       "person_name": "MCCLINTON MACK"
     },
     {
-      "doc_num": "202600208162",
-      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
-      "filed": "2026-09-28",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "JMC RANCH BELTLINE LLC",
-      "grantee": "JOHNSON EQUIPMENT COMPANY",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600208162",
-      "prop_address": "",
-      "prop_city": "CARROLLTON",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55,
-      "person_name": "JOHNSON EQUIPMENT COMPANY"
-    },
-    {
       "doc_num": "202600210608",
       "doc_type": "ABSTRACT OF JUDGMENT",
       "filed": "2026-09-30",
@@ -88,58 +61,30 @@
       "person_name": "BELL TOMEKIA"
     },
     {
-      "doc_num": "202600208051",
-      "doc_type": "LABOR LIEN",
-      "filed": "2026-09-28",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "DALLAS CITY",
-      "grantee": "CAMPBELL LOLA",
+      "doc_num": "202600209358",
+      "doc_type": "STATE TAX LIEN",
+      "filed": "2026-09-29",
+      "cat": "LNCORPTX",
+      "cat_label": "State Tax Lien",
+      "owner": "DGF HOLDINGS LTD",
+      "grantee": "TEXAS STATE OF",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600208051",
-      "prop_address": "742 CLEARWOOD DR",
-      "prop_city": "DALLAS",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600209358",
+      "prop_address": "",
+      "prop_city": "Dallas",
       "prop_state": "TX",
-      "prop_zip": "75115",
-      "mail_address": "809 TIMBERLINE CT DESOTO, TEXAS",
+      "prop_zip": "",
+      "mail_address": "",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Lien",
+        "Tax lien",
         "New this week",
-        "Has property address"
+        "LLC/corp owner"
       ],
-      "score": 50,
-      "person_name": "CAMPBELL LOLA"
-    },
-    {
-      "doc_num": "202600208008",
-      "doc_type": "LABOR LIEN",
-      "filed": "2026-09-28",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "DALLAS CITY",
-      "grantee": "PRIEST MONTY JR",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600208008",
-      "prop_address": "10416 LONGMEADOW DR",
-      "prop_city": "DALLAS",
-      "prop_state": "TX",
-      "prop_zip": "75238",
-      "mail_address": "10416 LONGMEADOW DR DALLAS, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50,
-      "person_name": "PRIEST MONTY JR"
+      "score": 55
     },
     {
       "doc_num": "202600209967",
@@ -168,29 +113,56 @@
       "score": 50
     },
     {
-      "doc_num": "202600208063",
-      "doc_type": "LABOR LIEN",
-      "filed": "2026-09-28",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "DALLAS CITY",
-      "grantee": "NEARER TO NATURE LLC",
+      "doc_num": "202600209442",
+      "doc_type": "HOSPITAL LIEN",
+      "filed": "2026-09-29",
+      "cat": "MEDLN",
+      "cat_label": "Hospital Lien",
+      "owner": "BALL DANIEL",
+      "grantee": "MONGE VERONICA AGENT",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600208063",
-      "prop_address": "",
-      "prop_city": "DALLAS",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600209442",
+      "prop_address": "6523 ABERDEEN AVE",
+      "prop_city": "Dallas",
       "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
+      "prop_zip": "75230",
+      "mail_address": "6523 ABERDEEN AVE DALLAS, TEXAS",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
         "Lien",
-        "New this week"
+        "New this week",
+        "Has property address"
       ],
-      "score": 45
+      "score": 50
+    },
+    {
+      "doc_num": "202600209439",
+      "doc_type": "HOSPITAL LIEN",
+      "filed": "2026-09-29",
+      "cat": "MEDLN",
+      "cat_label": "Hospital Lien",
+      "owner": "JONES FELICIA",
+      "grantee": "MONGE VERONICA AGENT",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600209439",
+      "prop_address": "2306 SWANSEE DR",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "75232",
+      "mail_address": "2306 SWANSEE DR DALLAS, TEXAS",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "Has property address"
+      ],
+      "score": 50
     }
   ]
 }
