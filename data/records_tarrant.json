@@ -1,23 +1,23 @@
 {
-  "fetched_at": "2026-10-06T13:51:11.728945Z",
+  "fetched_at": "2026-10-07T14:09:32.177421Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-09-29 to 2026-10-06",
-  "total": 1,
+  "date_range": "2026-09-30 to 2026-10-07",
+  "total": 4,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226189490",
+      "doc_num": "D226190143",
       "doc_type": "MECHANICS LIEN AFFIDAVIT",
-      "filed": "2026-09-29",
+      "filed": "2026-09-30",
       "cat": "LNMECH",
       "cat_label": "Mechanic Lien",
-      "owner": "AUTO PILOT LLC",
-      "grantee": "FIRST STEP COMMUNITY EMPOWERMENT INC",
+      "owner": "AMERICAN WATER DAMAGE OF DFW LLC",
+      "grantee": "SMITH JASON DEWAYNE",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226189490",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226190143",
       "prop_address": "",
-      "prop_city": "Subdivision: SHERATON, Lot: 8, Block: 2",
+      "prop_city": "Subdivision: ROLLIE ESTATES, Lot: 6R, Block: 2",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -29,7 +29,84 @@
         "New this week",
         "LLC/corp owner"
       ],
-      "score": 55
+      "score": 55,
+      "person_name": "SMITH JASON DEWAYNE"
+    },
+    {
+      "doc_num": "D226190091",
+      "doc_type": "LIEN",
+      "filed": "2026-09-30",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "TEXAS HEALTH ALLIANCE HOSPITAL",
+      "grantee": "KANDEL DIVISHA",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226190091",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "D226190404",
+      "doc_type": "LIEN",
+      "filed": "2026-09-30",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "TEAM RANCH HOMEOWNERS ASSOCIATION",
+      "grantee": "HUANG MCKENZIE",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226190404",
+      "prop_address": "",
+      "prop_city": "Subdivision: LA CANTERA AT TEAM RANCH, Lot: 7, Block: 8",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45,
+      "person_name": "HUANG MCKENZIE"
+    },
+    {
+      "doc_num": "D226190532",
+      "doc_type": "MECHANICS LIEN",
+      "filed": "2026-09-30",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "WHITENER SIDNEY",
+      "grantee": "SID WHITENER LLC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226190532",
+      "prop_address": "",
+      "prop_city": "Subdivision: PYRAMID ACRES UNIT NO 4, Lot: 5, Block: 25",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Mechanic lien",
+        "New this week"
+      ],
+      "score": 45
     }
   ]
 }
