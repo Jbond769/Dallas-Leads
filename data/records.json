@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-10-15T12:16:21.642459Z",
+  "fetched_at": "2026-10-16T12:00:01.564290Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-10-08 to 2026-10-15",
-  "total": 8,
+  "date_range": "2026-10-09 to 2026-10-16",
+  "total": 7,
   "with_address": 4,
   "records": [
     {
@@ -32,32 +32,6 @@
       ],
       "score": 60,
       "person_name": "TAYLOR SHERRIE"
-    },
-    {
-      "doc_num": "202600217225",
-      "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-10-08",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "US FOODS INC",
-      "grantee": "HERBERTS LLC DBA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600217225",
-      "prop_address": "",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Judgment lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55
     },
     {
       "doc_num": "202600218136",
@@ -148,11 +122,11 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600218735",
-      "prop_address": "1707 BLUFFVIEW LN",
+      "prop_address": "9712 SILVER MEADOW DR",
       "prop_city": "Dallas",
       "prop_state": "TX",
-      "prop_zip": "75180",
-      "mail_address": "1707 BLUFFVIEW DR BALCH SPRINGS, TEXAS",
+      "prop_zip": "75217",
+      "mail_address": "9712 SILVER MEADOW DR DALLAS, TEXAS",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
@@ -165,21 +139,21 @@
       "person_name": "MARTINEZ OMAR"
     },
     {
-      "doc_num": "202600217609",
+      "doc_num": "202600218731",
       "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-10-08",
+      "filed": "2026-10-09",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "BARRON BEN K",
-      "grantee": "MESQUITE TOWING SERVICE LLC",
+      "owner": "SYNCHRONY BANK",
+      "grantee": "DAVIS SONDRA BEALL",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600217609",
-      "prop_address": "4100 SPRING VALLEY RD",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600218731",
+      "prop_address": "1430 GLENCLIFF DR",
       "prop_city": "Dallas",
       "prop_state": "TX",
-      "prop_zip": "75225",
-      "mail_address": "4516 LOVERS LN PMB",
+      "prop_zip": "75217",
+      "mail_address": "1430 GLENCLIFF DR DALLAS, TEXAS",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
@@ -188,7 +162,8 @@
         "New this week",
         "Has property address"
       ],
-      "score": 50
+      "score": 50,
+      "person_name": "DAVIS SONDRA BEALL"
     },
     {
       "doc_num": "202600218050",
