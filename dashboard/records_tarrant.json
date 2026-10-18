@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-10-17T11:20:03.210094Z",
+  "fetched_at": "2026-10-18T11:56:20.531106Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-10-10 to 2026-10-17",
-  "total": 4,
+  "date_range": "2026-10-11 to 2026-10-18",
+  "total": 3,
   "with_address": 0,
   "records": [
     {
@@ -33,32 +33,6 @@
       "person_name": "FARAG SAMY"
     },
     {
-      "doc_num": "D226200061",
-      "doc_type": "MECHANICS LIEN AFFIDAVIT",
-      "filed": "2026-10-14",
-      "cat": "LNMECH",
-      "cat_label": "Mechanic Lien",
-      "owner": "NTSM LLC",
-      "grantee": "MAA LAXMI CITYVIEW LLC",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226200061",
-      "prop_address": "",
-      "prop_city": "FORT WORTH, Subdivision: HULEN MALL, Lot: 5B, Block: 1",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Mechanic lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55
-    },
-    {
       "doc_num": "D226198316",
       "doc_type": "LIEN",
       "filed": "2026-10-12",
@@ -84,18 +58,18 @@
       "score": 45
     },
     {
-      "doc_num": "D226200169",
-      "doc_type": "MECHANICS LIEN AFFIDAVIT",
-      "filed": "2026-10-15",
-      "cat": "LNMECH",
-      "cat_label": "Mechanic Lien",
-      "owner": "DELTA STEEL",
-      "grantee": "TEXAS CHRISTIAN UNIVERSITY",
+      "doc_num": "D226198655",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-10-13",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "TEXAS STATE",
+      "grantee": "NAVA JUAN",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226200169",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226198655",
       "prop_address": "",
-      "prop_city": "Subdivision: TCU, Lot: 1R, Block: 10",
+      "prop_city": "Fort Worth",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -103,7 +77,7 @@
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Mechanic lien",
+        "Judgment lien",
         "New this week"
       ],
       "score": 45

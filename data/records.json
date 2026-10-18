@@ -1,10 +1,36 @@
 {
-  "fetched_at": "2026-10-17T11:15:58.581858Z",
+  "fetched_at": "2026-10-18T11:52:19.292809Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-10-10 to 2026-10-17",
+  "date_range": "2026-10-11 to 2026-10-18",
   "total": 4,
   "with_address": 1,
   "records": [
+    {
+      "doc_num": "202600219423",
+      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
+      "filed": "2026-10-13",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "RCI HOLDINGS INC",
+      "grantee": "TS&G LLC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600219423",
+      "prop_address": "",
+      "prop_city": "ROWLETT",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55
+    },
     {
       "doc_num": "202600220657",
       "doc_type": "LIS PENDENS (NOTICE OF)",
@@ -58,32 +84,6 @@
       ],
       "score": 55,
       "person_name": "MCCONNELL SUSAN TR"
-    },
-    {
-      "doc_num": "202600219423",
-      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
-      "filed": "2026-10-13",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "RCI HOLDINGS INC",
-      "grantee": "TS&G LLC",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600219423",
-      "prop_address": "",
-      "prop_city": "ROWLETT",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55
     },
     {
       "doc_num": "202600220851",
