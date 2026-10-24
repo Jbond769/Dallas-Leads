@@ -1,23 +1,23 @@
 {
-  "fetched_at": "2026-10-23T12:20:46.327593Z",
+  "fetched_at": "2026-10-24T11:48:14.466962Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-10-16 to 2026-10-23",
+  "date_range": "2026-10-17 to 2026-10-24",
   "total": 1,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226201249",
+      "doc_num": "D226201996",
       "doc_type": "LIEN",
-      "filed": "2026-10-16",
+      "filed": "2026-10-19",
       "cat": "LN",
       "cat_label": "Lien",
-      "owner": "NORTH RICHLAND HILLS CITY",
-      "grantee": "ZAGAL FRANCISCO",
+      "owner": "HOMEOWNER'S ASSOCIATION OF TWIN MILL FARMS INC",
+      "grantee": "MGC07",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226201249",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226201996",
       "prop_address": "",
-      "prop_city": "NORTH RICHLAND HILLS, Subdivision: THOMAS PECK, Lot: 13",
+      "prop_city": "FORT WORTH, Subdivision: TWIN MILLS, Lot: 30, Block: 4",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -26,10 +26,10 @@
       "mail_zip": "",
       "flags": [
         "Lien",
-        "New this week"
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45,
-      "person_name": "ZAGAL FRANCISCO"
+      "score": 55
     }
   ]
 }

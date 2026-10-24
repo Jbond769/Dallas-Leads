@@ -1,7 +1,7 @@
 {
-  "fetched_at": "2026-10-23T12:15:55.740397Z",
+  "fetched_at": "2026-10-24T11:43:23.888828Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-10-16 to 2026-10-23",
+  "date_range": "2026-10-17 to 2026-10-24",
   "total": 24,
   "with_address": 12,
   "records": [
@@ -44,7 +44,7 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600223966",
-      "prop_address": "405 REUNION BLVD",
+      "prop_address": "3000 W JEFFERSON BLVD",
       "prop_city": "Dallas",
       "prop_state": "TX",
       "prop_zip": "76102",
