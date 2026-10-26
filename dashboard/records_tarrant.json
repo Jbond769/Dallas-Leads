@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-10-25T12:16:42.348477Z",
+  "fetched_at": "2026-10-26T13:47:56.791090Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-10-18 to 2026-10-25",
-  "total": 2,
+  "date_range": "2026-10-19 to 2026-10-26",
+  "total": 1,
   "with_address": 0,
   "records": [
     {
@@ -30,33 +30,6 @@
         "LLC/corp owner"
       ],
       "score": 55
-    },
-    {
-      "doc_num": "D226202907",
-      "doc_type": "MECHANICS LIEN AFFIDAVIT",
-      "filed": "2026-10-19",
-      "cat": "LNMECH",
-      "cat_label": "Mechanic Lien",
-      "owner": "XLNT SOLUTIONS LLC",
-      "grantee": "CINNAMON PARK APARTMENTS",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226202907",
-      "prop_address": "",
-      "prop_city": "ARLINGTON, Subdivision: SPRING PARK ESTATES, Lot: C, Block: 2",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Mechanic lien",
-        "New this week",
-        "LLC/corp owner"
-      ],
-      "score": 55,
-      "person_name": "CINNAMON PARK APARTMENTS"
     }
   ]
 }

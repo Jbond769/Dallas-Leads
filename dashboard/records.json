@@ -1,38 +1,10 @@
 {
-  "fetched_at": "2026-10-25T12:11:59.756611Z",
+  "fetched_at": "2026-10-26T13:43:08.483284Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-10-18 to 2026-10-25",
+  "date_range": "2026-10-19 to 2026-10-26",
   "total": 24,
   "with_address": 12,
   "records": [
-    {
-      "doc_num": "202600225222",
-      "doc_type": "POLK MECHANICAL COMPANY LLC",
-      "filed": "2026-10-20",
-      "cat": "LNMECH",
-      "cat_label": "Mechanic Lien",
-      "owner": "POLK MECHANICAL COMPANY LLC",
-      "grantee": "METHODIST HOSPITALS OF DALLAS",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600225222",
-      "prop_address": "1212 N MADISON AVE",
-      "prop_city": "DALLAS",
-      "prop_state": "TX",
-      "prop_zip": "75203",
-      "mail_address": "1411 N BECKLEY AVE DALLAS, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Mechanic lien",
-        "New this week",
-        "Has property address",
-        "LLC/corp owner"
-      ],
-      "score": 60,
-      "person_name": "METHODIST HOSPITALS OF DALLAS"
-    },
     {
       "doc_num": "202600223966",
       "doc_type": "FEDERAL TAX LIEN",
@@ -44,7 +16,7 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600223966",
-      "prop_address": "3008 W JEFFERSON BLVD",
+      "prop_address": "8100 W JEFFERSON BLVD",
       "prop_city": "Dallas",
       "prop_state": "TX",
       "prop_zip": "76102",
@@ -90,6 +62,34 @@
       "person_name": "NGUYEN JIMMY"
     },
     {
+      "doc_num": "202600225222",
+      "doc_type": "POLK MECHANICAL COMPANY LLC",
+      "filed": "2026-10-20",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "POLK MECHANICAL COMPANY LLC",
+      "grantee": "METHODIST HOSPITALS OF DALLAS",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600225222",
+      "prop_address": "1212 N MADISON AVE",
+      "prop_city": "DALLAS",
+      "prop_state": "TX",
+      "prop_zip": "75203",
+      "mail_address": "1411 N BECKLEY AVE DALLAS, TEXAS",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Mechanic lien",
+        "New this week",
+        "Has property address",
+        "LLC/corp owner"
+      ],
+      "score": 60,
+      "person_name": "METHODIST HOSPITALS OF DALLAS"
+    },
+    {
       "doc_num": "202600224651",
       "doc_type": "ABSTRACT OF JUDGMENT",
       "filed": "2026-10-19",
@@ -115,32 +115,6 @@
       ],
       "score": 55,
       "person_name": "WODAJO KIDUS"
-    },
-    {
-      "doc_num": "202600224826",
-      "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-10-20",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "STONE CANYON MINERALS LP",
-      "grantee": "JENKINS G MARK",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600224826",
-      "prop_address": "480 E U S HWY 80",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "75182",
-      "mail_address": "100 480 US HIGHWAY",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Judgment lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50
     },
     {
       "doc_num": "202600223971",
@@ -179,11 +153,11 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600224315",
-      "prop_address": "10705 WESTERN HILLS DR",
+      "prop_address": "2712 CORBO DR",
       "prop_city": "DALLAS",
       "prop_state": "TX",
-      "prop_zip": "75089",
-      "mail_address": "10705 WESTERN HILLS DR ROWLETT, TEXAS",
+      "prop_zip": "75159",
+      "mail_address": "2712 CORBO DR SEAGOVILLE, TEXAS",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
@@ -314,7 +288,7 @@
       "amount": 0.0,
       "legal": "",
       "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600224419",
-      "prop_address": "1653 BONNIE VIEW RD",
+      "prop_address": "4526 HEDGDON DR",
       "prop_city": "DALLAS",
       "prop_state": "TX",
       "prop_zip": "75203",
@@ -358,29 +332,30 @@
       "person_name": "CUELLAR LETICIA ESCOBEDO"
     },
     {
-      "doc_num": "202600225442",
-      "doc_type": "HOSPITAL LIEN",
+      "doc_num": "202600224826",
+      "doc_type": "ABSTRACT OF JUDGMENT",
       "filed": "2026-10-20",
-      "cat": "MEDLN",
-      "cat_label": "Hospital Lien",
-      "owner": "GONZALEZ YARA",
-      "grantee": "MONGE VERONICA AGENT",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "STONE CANYON MINERALS LP",
+      "grantee": "JENKINS G MARK",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600225442",
-      "prop_address": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600224826",
+      "prop_address": "480 E U S HWY 80",
       "prop_city": "Dallas",
       "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
+      "prop_zip": "75182",
+      "mail_address": "100 480 US HIGHWAY",
       "mail_city": "",
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Lien",
-        "New this week"
+        "Judgment lien",
+        "New this week",
+        "Has property address"
       ],
-      "score": 45
+      "score": 50
     },
     {
       "doc_num": "202600223958",
@@ -632,6 +607,31 @@
       ],
       "score": 45,
       "person_name": "BREAD OF LIFE CHURCH OF GOD IN CHRIST"
+    },
+    {
+      "doc_num": "202600225442",
+      "doc_type": "HOSPITAL LIEN",
+      "filed": "2026-10-20",
+      "cat": "MEDLN",
+      "cat_label": "Hospital Lien",
+      "owner": "GONZALEZ YARA",
+      "grantee": "MONGE VERONICA AGENT",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600225442",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45
     }
   ]
 }
