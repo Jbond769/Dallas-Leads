@@ -1,23 +1,23 @@
 {
-  "fetched_at": "2026-10-26T13:47:56.791090Z",
+  "fetched_at": "2026-10-27T12:55:36.301441Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-10-19 to 2026-10-26",
-  "total": 1,
+  "date_range": "2026-10-20 to 2026-10-27",
+  "total": 3,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226201996",
+      "doc_num": "D226203776",
       "doc_type": "LIEN",
-      "filed": "2026-10-19",
+      "filed": "2026-10-20",
       "cat": "LN",
       "cat_label": "Lien",
-      "owner": "HOMEOWNER'S ASSOCIATION OF TWIN MILL FARMS INC",
-      "grantee": "MGC07",
+      "owner": "CIBOLO HILLS HOMEOWNERS ASSOCIATION INC",
+      "grantee": "AIRALL LATOYA",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226201996",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226203776",
       "prop_address": "",
-      "prop_city": "FORT WORTH, Subdivision: TWIN MILLS, Lot: 30, Block: 4",
+      "prop_city": "Subdivision: CIBOLO HILLS, Lot: 12, Block: 7",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -29,7 +29,60 @@
         "New this week",
         "LLC/corp owner"
       ],
-      "score": 55
+      "score": 55,
+      "person_name": "AIRALL LATOYA"
+    },
+    {
+      "doc_num": "D226203357",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-10-20",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "SECURITY CREDIT SERVICES LLC",
+      "grantee": "HOLLINS MARTEL",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226203357",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week",
+        "LLC/corp owner"
+      ],
+      "score": 55,
+      "person_name": "HOLLINS MARTEL"
+    },
+    {
+      "doc_num": "D226203638",
+      "doc_type": "MECHANICS LIEN AFFIDAVIT",
+      "filed": "2026-10-20",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "AJ ROOFING AND CONSTRUCTION",
+      "grantee": "TRIAD SENIOR LIVING LP",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226203638",
+      "prop_address": "",
+      "prop_city": "Subdivision: GRANBURY STATION, Lot: 2A, Block: 1",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Mechanic lien",
+        "New this week"
+      ],
+      "score": 45
     }
   ]
 }
