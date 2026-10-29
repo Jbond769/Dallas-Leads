@@ -1,23 +1,23 @@
 {
-  "fetched_at": "2026-10-28T13:44:57.291951Z",
+  "fetched_at": "2026-10-29T13:53:08.258512Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-10-21 to 2026-10-28",
-  "total": 2,
+  "date_range": "2026-10-22 to 2026-10-29",
+  "total": 3,
   "with_address": 0,
   "records": [
     {
-      "doc_num": "D226204022",
-      "doc_type": "JUDGMENT",
-      "filed": "2026-10-21",
-      "cat": "JUD",
-      "cat_label": "Judgment",
-      "owner": "SYNCHRONY BANK",
-      "grantee": "ESTRADA CAROLINE",
+      "doc_num": "D226205213",
+      "doc_type": "MECHANICS LIEN AFFIDAVIT",
+      "filed": "2026-10-22",
+      "cat": "LNMECH",
+      "cat_label": "Mechanic Lien",
+      "owner": "BAMM BAMM SERVICES LLC",
+      "grantee": "ALAM KUHINOR",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226204022",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226205213",
       "prop_address": "",
-      "prop_city": "Fort Worth",
+      "prop_city": "GRAND PRAIRIE, Subdivision: SHEFFIELD VILLAGE, Lot: 18, Block: A",
       "prop_state": "TX",
       "prop_zip": "",
       "mail_address": "",
@@ -25,11 +25,12 @@
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Judgment lien",
-        "New this week"
+        "Mechanic lien",
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45,
-      "person_name": "ESTRADA CAROLINE"
+      "score": 55,
+      "person_name": "ALAM KUHINOR"
     },
     {
       "doc_num": "D226204915",
@@ -56,6 +57,31 @@
       ],
       "score": 45,
       "person_name": "ALMANZA NANCY"
+    },
+    {
+      "doc_num": "D226205789",
+      "doc_type": "CHILD SUPPORT LIEN",
+      "filed": "2026-10-23",
+      "cat": "LN",
+      "cat_label": "Lien",
+      "owner": "MARTIN KIMBERLY ANN",
+      "grantee": "MARTIN TIMOTHY CARL SR",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226205789",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week"
+      ],
+      "score": 45
     }
   ]
 }
