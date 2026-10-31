@@ -1,38 +1,10 @@
 {
-  "fetched_at": "2026-10-30T13:43:06.549193Z",
+  "fetched_at": "2026-10-31T13:11:31.695761Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-10-23 to 2026-10-30",
-  "total": 6,
-  "with_address": 5,
+  "date_range": "2026-10-24 to 2026-10-31",
+  "total": 4,
+  "with_address": 3,
   "records": [
-    {
-      "doc_num": "202600228026",
-      "doc_type": "FEDERAL TAX LIEN",
-      "filed": "2026-10-23",
-      "cat": "LNFED",
-      "cat_label": "Federal Tax Lien",
-      "owner": "STORM LAWN&GARDEN LLC",
-      "grantee": "U S A INTERNAL REVENUE SERVICE",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600228026",
-      "prop_address": "3000 W JEFFERSON BLVD",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "76102",
-      "mail_address": "801 CHERRY ST UNIT",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Tax lien",
-        "New this week",
-        "Has property address",
-        "LLC/corp owner"
-      ],
-      "score": 60,
-      "person_name": "U S A INTERNAL REVENUE SERVICE"
-    },
     {
       "doc_num": "202600228598",
       "doc_type": "LIS PENDENS (NOTICE OF)",
@@ -60,32 +32,6 @@
       ],
       "score": 60,
       "person_name": "MATA SANDRA G"
-    },
-    {
-      "doc_num": "202600228106",
-      "doc_type": "LIEN AFFIDAVIT/CLAIM/NOTICE",
-      "filed": "2026-10-23",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "OHARA JOHN D",
-      "grantee": "GARLAND CITY",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600228106",
-      "prop_address": "1113 BELMONT DR",
-      "prop_city": "GARLAND",
-      "prop_state": "TX",
-      "prop_zip": "75040",
-      "mail_address": "1113 BELMONT DR GARLAND, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50
     },
     {
       "doc_num": "202600228627",
@@ -141,16 +87,16 @@
       "person_name": "MCCOLL LORI"
     },
     {
-      "doc_num": "202600228003",
-      "doc_type": "FEDERAL TAX LIEN",
-      "filed": "2026-10-23",
-      "cat": "LNFED",
-      "cat_label": "Federal Tax Lien",
-      "owner": "GALBRAITH EDWARD B",
-      "grantee": "U S A INTERNAL REVENUE SERVICE",
+      "doc_num": "202600229729",
+      "doc_type": "HOSPITAL LIEN",
+      "filed": "2026-10-27",
+      "cat": "MEDLN",
+      "cat_label": "Hospital Lien",
+      "owner": "SANTIAGOSILVERO DIEGO",
+      "grantee": "HALE JASON D",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600228003",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600229729",
       "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
@@ -160,7 +106,7 @@
       "mail_state": "TX",
       "mail_zip": "",
       "flags": [
-        "Tax lien",
+        "Lien",
         "New this week"
       ],
       "score": 45
