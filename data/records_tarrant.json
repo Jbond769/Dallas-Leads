@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-11-07T13:44:18.122235Z",
+  "fetched_at": "2026-11-08T14:03:08.497685Z",
   "source": "Tarrant County Clerk \u2013 tarrant.tx.publicsearch.us",
-  "date_range": "2026-10-31 to 2026-11-07",
-  "total": 5,
+  "date_range": "2026-11-01 to 2026-11-08",
+  "total": 6,
   "with_address": 0,
   "records": [
     {
@@ -60,31 +60,6 @@
       "person_name": "KAMBEITZ JEREMIAH"
     },
     {
-      "doc_num": "D226212709",
-      "doc_type": "LIEN",
-      "filed": "2026-11-02",
-      "cat": "LN",
-      "cat_label": "Lien",
-      "owner": "TEXAS HEALTH ALLIANCE HOSPITAL",
-      "grantee": "PETERS BILLIE",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226212709",
-      "prop_address": "",
-      "prop_city": "Fort Worth",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week"
-      ],
-      "score": 45
-    },
-    {
       "doc_num": "D226211746",
       "doc_type": "JUDGMENT",
       "filed": "2026-11-02",
@@ -111,6 +86,31 @@
       "person_name": "RHINE LANCE"
     },
     {
+      "doc_num": "D226212164",
+      "doc_type": "JUDGMENT",
+      "filed": "2026-11-02",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "MALDONADO LUIS",
+      "grantee": "JENKIINS CHLOE MARIE",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226212164",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
       "doc_num": "D226212053",
       "doc_type": "LIEN",
       "filed": "2026-11-02",
@@ -135,6 +135,31 @@
       ],
       "score": 45,
       "person_name": "ARYAL DIXA"
+    },
+    {
+      "doc_num": "D226212301",
+      "doc_type": "STATE TAX LIEN - PROPERTY",
+      "filed": "2026-11-02",
+      "cat": "LNCORPTX",
+      "cat_label": "State Tax Lien",
+      "owner": "TEXAS STATE",
+      "grantee": "DFW PRISTINE POWER WASHING LLC",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://tarrant.tx.publicsearch.us/doc/D226212301",
+      "prop_address": "",
+      "prop_city": "Fort Worth",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Tax lien",
+        "New this week"
+      ],
+      "score": 45
     }
   ]
 }

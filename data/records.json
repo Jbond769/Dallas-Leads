@@ -1,7 +1,7 @@
 {
-  "fetched_at": "2026-11-07T13:39:15.801631Z",
+  "fetched_at": "2026-11-08T13:58:04.000211Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-10-31 to 2026-11-07",
+  "date_range": "2026-11-01 to 2026-11-08",
   "total": 11,
   "with_address": 4,
   "records": [
@@ -111,6 +111,32 @@
       "person_name": "COGMON WILLIAM F"
     },
     {
+      "doc_num": "202600236078",
+      "doc_type": "HOSPITAL LIEN",
+      "filed": "2026-11-03",
+      "cat": "MEDLN",
+      "cat_label": "Hospital Lien",
+      "owner": "ALEXANDER GREGORY",
+      "grantee": "METHODIST HEALTH SYSTEM DBA",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600236078",
+      "prop_address": "2525 WILLOWDALE DR",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "75006",
+      "mail_address": "2525 WILLOWDALE DR CARROLLTON, TEXAS",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Lien",
+        "New this week",
+        "Has property address"
+      ],
+      "score": 50
+    },
+    {
       "doc_num": "202600235187",
       "doc_type": "ABSTRACT OF JUDGMENT",
       "filed": "2026-11-03",
@@ -162,57 +188,6 @@
         "Has property address"
       ],
       "score": 50
-    },
-    {
-      "doc_num": "202600236078",
-      "doc_type": "HOSPITAL LIEN",
-      "filed": "2026-11-03",
-      "cat": "MEDLN",
-      "cat_label": "Hospital Lien",
-      "owner": "ALEXANDER GREGORY",
-      "grantee": "METHODIST HEALTH SYSTEM DBA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600236078",
-      "prop_address": "2525 WILLOWDALE DR",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "75006",
-      "mail_address": "2525 WILLOWDALE DR CARROLLTON, TEXAS",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Lien",
-        "New this week",
-        "Has property address"
-      ],
-      "score": 50
-    },
-    {
-      "doc_num": "202600235673",
-      "doc_type": "PROBATE PROCEEDINGS",
-      "filed": "2026-11-03",
-      "cat": "PRO",
-      "cat_label": "Probate / Estate",
-      "owner": "ROBERSON BOBBY J DECD AKA",
-      "grantee": "ROBERSON BOBBY J DECD AKA",
-      "amount": 0.0,
-      "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600235673",
-      "prop_address": "",
-      "prop_city": "Dallas",
-      "prop_state": "TX",
-      "prop_zip": "",
-      "mail_address": "",
-      "mail_city": "",
-      "mail_state": "TX",
-      "mail_zip": "",
-      "flags": [
-        "Probate / estate",
-        "New this week"
-      ],
-      "score": 45
     },
     {
       "doc_num": "202600236042",
@@ -285,6 +260,31 @@
       "mail_zip": "",
       "flags": [
         "Lien",
+        "New this week"
+      ],
+      "score": 45
+    },
+    {
+      "doc_num": "202600235673",
+      "doc_type": "PROBATE PROCEEDINGS",
+      "filed": "2026-11-03",
+      "cat": "PRO",
+      "cat_label": "Probate / Estate",
+      "owner": "ROBERSON BOBBY J DECD AKA",
+      "grantee": "ROBERSON BOBBY J DECD AKA",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600235673",
+      "prop_address": "",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "",
+      "mail_address": "",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Probate / estate",
         "New this week"
       ],
       "score": 45
