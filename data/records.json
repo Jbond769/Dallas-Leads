@@ -1,21 +1,21 @@
 {
-  "fetched_at": "2026-11-13T14:59:10.239007Z",
+  "fetched_at": "2026-11-14T13:51:36.217928Z",
   "source": "Dallas County Clerk \u2013 dallas.tx.publicsearch.us",
-  "date_range": "2026-11-06 to 2026-11-13",
-  "total": 1,
-  "with_address": 0,
+  "date_range": "2026-11-07 to 2026-11-14",
+  "total": 3,
+  "with_address": 2,
   "records": [
     {
-      "doc_num": "202600238777",
+      "doc_num": "202600239764",
       "doc_type": "ABSTRACT OF JUDGMENT",
-      "filed": "2026-11-06",
+      "filed": "2026-11-09",
       "cat": "JUD",
       "cat_label": "Judgment",
-      "owner": "SIMMONS BANK",
-      "grantee": "CABOT LAB LLC",
+      "owner": "TEXAS FIRST RENTALS LLC",
+      "grantee": "ABR MANAGEMENT INC DBA",
       "amount": 0.0,
       "legal": "",
-      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600238777",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600239764",
       "prop_address": "",
       "prop_city": "Dallas",
       "prop_state": "TX",
@@ -26,9 +26,62 @@
       "mail_zip": "",
       "flags": [
         "Judgment lien",
-        "New this week"
+        "New this week",
+        "LLC/corp owner"
       ],
-      "score": 45
+      "score": 55
+    },
+    {
+      "doc_num": "202600239749",
+      "doc_type": "ABSTRACT OF JUDGMENT",
+      "filed": "2026-11-09",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "WEISS MICHAEL",
+      "grantee": "HI KITCHEN&BATH REMODELING LLC DBA",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600239749",
+      "prop_address": "7325 LEHIGH DR",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "75214",
+      "mail_address": "7325 LEHIGH DR DALLAS, TEXAS",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week",
+        "Has property address"
+      ],
+      "score": 50
+    },
+    {
+      "doc_num": "202600239761",
+      "doc_type": "ABSTRACT OF JUDGMENT",
+      "filed": "2026-11-09",
+      "cat": "JUD",
+      "cat_label": "Judgment",
+      "owner": "WEISS MICHAEL",
+      "grantee": "HI KITCHEN&BATH REMODELING LLC DBA",
+      "amount": 0.0,
+      "legal": "",
+      "clerk_url": "https://dallas.tx.publicsearch.us/doc/202600239761",
+      "prop_address": "7325 LEHIGH DR",
+      "prop_city": "Dallas",
+      "prop_state": "TX",
+      "prop_zip": "75214",
+      "mail_address": "7325 LEHIGH DR DALLAS, TEXAS",
+      "mail_city": "",
+      "mail_state": "TX",
+      "mail_zip": "",
+      "flags": [
+        "Judgment lien",
+        "New this week",
+        "Has property address"
+      ],
+      "score": 50
     }
   ]
 }
